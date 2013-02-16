@@ -1,0 +1,79 @@
+<% layout('../layout') -%>
+<% var viewId = settings.title %>
+
+<div id="<%= viewId %>" class="suggestions new">
+
+	<h1>New</h1>
+
+	<form action="">
+		<input type="text" placeholder="URL" name="suggestion[url]" value="" />
+		<a class="button btn_retrieve" href="#">Retrieve information</a>
+		<div class="loader loader_retrieve" style="display:block;" data-rv-show="state.showLoaderRetrieve">Loading</div>
+		
+		<input type="text" placeholder="Description" name="suggestion[description]" value="" />
+
+		<input type="text" placeholder="Who is on it?" name="suggestion[who]" value="" />
+		
+		<label>Tags</label>
+		<input type="text" placeholder="Standard Input" value="ddd" />
+		<a class="button btn_save" href="#" data-rv-show="state.showBtnSave">Save</a>
+		<div class="loader loader_save" style="display:block;" data-rv-show="state.showLoaderSave">Loading</div>
+		
+	</form>
+
+	<script>
+		
+		$(function () {
+			var Control = can.Control({
+
+				init: function (ele, options) {
+					//this.$loader_save = $('.loader_save', this.element);
+					this.state = new can.Observe({
+						showLoaderRetrieve: false,
+						showLoaderSave: false,
+						showBtnSave: true
+					});
+					rivets.bind(this.element, {state: this.state});
+				},
+
+				'.btn_retrieve click': function (ele, ev) {
+					console.log(ele);
+					this.state.attr('showLoaderRetrieve', true);
+					return false;
+				},
+
+				'.btn_save click': function (ele, ev) {
+					this.save();
+					return false;
+				},
+
+				save: function () {
+					var self = this;
+					this.state.attr('showLoaderSave', true);
+					this.state.attr('showBtnSave', false);
+					var data = io.form($('form', this.element)).query();
+					$.ajax({
+						url: '/suggestions',
+						type: 'POST',
+						data: data,
+						success: function(data, textStatus, xhr) {
+							console.log(data)
+							self.state.attr('showLoaderSave', false);
+							self.state.attr('showBtnSave', true);
+						},
+						error: function(xhr, textStatus, errorThrown) {
+							console.log(errorThrown)
+							self.state.attr('showLoaderSave', false);
+							self.state.attr('showBtnSave', true);
+						}
+					});
+				}
+
+			});
+
+			var control = new Control($('#<%= viewId %>'));
+			
+		});
+		
+	</script>
+</div>
