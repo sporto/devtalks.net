@@ -36,8 +36,12 @@ app.configure('development', function() {
 
 require('./router')(app);
 
-app.locals.title = 'Super App';
-app.locals.uid = require('shortid');
+app.locals({
+	title: 'Super App',
+	uid: require('shortid')
+});
+
+// app.set('title', )
 
 http.createServer(app).listen(app.get('port'), function() {
 	console.log("Express server listening on port " + app.get('port'));

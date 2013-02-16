@@ -1,17 +1,19 @@
 <% layout('../layout') -%>
-<% var viewId = settings.title %>
+<% var viewId = uid.generate() %>
 
 <div id="<%= viewId %>" class="suggestions new">
 
 	<h1>New</h1>
 
 	<form action="">
-		<input type="text" placeholder="URL" name="suggestion[url]" value="" />
-		<a class="button btn_retrieve" href="#">Retrieve information</a>
+		<input type="text" placeholder="URL" class="input_url" name="suggestion[url]" value="" />
+		<a class="button btn_retrieve" href="#" data-rv-show="state.showBtnRetrieve">Retrieve information</a>
 		<div class="loader loader_retrieve" style="display:block;" data-rv-show="state.showLoaderRetrieve">Loading</div>
+		<br />
+		<br />
 		
-		<input type="text" placeholder="Description" name="suggestion[description]" value="" />
-
+		<input type="text" placeholder="Description" class="input_description" name="suggestion[description]" value="" />
+		
 		<input type="text" placeholder="Who is on it?" name="suggestion[who]" value="" />
 		
 		<label>Tags</label>
@@ -28,23 +30,53 @@
 
 				init: function (ele, options) {
 					//this.$loader_save = $('.loader_save', this.element);
+					this.$inputUrl = $('.input_url', this.element);
+					this.$inputDes = $('.input_description', this.element);
+					//this.$inputDes = $('.input_description', this.element);
+
 					this.state = new can.Observe({
+						showBtnRetrieve: true,
 						showLoaderRetrieve: false,
-						showLoaderSave: false,
-						showBtnSave: true
+						showBtnSave: true,
+						showLoaderSave: false
 					});
+
 					rivets.bind(this.element, {state: this.state});
 				},
 
 				'.btn_retrieve click': function (ele, ev) {
-					console.log(ele);
 					this.state.attr('showLoaderRetrieve', true);
+					this.state.attr('showBtnRetrieve', false);
+					this.retrieve();
 					return false;
 				},
 
 				'.btn_save click': function (ele, ev) {
 					this.save();
 					return false;
+				},
+
+				retrieve: function () {
+					var self = this;
+					var url = this.$inputUrl.val();
+					this.state.attr('showLoaderRetrieve', true);
+					this.state.attr('showBtnRetrieve', false);
+					$.ajax({
+						url: '/urls',
+						data: {url: url},
+						success: function(data, textStatus, xhr) {
+							//console.log(data);
+							self.$inputDes.val(data.description);
+
+							self.state.attr('showLoaderRetrieve', false);
+							self.state.attr('showBtnRetrieve', true);
+						},
+						error: function(xhr, textStatus, error) {
+							APP.flashError(error);
+							self.state.attr('showLoaderRetrieve', false);
+							self.state.attr('showBtnRetrieve', true);
+						}
+					});
 				},
 
 				save: function () {
@@ -62,7 +94,7 @@
 							self.state.attr('showBtnSave', true);
 						},
 						error: function(xhr, textStatus, errorThrown) {
-							console.log(errorThrown)
+							APP.flashError(error);
 							self.state.attr('showLoaderSave', false);
 							self.state.attr('showBtnSave', true);
 						}
