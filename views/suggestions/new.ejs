@@ -1,14 +1,18 @@
 <% layout('../layout') -%>
 <% var viewId = uid.generate() %>
 
-<div id="<%= viewId %>" class="suggestions new">
 
+
+<div id="<%= viewId %>" class="suggestions new" ng-controller="ANG.suggestions.NewCtrl">
+
+	{{model}}
+	
 	<h1>New</h1>
 
 	<form action="">
-		<input type="text" placeholder="URL" class="input_url" name="suggestion[url]" value="" />
-		<a class="button btn_retrieve" href="#" data-rv-show="state.showBtnRetrieve">Retrieve information</a>
-		<div class="loader loader_retrieve" style="display:block;" data-rv-show="state.showLoaderRetrieve">Loading</div>
+		<input type="text" placeholder="URL" class="input_url" name="suggestion[url]" value="" ng-model="model.url" />
+		<a class="button" href="#" ng-click="retrieve($event)" ng-show="state.showBtnRetrieve">Retrieve information</a>
+		<div class="loader" style="display:block;" ng-show="state.showLoaderRetrieve">Loading</div>
 		<br />
 		<br />
 		
@@ -18,94 +22,75 @@
 		
 		<label>Tags</label>
 		<input type="text" placeholder="Standard Input" value="ddd" />
-		<a class="button btn_save" href="#" data-rv-show="state.showBtnSave">Save</a>
-		<div class="loader loader_save" style="display:block;" data-rv-show="state.showLoaderSave">Loading</div>
-		
+		<a class="button" href="#"  ng-show="state.showBtnSave" ng-click="save($event)">Save</a>
+		<div class="loader" style="display:block;" ng-show="state.showLoaderSave">Loading</div>
 	</form>
-
+	
 	<script>
-		
-		$(function () {
-			var Control = can.Control({
+		(function () {
+			'use strict';
 
-				init: function (ele, options) {
-					//this.$loader_save = $('.loader_save', this.element);
-					this.$inputUrl = $('.input_url', this.element);
-					this.$inputDes = $('.input_description', this.element);
-					//this.$inputDes = $('.input_description', this.element);
+			var ANG = angular.module('ANG', []);
 
-					this.state = new can.Observe({
-						showBtnRetrieve: true,
-						showLoaderRetrieve: false,
-						showBtnSave: true,
-						showLoaderSave: false
-					});
+			ANG.controller('ANG.suggestions.NewCtrl', function ($scope, $http) {
+				$scope.state = 'hello';
+				$scope.state = {
+					showBtnRetrieve: true,
+					showLoaderRetrieve: false,
+					showBtnSave: true,
+					showLoaderSave: false
+				}
 
-					rivets.bind(this.element, {state: this.state});
-				},
+				$scope.model = {
+					url: 'URL'
+				}
 
-				'.btn_retrieve click': function (ele, ev) {
-					this.state.attr('showLoaderRetrieve', true);
-					this.state.attr('showBtnRetrieve', false);
-					this.retrieve();
-					return false;
-				},
+				$scope.retrieve = function (ev) {
+					ev.preventDefault();
 
-				'.btn_save click': function (ele, ev) {
-					this.save();
-					return false;
-				},
+					$scope.state.showLoaderRetrieve = true;
+					$scope.state.showBtnRetrieve = false;
 
-				retrieve: function () {
-					var self = this;
-					var url = this.$inputUrl.val();
-					this.state.attr('showLoaderRetrieve', true);
-					this.state.attr('showBtnRetrieve', false);
-					$.ajax({
-						url: '/urls',
-						data: {url: url},
-						success: function(data, textStatus, xhr) {
-							//console.log(data);
-							self.$inputDes.val(data.description);
+					var params = {url: $scope.model.url};
 
-							self.state.attr('showLoaderRetrieve', false);
-							self.state.attr('showBtnRetrieve', true);
-						},
-						error: function(xhr, textStatus, error) {
-							APP.flashError(error);
-							self.state.attr('showLoaderRetrieve', false);
-							self.state.attr('showBtnRetrieve', true);
-						}
-					});
-				},
+					$http.get('/urls', {params: params})
+						.success(function (data, status, headers, config) {
+							$scope.model.description = data.description;
+						})
+						.error(function(data, status, headers, config) {
+							APP.flashError(status);
+						})
+						.then(function () {
+							$scope.state.showLoaderRetrieve = false;
+							$scope.state.showBtnRetrieve = true;
+						});
+				}
 
-				save: function () {
-					var self = this;
-					this.state.attr('showLoaderSave', true);
-					this.state.attr('showBtnSave', false);
-					var data = io.form($('form', this.element)).query();
-					$.ajax({
-						url: '/suggestions',
-						type: 'POST',
-						data: data,
-						success: function(data, textStatus, xhr) {
-							console.log(data)
-							self.state.attr('showLoaderSave', false);
-							self.state.attr('showBtnSave', true);
-						},
-						error: function(xhr, textStatus, errorThrown) {
-							APP.flashError(error);
-							self.state.attr('showLoaderSave', false);
-							self.state.attr('showBtnSave', true);
-						}
-					});
+				$scope.save = function (ev) {
+					ev.preventDefault();
+
+					$scope.state.showLoaderSave = true;
+					$scope.state.showBtnSave = false;
+
+					var data = {suggestion: $scope.model};
+
+					$http.post('/suggestions', {data: data})
+						.success(function (data, status, headers, config) {
+							//
+							APP.flashSuccess('Saved');
+						})
+						.error(function(data, status, headers, config) {
+							APP.flashError(status);
+						})
+						.then(function () {
+							$scope.state.showLoaderSave = false;
+							$scope.state.showBtnSave = true;
+						});
 				}
 
 			});
 
-			var control = new Control($('#<%= viewId %>'));
-			
-		});
-		
+		}());
 	</script>
+
 </div>
