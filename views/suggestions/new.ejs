@@ -94,22 +94,24 @@
 					var url = this.$inputUrl.val();
 					this.state.attr('showLoaderRetrieve', true);
 					this.state.attr('showBtnRetrieve', false);
-					$.ajax({
-						url: '/urls',
-						data: {url: url},
-						success: function(data, textStatus, xhr) {
-							//console.log(data);
-							self.$inputDes.val(data.description);
 
-							self.state.attr('showLoaderRetrieve', false);
-							self.state.attr('showBtnRetrieve', true);
-						},
-						error: function(xhr, textStatus, error) {
-							APP.flashError(error);
-							self.state.attr('showLoaderRetrieve', false);
-							self.state.attr('showBtnRetrieve', true);
-						}
+					var pro = $.ajax({
+						url: '/urls',
+						data: {url: url}
 					});
+
+					pro
+						.done(function(data, textStatus, xhr) {
+							self.$inputDes.val(data.description);
+						})
+						.fail(function(xhr, textStatus, error) {
+							APP.flashError(error);
+						})
+						.always(function () {
+							self.state.attr('showLoaderRetrieve', false);
+							self.state.attr('showBtnRetrieve', true);
+						});
+
 				},
 
 				save: function () {
@@ -120,21 +122,24 @@
 					var data = io.form($('form', this.element)).object();
 					data.suggestion.tags = this.$selectTags.val().split(',');
 
-					$.ajax({
+					var pro = $.ajax({
 						url: '/suggestions',
 						type: 'POST',
-						data: data,
-						success: function(data, textStatus, xhr) {
-							console.log(data)
-							self.state.attr('showLoaderSave', false);
-							self.state.attr('showBtnSave', true);
-						},
-						error: function(xhr, textStatus, errorThrown) {
-							APP.flashError(error);
-							self.state.attr('showLoaderSave', false);
-							self.state.attr('showBtnSave', true);
-						}
+						data: data
 					});
+
+					pro
+						.done(function(data, textStatus, xhr) {
+							self.$inputDes.val(data.description);
+						})
+						.fail(function(xhr, textStatus, error) {
+							APP.flashError(error);
+						})
+						.always(function () {
+							self.state.attr('showLoaderSave', false);
+							self.state.attr('showBtnSave', true);
+						});
+		
 				}
 			});
 

@@ -8,6 +8,7 @@ module.exports = {
 
 	create: function (req, res) {
 		var data = req.body.suggestion;
+
 		collection.create(data, function (err, body){
 			return res.send(body);
 		});
