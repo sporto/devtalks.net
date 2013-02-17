@@ -1,5 +1,4 @@
-//var db = require('../db');
-var Tags = require('../models/tags');
+var Tags = require('../../../models/tags');
 
 module.exports = {
 
@@ -10,7 +9,6 @@ module.exports = {
 				return res.send(docs);
 			},
 			function (err) {
-				console.log(err);
 				return res.send(404)
 			}
 		)

@@ -1,5 +1,5 @@
-var Suggestions = require('../models/suggestions');
-var Tags = require('../models/tags');
+var Suggestions = require('../../models/suggestions');
+var Tags = require('../../models/tags');
 
 module.exports = {
 
@@ -7,7 +7,7 @@ module.exports = {
 		var pro = Tags.all();
 
 		pro.then(function (tags) {
-			res.render('Suggestions/new', { title: 'Express', tags: tags });
+			res.render('suggestions/new', { title: 'Express', tags: tags });
 		});
 
 	},
@@ -20,7 +20,6 @@ module.exports = {
 		var pro = Suggestions.create(data);
 
 		pro.then(function (body){
-			//var tags = require('../models/tags');
 			return res.send(body);
 		}, function (err) {
 			console.log(err);

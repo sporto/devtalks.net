@@ -1,0 +1,10 @@
+<% layout('../layout') -%>
+<% var viewId = uid.generate() %>
+
+<div id="<%= viewId %>" class="tags index">
+	<div class="cloud">
+		<% for(var i = 0; i < groupedTags.length; i++) { %>
+			<%= groupedTags[i] %>
+		<% } %>
+	</div>
+</div>

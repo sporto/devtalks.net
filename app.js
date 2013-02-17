@@ -5,8 +5,10 @@
 var express = require('express');
 var engine = require('ejs-locals');
 var http = require('http');
-var path = require('path');;
+var path = require('path');
+
 require('express-resource');
+require('express-namespace');
 
 var app = express();
 

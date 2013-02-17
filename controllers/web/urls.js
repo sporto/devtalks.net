@@ -1,5 +1,5 @@
 // var youtubedl = require('youtube-dl');
-var video_data = require('../services/video_data');
+var video_data = require('../../services/video_data');
 
 module.exports = {
 	show: function (req, res) {
