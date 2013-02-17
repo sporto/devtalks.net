@@ -1,12 +1,20 @@
 //var db = require('../db');
-var collection = require('../models/tags');
+var Tags = require('../models/tags');
 
 module.exports = {
 
 	index: function (req, res) {
-		collection.all(function(err, docs) {
-			res.send(docs);
-		});
+		var pro = Tags.all();
+
+		pro.then(function(docs) {
+				return res.send(docs);
+			},
+			function (err) {
+				console.log(err);
+				return res.send(404)
+			}
+		)
+
 	}
 
 }

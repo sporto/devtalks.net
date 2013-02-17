@@ -18,6 +18,7 @@
     "underscore": "~1.4.4",
     "youtube-dl": "~1.2.7",
     "youtube-feeds": "~2.0.0",
-    "jake": "~0.2.33"
+    "jake": "~0.2.33",
+    "when": "~1.8.0"
   }
 }

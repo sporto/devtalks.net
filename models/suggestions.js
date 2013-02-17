@@ -1,6 +1,6 @@
 var db = require('../db.js');
-var r = require('rethinkdb');
 var _ = require('underscore');
+var when = require('when');
 
 var template = {
 	kind: 'suggestion'
@@ -14,13 +14,16 @@ module.exports = {
 	},
 
 	//save a complete object to the db
-	create: function (data, cb) {
-		var doc = this.build(data);
-		var q = r.table('suggestions').insert(doc);
-		db(q, cb);
+	create: function (data) {
+		var deferred = when.defer();
 
-		// db.insert(doc, function (err, body) {
-		// 	return cb(null, body);
-		// });
+		var doc = this.build(data);
+		var q = db.q.table('suggestions').insert(doc);
+
+		db.send(q, function(doc) {
+			return deferred.resolve(doc);
+		});
+
+		return deferred;
 	}
 }

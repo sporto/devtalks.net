@@ -1,16 +1,30 @@
-var collection = require('../models/suggestions');
+var Suggestions = require('../models/suggestions');
+var Tags = require('../models/tags');
 
 module.exports = {
 
 	new: function (req, res) {
-		res.render('suggestions/new', { title: 'Express', tags: ['1','blue'] });
+		var pro = Tags.all();
+
+		pro.then(function (tags) {
+			res.render('Suggestions/new', { title: 'Express', tags: tags });
+		});
+
 	},
 
 	create: function (req, res) {
 		var data = req.body.suggestion;
 
-		collection.create(data, function (err, body){
+		console.log(data);
+
+		var pro = Suggestions.create(data);
+
+		pro.then(function (body){
+			//var tags = require('../models/tags');
 			return res.send(body);
+		}, function (err) {
+			console.log(err);
+			return res.send(505);
 		});
 	}
 
