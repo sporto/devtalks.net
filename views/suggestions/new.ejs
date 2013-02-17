@@ -1,38 +1,58 @@
 <% layout('../layout') -%>
 <% var viewId = uid.generate() %>
 
-
-
 <div id="<%= viewId %>" class="suggestions new" ng-controller="ANG.suggestions.NewCtrl">
 
-	{{model}}
+	<div class="row">
+		{{model}}
 	
-	<h1>New</h1>
+		<h1>New</h1>
+	</div>
 
 	<form action="">
-		<input type="text" placeholder="URL" class="input_url" name="suggestion[url]" value="" ng-model="model.url" />
-		<a class="button" href="#" ng-click="retrieve($event)" ng-show="state.showBtnRetrieve">Retrieve information</a>
-		<div class="loader" style="display:block;" ng-show="state.showLoaderRetrieve">Loading</div>
+		<div class="row">
+			<input type="text" placeholder="URL" class="input_url" name="suggestion[url]" value="" ng-model="model.url" />
+			<a class="button" href="#" ng-click="retrieve($event)" ng-show="state.showBtnRetrieve">Retrieve information</a>
+			<div class="loader" style="display:block;" ng-show="state.showLoaderRetrieve"><img src="/img/lib/loader.gif" alt=""></div>
+			<br />
+			<br />
+		</div>
+		
+		<div class="row">
+			<input type="text" placeholder="Description" class="input_description" ng-model="model.description" value="" />
+			<input type="text" placeholder="Who is on it?" name="suggestion[who]" value="" />
+		</div>
+		
+		<div class="row">
+			<div class="one columns">
+				<label>Tags</label>
+			</div>
+			<div class="eleven columns">
+				<div ui-select2="options.forTagger" ng-model="model.tags" style="width:250px;">
+				</div>
+			</div>
+		</div>
 		<br />
-		<br />
 		
-		<input type="text" placeholder="Description" class="input_description" name="suggestion[description]" value="" />
-		
-		<input type="text" placeholder="Who is on it?" name="suggestion[who]" value="" />
-		
-		<label>Tags</label>
-		<input type="text" placeholder="Standard Input" value="ddd" />
-		<a class="button" href="#"  ng-show="state.showBtnSave" ng-click="save($event)">Save</a>
-		<div class="loader" style="display:block;" ng-show="state.showLoaderSave">Loading</div>
+		<div class="row">
+			<a class="button" href="#"  ng-show="state.showBtnSave" ng-click="save($event)">Save</a>
+			<div class="loader" style="display:block;" ng-show="state.showLoaderSave"><img src="/img/lib/loader.gif" alt=""></div>
+		</div>
 	</form>
 	
 	<script>
 		(function () {
 			'use strict';
 
-			var ANG = angular.module('ANG', []);
+			var ANG = angular.module('ANG', ['ui']);
 
-			ANG.controller('ANG.suggestions.NewCtrl', function ($scope, $http) {
+			ANG.service('tagsProvider', function() {
+				this.get = function () {
+					return <%- JSON.stringify(tags) %>;
+				}
+			});
+
+			ANG.controller('ANG.suggestions.NewCtrl', function ($scope, $http, tagsProvider) {
 				$scope.state = 'hello';
 				$scope.state = {
 					showBtnRetrieve: true,
@@ -41,8 +61,15 @@
 					showLoaderSave: false
 				}
 
+				$scope.options = {
+					forTagger: {
+						tags: ['blue','fff']
+					}
+				}
+
 				$scope.model = {
-					url: 'URL'
+					url: 'URL',
+					tags: ['blue']
 				}
 
 				$scope.retrieve = function (ev) {
@@ -55,12 +82,12 @@
 
 					$http.get('/urls', {params: params})
 						.success(function (data, status, headers, config) {
-							$scope.model.description = data.description;
+							$scope.model.description = data.info.description;
+							$scope.state.showLoaderRetrieve = false;
+							$scope.state.showBtnRetrieve = true;
 						})
 						.error(function(data, status, headers, config) {
 							APP.flashError(status);
-						})
-						.then(function () {
 							$scope.state.showLoaderRetrieve = false;
 							$scope.state.showBtnRetrieve = true;
 						});
@@ -76,16 +103,16 @@
 
 					$http.post('/suggestions', {data: data})
 						.success(function (data, status, headers, config) {
-							//
 							APP.flashSuccess('Saved');
+							$scope.state.showLoaderSave = false;
+							$scope.state.showBtnSave = true;
 						})
 						.error(function(data, status, headers, config) {
 							APP.flashError(status);
-						})
-						.then(function () {
 							$scope.state.showLoaderSave = false;
 							$scope.state.showBtnSave = true;
 						});
+					
 				}
 
 			});
