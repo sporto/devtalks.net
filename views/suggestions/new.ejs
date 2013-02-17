@@ -1,26 +1,28 @@
 <% layout('../layout') -%>
 <% var viewId = uid.generate() %>
 
-<div id="<%= viewId %>" class="suggestions new" ng-controller="ANG.suggestions.NewCtrl">
+<div id="<%= viewId %>" class="suggestions new" data-tags="<%= JSON.stringify(tags) %>">
 
 	<div class="row">
-		{{model}}
-	
 		<h1>New</h1>
 	</div>
 
 	<form action="">
 		<div class="row">
 			<input type="text" placeholder="URL" class="input_url" name="suggestion[url]" value="" ng-model="model.url" />
-			<a class="button" href="#" ng-click="retrieve($event)" ng-show="state.showBtnRetrieve">Retrieve information</a>
-			<div class="loader" style="display:block;" ng-show="state.showLoaderRetrieve"><img src="/img/lib/loader.gif" alt=""></div>
+			<a class="button btn_retrieve" href="#" data-rv-show="state.showBtnRetrieve">
+				Retrieve information
+			</a>
+			<div class="loader" style="display:block;" data-rv-show="state.showLoaderRetrieve">
+				<img src="/img/lib/loader.gif" alt="">
+			</div>
 			<br />
 			<br />
 		</div>
 		
 		<div class="row">
-			<input type="text" placeholder="Description" class="input_description" ng-model="model.description" value="" />
-			<input type="text" placeholder="Who is on it?" name="suggestion[who]" value="" />
+			<input type="text" placeholder="Description" class="input_description" name="suggestion[description]" value="" />
+			<input type="text" placeholder="Who is on it?" class="input_who" name="suggestion[who]" value="" />
 		</div>
 		
 		<div class="row">
@@ -28,96 +30,116 @@
 				<label>Tags</label>
 			</div>
 			<div class="eleven columns">
-				<div ui-select2="options.forTagger" ng-model="model.tags" style="width:250px;">
+				<div class="select_tags" style="width:250px;">
 				</div>
 			</div>
 		</div>
 		<br />
 		
 		<div class="row">
-			<a class="button" href="#"  ng-show="state.showBtnSave" ng-click="save($event)">Save</a>
-			<div class="loader" style="display:block;" ng-show="state.showLoaderSave"><img src="/img/lib/loader.gif" alt=""></div>
+			<a class="button btn_save" href="#" data-rv-show="state.showBtnSave">Save</a>
+			<div class="loader" style="display:block;" data-rv-show="state.showLoaderSave">
+				<img src="/img/lib/loader.gif" alt="">
+			</div>
 		</div>
 	</form>
 	
 	<script>
-		(function () {
+		$(function () {
 			'use strict';
 
-			var ANG = angular.module('ANG', ['ui']);
+			var Control = can.Control({
 
-			ANG.service('tagsProvider', function() {
-				this.get = function () {
-					return <%- JSON.stringify(tags) %>;
-				}
-			});
+				init: function (ele, options) {
+					//this.$loader_save = $('.loader_save', this.element);
+					this.$inputUrl = $('.input_url', this.element);
+					this.$inputDes = $('.input_description', this.element);
+					this.$selectTags = $('.select_tags', this.element);
+					//this.$inputDes = $('.input_description', this.element);
 
-			ANG.controller('ANG.suggestions.NewCtrl', function ($scope, $http, tagsProvider) {
-				$scope.state = 'hello';
-				$scope.state = {
-					showBtnRetrieve: true,
-					showLoaderRetrieve: false,
-					showBtnSave: true,
-					showLoaderSave: false
-				}
+					this.state = new can.Observe({
+						showBtnRetrieve: true,
+						showLoaderRetrieve: false,
+						showBtnSave: true,
+						showLoaderSave: false
+					});
 
-				$scope.options = {
-					forTagger: {
-						tags: ['blue','fff']
-					}
-				}
+					rivets.bind(this.element, {state: this.state});
 
-				$scope.model = {
-					url: 'URL',
-					tags: ['blue']
-				}
+					this.setupTags();
+				},
 
-				$scope.retrieve = function (ev) {
-					ev.preventDefault();
+				'.btn_retrieve click': function (ele, ev) {
+					this.state.attr('showLoaderRetrieve', true);
+					this.state.attr('showBtnRetrieve', false);
+					this.retrieve();
+					return false;
+				},
 
-					$scope.state.showLoaderRetrieve = true;
-					$scope.state.showBtnRetrieve = false;
+				'.btn_save click': function (ele, ev) {
+					this.save();
+					return false;
+				},
 
-					var params = {url: $scope.model.url};
+				setupTags: function () {
+					var tags = this.element.data('tags');
+					//console.log(tags)
+					this.$selectTags.select2({
+						tags: tags
+					});
+				},
 
-					$http.get('/urls', {params: params})
-						.success(function (data, status, headers, config) {
-							$scope.model.description = data.info.description;
-							$scope.state.showLoaderRetrieve = false;
-							$scope.state.showBtnRetrieve = true;
-						})
-						.error(function(data, status, headers, config) {
-							APP.flashError(status);
-							$scope.state.showLoaderRetrieve = false;
-							$scope.state.showBtnRetrieve = true;
-						});
-				}
+				retrieve: function () {
+					var self = this;
+					var url = this.$inputUrl.val();
+					this.state.attr('showLoaderRetrieve', true);
+					this.state.attr('showBtnRetrieve', false);
+					$.ajax({
+						url: '/urls',
+						data: {url: url},
+						success: function(data, textStatus, xhr) {
+							//console.log(data);
+							self.$inputDes.val(data.description);
 
-				$scope.save = function (ev) {
-					ev.preventDefault();
+							self.state.attr('showLoaderRetrieve', false);
+							self.state.attr('showBtnRetrieve', true);
+						},
+						error: function(xhr, textStatus, error) {
+							APP.flashError(error);
+							self.state.attr('showLoaderRetrieve', false);
+							self.state.attr('showBtnRetrieve', true);
+						}
+					});
+				},
 
-					$scope.state.showLoaderSave = true;
-					$scope.state.showBtnSave = false;
-
-					var data = {suggestion: $scope.model};
-
-					$http.post('/suggestions', {data: data})
-						.success(function (data, status, headers, config) {
-							APP.flashSuccess('Saved');
-							$scope.state.showLoaderSave = false;
-							$scope.state.showBtnSave = true;
-						})
-						.error(function(data, status, headers, config) {
-							APP.flashError(status);
-							$scope.state.showLoaderSave = false;
-							$scope.state.showBtnSave = true;
-						});
+				save: function () {
+					var self = this;
+					this.state.attr('showLoaderSave', true);
+					this.state.attr('showBtnSave', false);
 					
-				}
+					var data = io.form($('form', this.element)).object();
+					data.suggestion.tags = this.$selectTags.val().split(',');
 
+					$.ajax({
+						url: '/suggestions',
+						type: 'POST',
+						data: data,
+						success: function(data, textStatus, xhr) {
+							console.log(data)
+							self.state.attr('showLoaderSave', false);
+							self.state.attr('showBtnSave', true);
+						},
+						error: function(xhr, textStatus, errorThrown) {
+							APP.flashError(error);
+							self.state.attr('showLoaderSave', false);
+							self.state.attr('showBtnSave', true);
+						}
+					});
+				}
 			});
 
-		}());
+			var control = new Control($('#<%= viewId %>'));
+		});
 	</script>
 
 </div>
