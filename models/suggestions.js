@@ -1,6 +1,7 @@
 var db = require('../db.js');
 var _ = require('underscore');
 var when = require('when');
+// var mongoose = require('mongoose');
 
 var template = {
 	kind: 'suggestion'
@@ -14,16 +15,24 @@ module.exports = {
 	},
 
 	//save a complete object to the db
-	create: function (data) {
-		var deferred = when.defer();
+	create: function (data, cb) {
+		console.log('suggestion model - create')
 
 		var doc = this.build(data);
-		var q = db.q.table('suggestions').insert(doc);
+		// var q = db.q.table('suggestions').insert(doc);
 
-		db.send(q, function(doc) {
-			return deferred.resolve(doc);
-		});
+		db.insert(doc, cb);
 
-		return deferred;
+		// function done(doc) {
+		// 	console.log('create - done')
+		// 	console.log(doc)
+		// 	// the db returns undefined a second time
+		// 	if (doc) {
+		// 		return cb(null, doc);
+		// 	}
+		// }
+
+		// db.send(q, done);
+
 	}
 }

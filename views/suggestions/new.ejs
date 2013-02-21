@@ -123,7 +123,7 @@
 					data.suggestion.tags = this.$selectTags.val().split(',');
 
 					var pro = $.ajax({
-						url: '/suggestions',
+						url: '/api/v1/suggestions',
 						type: 'POST',
 						data: data
 					});

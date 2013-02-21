@@ -3,16 +3,13 @@ var Tags = require('../../../models/tags');
 module.exports = {
 
 	index: function (req, res) {
-		var pro = Tags.all();
 
-		pro.then(function(docs) {
-				return res.send(docs);
-			},
-			function (err) {
-				return res.send(404)
-			}
-		)
+		function done(err, docs) {
+			if (err) return res.send(404);
+			return res.send(docs);
+		}
 
+		Tags.all(done);
 	}
 
 }

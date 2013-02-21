@@ -2,9 +2,31 @@
 <% var viewId = uid.generate() %>
 
 <div id="<%= viewId %>" class="tags index">
-	<div class="cloud">
-		<% for(var i = 0; i < groupedTags.length; i++) { %>
-			<%= groupedTags[i] %>
-		<% } %>
+	<div class="row">
+		<div class="cloud">
+			<% for(var i = 0; i < groupedTags.length; i++) { %>
+				<a href="/tags/<%= groupedTags[i][0] %>" rel="<%= groupedTags[i][1] %>" data-id="<%= groupedTags[i][0] %>"><%= groupedTags[i][0] %></a>
+			<% } %>
+		</div>
 	</div>
+	
+	<script>
+		$(function () {
+
+			var Control = can.Control({
+
+				init: function (el, options) {
+					$('.cloud a').tagcloud();
+				},
+
+				'.cloud a click': function(ele, ev) {
+					console.log($(ele).data('id'));
+					return false;
+				}
+			});
+
+			var control = new Control($('#<%= viewId %>'));
+
+		});
+	</script>
 </div>

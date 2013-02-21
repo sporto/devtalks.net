@@ -9,6 +9,7 @@ module.exports = function (app) {
 	app.resource('tags', require('./controllers/web/tags'));
 
 	app.namespace('/api/v1', function(){
+		app.resource('suggestions', require('./controllers/api/v1/suggestions'));
 		app.resource('tags', require('./controllers/api/v1/tags'));
 	});
 
