@@ -1,4 +1,5 @@
-var Suggestions = require('../../models/suggestions');
+// var Suggestion = require('../../models/suggestion');
+
 var Tags = require('../../models/tags');
 
 module.exports = {

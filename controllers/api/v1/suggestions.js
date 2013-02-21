@@ -1,24 +1,19 @@
-var Suggestions = require('../../../models/suggestions');
+var Suggestion = require('../../../models/suggestion');
+var db = require('../../../db');
 
 module.exports = {
 
 	create: function (req, res) {
 		console.log('suggestions - create')
 		var data = req.body.suggestion;
-		console.log(data);
 
-		var done = function (err, body) {
-			console.log(err);
-			console.log(body);
-			if (err) {
-				return res.send(505);
-			} else {
-				console.log('Sending 200')
-				return res.send(200, body);
-			}
-		}
+		var doc = new Suggestion(data);
 
-		return Suggestions.create(data, done);
+		db.connect();
+		doc.save(function (err, doc) {
+			if (err) return res.send(505);
+			return res.send(200, doc);
+		});
 	}
 
 }

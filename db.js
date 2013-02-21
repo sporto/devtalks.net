@@ -14,14 +14,26 @@
 // 	}
 // }
 
+var mongoose = require('mongoose');
 
-// var mongoose = require('mongoose');
-// mongoose.connect('mongodb://localhost/videos');
+module.exports = {
+
+	connect: function () {
+		mongoose.connect('mongodb://localhost/videos');
+
+		var db = mongoose.connection;
+		db.on('error', console.error.bind(console, 'connection error:'));
+		db.once('open', function callback () {
+		  // yay!
+		  console.log('CONNECTED');
+		});
+	}
+}
 
 // COUCH
 
-var nano = require('nano')('http://localhost:5984');
-var videos = nano.db.use('videos')
+// var nano = require('nano')('http://localhost:5984');
+// var videos = nano.db.use('videos')
 
-module.exports = videos;
+// module.exports = videos;
 

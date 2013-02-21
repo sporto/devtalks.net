@@ -1,12 +1,19 @@
-var db = require('../db.js');
-var _ = require('underscore');
-var when = require('when');
-// var mongoose = require('mongoose');
+// var db = require('../db.js');
+// var _ = require('underscore');
+// var when = require('when');
+var mongoose = require('mongoose');
 
-var template = {
-	kind: 'suggestion'
-}
+var schema = mongoose.Schema({
+	name: String
+});
 
+module.exports = mongoose.model('Suggestion', schema);
+
+// var template = {
+// 	kind: 'suggestion'
+// }
+
+/*
 module.exports = {
 	//build an instance
 	//add the template into it
@@ -36,3 +43,4 @@ module.exports = {
 
 	}
 }
+*/
