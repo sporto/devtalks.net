@@ -15,31 +15,18 @@
   <!--
   <link rel="stylesheet" href="stylesheets/foundation.css">
   -->
-  
-  <!-- Included CSS Files (Compressed) -->
-	<link rel="stylesheet" href="/css/lib/foundation.min.css">
-	<link rel="stylesheet" href="/css/lib/toastr.min.css">
-	<link rel="stylesheet" href="/css/lib/select2.css">
-	<link rel="stylesheet" href="/css/app/app.css">
-
-	<!--<script src="/js/lib/jquery.js"></script>-->
-	<script src="/js/lib/foundation.min.js"></script>
+	<%- js('head') %>
+	<%- css('lib/foundation.min') %>
+	<%- css('lib/select2') %>
+	<%- css('lib/toastr.min') %>
+	<%- css('head') %>
 
 </head>
 <body>
 	<%- include nav -%>
 	<%- body -%>
-
-	<script src="/js/lib/can.jquery.min.js"></script>
-	<script src="/js/lib/namespacer.min.js"></script>
-	<script src="/js/lib/jquery-io.min.js"></script>
-	<script src="/js/lib/toastr.min.js"></script>
-	<script src="/js/lib/select2.min.js"></script>
-	<script src="/js/lib/rivets.min.js"></script>
-	<script src="/js/lib/jquery.tagcloud.js"></script>
-	<script src="/js/app/rivets_config.js"></script>
-
-	<script src="/js/app/app.js"></script>
+	
+	<%- js('bottom') %>
 
 </body>
 </html>

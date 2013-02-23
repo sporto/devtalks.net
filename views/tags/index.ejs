@@ -12,21 +12,7 @@
 	
 	<script>
 		$(function () {
-
-			var Control = can.Control({
-
-				init: function (el, options) {
-					$('.cloud a').tagcloud();
-				},
-
-				'.cloud a click': function(ele, ev) {
-					console.log($(ele).data('id'));
-					return false;
-				}
-			});
-
-			var control = new Control($('#<%= viewId %>'));
-
+			APP.modules.tags.index.init('#<%= viewId %>');
 		});
 	</script>
 </div>
