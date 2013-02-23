@@ -1,29 +1,16 @@
 //var db = require('../db');
-var Tags = require('../../models/tags');
-var _ = require('underscore');
+var tags = require('../../collections/tags');
 
 module.exports = {
 
 	index: function (req, res) {
-		var pro = Tags.raw();
 
-		pro.then(function(tags) {
-				var grouped = {};
-				tags.forEach(function (el) {
-					grouped[el] = grouped[el] || 0;
-					grouped[el] += 1;
-				});
+		function done(err, tags) {
+			if (err) return res.send(404);
+			res.render('tags/index', { title: 'Express', tags: tags });
+		}
 
-				grouped = _.pairs(grouped);
-
-				//console.log(grouped);
-
-				res.render('tags/index', { title: 'Express', groupedTags: grouped });
-			},
-			function (err) {
-				return res.send(404)
-			}
-		)
+		tags.weights(done);
 
 	}
 

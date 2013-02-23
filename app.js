@@ -6,6 +6,7 @@ var express = require('express');
 var engine = require('ejs-locals');
 var http = require('http');
 var path = require('path');
+var db = require('./db');
 
 require('express-resource');
 require('express-namespace');
@@ -42,6 +43,8 @@ app.locals({
 	title: 'Super App',
 	uid: require('shortid')
 });
+
+db.connect();
 
 // app.set('title', )
 

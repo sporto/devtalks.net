@@ -1,6 +1,6 @@
 // var Suggestion = require('../../models/suggestion');
 
-var Tags = require('../../models/tags');
+var tags = require('../../collections/tags');
 
 module.exports = {
 
@@ -10,7 +10,7 @@ module.exports = {
 			res.render('suggestions/new', { title: 'Express', tags: tags });
 		}
 
-		Tags.all(done);
+		tags.uniques(done);
 	}
 
 }

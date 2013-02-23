@@ -1,4 +1,4 @@
-var Tags = require('../../../models/tags');
+var Tags = require('../../../collections/tags');
 
 module.exports = {
 
@@ -9,7 +9,7 @@ module.exports = {
 			return res.send(docs);
 		}
 
-		Tags.all(done);
+		Tags.weights(done);
 	}
 
 }

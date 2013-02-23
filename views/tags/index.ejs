@@ -4,9 +4,9 @@
 <div id="<%= viewId %>" class="tags index">
 	<div class="row">
 		<div class="cloud">
-			<% for(var i = 0; i < groupedTags.length; i++) { %>
-				<a href="/tags/<%= groupedTags[i][0] %>" rel="<%= groupedTags[i][1] %>" data-id="<%= groupedTags[i][0] %>"><%= groupedTags[i][0] %></a>
-			<% } %>
+			<% tags.forEach(function (ele, ix) { %>
+				<a href="/tags/<%= ele._id %>" rel="<%= ele.value %>" data-id="<%= ele._id %>"><%= ele._id %></a>
+			<% }); %>
 		</div>
 	</div>
 	
