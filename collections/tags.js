@@ -1,4 +1,4 @@
-var Suggestion = require('../models/suggestion');
+var Video = require('../models/video');
 var _ = require('underscore');
 
 module.exports = {
@@ -32,12 +32,12 @@ module.exports = {
 			}
 		}
 
-		Suggestion.mapReduce(o, cb);
+		Video.mapReduce(o, cb);
 	},
 
 	// returns an array with strings
 	uniques: function(cb) {
-		Suggestion.find().distinct('tags', cb);
+		Video.find().distinct('tags', cb);
 	}
 
 }

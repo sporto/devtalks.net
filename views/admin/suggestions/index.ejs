@@ -1,0 +1,37 @@
+<% layout('../../layout') -%>
+<% var viewId = uid.generate() %>
+
+<div  id="<%= viewId %>" class="admin suggestions index row">
+	<table>
+		<thead>
+			<tr>
+				<th>Url</th>
+				<th>Desc</th>
+				<th>Who</th>
+				<th>Tags</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<% suggestions.forEach(function (ele, ix) { %>
+				<tr data-id="<%= ele._id %>">
+					<td><%= ele.url %></td>
+					<td><%= ele.description %></td>
+					<td><%= ele.who %></td>
+					<td><%= ele.tags %></td>
+					<td>
+						<a href="#" title="" class="btn_approve">Approve</a>
+						<a href="#" title="" class="btn_delete">Delete</a>
+					</td>
+				</tr>
+			<% }) %>
+		</tbody>
+	</table>
+	
+	<script>
+		$(function() {
+			APP.modules.admin.suggestions.index.init('#<%= viewId %>');
+		})
+	</script>
+
+</div>

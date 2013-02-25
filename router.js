@@ -1,3 +1,5 @@
+//https://github.com/visionmedia/express-resource
+
 module.exports = function (app) {
 
 	var controllers = require('./controllers/web');
@@ -9,8 +11,14 @@ module.exports = function (app) {
 	app.resource('tags', require('./controllers/web/tags'));
 
 	app.namespace('/api/v1', function(){
-		app.resource('suggestions', require('./controllers/api/v1/suggestions'));
+		var suggestions = require('./controllers/api/v1/suggestions');
+		app.resource('suggestions', suggestions);
+		app.get('/suggestions/:id/approve', suggestions.approve);
 		app.resource('tags', require('./controllers/api/v1/tags'));
+	});
+
+	app.namespace('/admin', function() {
+		app.resource('suggestions', require('./controllers/web/admin/suggestions'));
 	});
 
 	// app.get('/users', user.list);
