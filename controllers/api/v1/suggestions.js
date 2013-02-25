@@ -24,7 +24,7 @@ module.exports = {
 	},
 
 	approve: function (req, res) {
-		var id = req.params.id;
+		var id = req.params.suggestion;
 
 		function findDone(err, doc) {
 			if (err) return res.send(505);

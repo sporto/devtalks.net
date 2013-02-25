@@ -12,10 +12,12 @@ module.exports = function (app) {
 
 	app.namespace('/api/v1', function(){
 		var suggestions = require('./controllers/api/v1/suggestions');
+		var tags = require('./controllers/api/v1/tags');
 		
 		app.resource('suggestions', suggestions);
-		app.get('/suggestions/:id/approve', suggestions.approve);
-		app.resource('tags', require('./controllers/api/v1/tags'));
+		app.get('/suggestions/:suggestion/approve', suggestions.approve);
+		app.resource('tags', tags);
+		app.get('/tags/:tag/videos', tags.videos);
 	});
 
 	app.namespace('/admin', function() {

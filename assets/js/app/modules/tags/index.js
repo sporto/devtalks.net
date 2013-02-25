@@ -8,7 +8,22 @@ APP.modules.tags.index = (function () {
 		},
 
 		'.cloud a click': function(ele, ev) {
-			console.log($(ele).data('id'));
+			var id = $(ele).data('id');
+			var url = '/api/v1/tags/' + id + '/videos';
+			$.ajax({
+				url : url,
+				type: 'GET', // 'POST'
+				success: function(data, textStatus, xhr) {
+					console.log(data);
+					console.log(textStatus);
+					console.log(xhr);
+				},
+				error: function(xhr, textStatus, errorThrown) {
+					console.log(xhr);
+					console.log(textStatus);
+					console.log(errorThrown);
+				}
+			});
 			return false;
 		}
 	});
