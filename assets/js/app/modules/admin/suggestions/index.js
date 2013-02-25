@@ -18,18 +18,33 @@ APP.modules.admin.suggestions.index = (function () {
 				url: url,
 				success: function(data, textStatus, xhr) {
 					APP.flashSuccess('Done');
-						$tr.remove();
-					},
-					error: function(xhr, textStatus, errorThrown) {
-						APP.flashError(errorThrown);
-					}
+					$tr.remove();
+				},
+				error: function(xhr, textStatus, errorThrown) {
+					APP.flashError(errorThrown);
+				}
 			});
 
 			return false;
 		},
 
-		'.btn_delete click': function (ele, ev) {
-			console.log(ele)
+		'.btn_delete click': function ($ele, ev) {
+			if (confirm("Are you sure?")) {
+				var $tr = $ele.closest('tr');
+				var id = $tr.data('id');
+				var url = '/api/v1/suggestions/' + id;
+				$.ajax({
+					url: url,
+					type: 'DELETE',
+					success: function(data, textStatus, xhr) {
+						APP.flashSuccess('Done');
+						$tr.remove();
+					},
+					error: function(xhr, textStatus, errorThrown) {
+						APP.flashError(errorThrown);
+					}
+				});
+			}
 			return false;
 		}
 

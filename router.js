@@ -12,6 +12,7 @@ module.exports = function (app) {
 
 	app.namespace('/api/v1', function(){
 		var suggestions = require('./controllers/api/v1/suggestions');
+		
 		app.resource('suggestions', suggestions);
 		app.get('/suggestions/:id/approve', suggestions.approve);
 		app.resource('tags', require('./controllers/api/v1/tags'));

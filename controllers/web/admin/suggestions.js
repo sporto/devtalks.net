@@ -7,7 +7,8 @@ module.exports = {
 			res.render('admin/suggestions/index', {title: 'Express', suggestions: suggestions});
 		}
 
-		Video.find({approved: false}).exec(done);
+		// Video.find({approved: false}).exec(done);
+		Video.where('approved', false).or([{'deleted': false}, {'deleted': null}]).exec(done);
 
 	}
 }
