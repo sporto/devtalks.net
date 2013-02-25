@@ -16,10 +16,10 @@ module.exports = {
 
 		var o = {
 			map: function() {
-				if(!this.tags) {
+				if(!this.tags || !this.approved) {
 					return;
 				}
-				for(index in this.tags) {
+				for (index in this.tags) {
 					emit(this.tags[index], 1);
 				}
 			},
@@ -37,7 +37,7 @@ module.exports = {
 
 	// returns an array with strings
 	uniques: function(cb) {
-		Video.find().distinct('tags', cb);
+		Video.find().where('approved', true).distinct('tags', cb);
 	}
 
 }
