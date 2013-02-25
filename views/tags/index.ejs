@@ -2,6 +2,7 @@
 <% var viewId = uid.generate() %>
 
 <div id="<%= viewId %>" class="tags index">
+
 	<div class="row">
 		<div class="cloud">
 			<% tags.forEach(function (ele, ix) { %>
@@ -10,9 +11,18 @@
 		</div>
 	</div>
 	
+	<div class="row">
+		<div class="videos"></div>
+	</div>
+	
+	<script type="text/mustache" id="videosTemplate">
+		{{url}}
+	</script>
+	
 	<script>
 		$(function () {
 			APP.modules.tags.index.init('#<%= viewId %>');
 		});
 	</script>
+
 </div>

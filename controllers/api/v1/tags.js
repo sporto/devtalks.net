@@ -23,8 +23,6 @@ module.exports = {
 		}
 
 		Video.find({'tags': id, 'approved': true}).exec(done);
-
-		res.send('ok');
 	}
 
 }

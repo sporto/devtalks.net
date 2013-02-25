@@ -5,6 +5,7 @@ APP.modules.tags.index = (function () {
 
 		init: function (el, options) {
 			$('.cloud a').tagcloud();
+			$('.videos', this.element).append(can.view('videosTemplate', [{url: 'ddd'}]));
 		},
 
 		'.cloud a click': function(ele, ev) {
@@ -15,13 +16,13 @@ APP.modules.tags.index = (function () {
 				type: 'GET', // 'POST'
 				success: function(data, textStatus, xhr) {
 					console.log(data);
-					console.log(textStatus);
-					console.log(xhr);
+					// console.log(textStatus);
+					// console.log(xhr);
 				},
 				error: function(xhr, textStatus, errorThrown) {
-					console.log(xhr);
-					console.log(textStatus);
-					console.log(errorThrown);
+					// console.log(xhr);
+					// console.log(textStatus);
+					// console.log(errorThrown);
 				}
 			});
 			return false;
