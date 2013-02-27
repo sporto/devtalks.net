@@ -19,7 +19,15 @@ APP.modules.suggestions.new = (function () {
 				showLoaderSave: false
 			});
 
-			rivets.bind(this.element, {state: this.state});
+			this.model = new can.Observe({
+				url: '',
+				title: '',
+				description: '',
+				who: '',
+				thumbs: {}
+			});
+
+			rivets.bind(this.element, {state: this.state, model: this.model});
 
 			this.setupTags();
 		},
@@ -51,13 +59,17 @@ APP.modules.suggestions.new = (function () {
 			this.state.attr('showBtnRetrieve', false);
 
 			var pro = $.ajax({
-				url: '/urls',
+				url: '/api/v1/urls',
 				data: {url: url}
 			});
 
 			pro
 				.done(function(data, textStatus, xhr) {
-					self.$inputDes.val(data.description);
+					// self.$inputDes.val(data.title);
+					// self.$inputDes.val(data.description);
+					self.model.attr('title', data.title);
+					self.model.attr('description', data.description);
+					self.model.attr('thumbs', data.thumbs);
 				})
 				.fail(function(xhr, textStatus, error) {
 					APP.flashError(error);
@@ -74,7 +86,10 @@ APP.modules.suggestions.new = (function () {
 			this.state.attr('showLoaderSave', true);
 			this.state.attr('showBtnSave', false);
 			
-			var data = io.form($('form', this.element)).object();
+			//var data = io.form($('form', this.element)).object();
+			var data = {
+				suggestion: this.model.attr()
+			};
 			data.suggestion.tags = this.$selectTags.val().split(',');
 
 			var pro = $.ajax({

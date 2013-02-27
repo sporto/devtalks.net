@@ -6,6 +6,7 @@
 		<thead>
 			<tr>
 				<th>Url</th>
+				<th>Title</th>
 				<th>Desc</th>
 				<th>Who</th>
 				<th>Tags</th>
@@ -16,6 +17,7 @@
 			<% suggestions.forEach(function (ele, ix) { %>
 				<tr data-id="<%= ele._id %>">
 					<td><%= ele.url %></td>
+					<td><%= ele.title %></td>
 					<td><%= ele.description %></td>
 					<td><%= ele.who %></td>
 					<td><%= ele.tags %></td>

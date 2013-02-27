@@ -6,10 +6,13 @@
 	<div class="row">
 		<h1>New</h1>
 	</div>
+	
+	<p>http://www.youtube.com/watch?v=OsO_UrT8ELI</p>
+	<p>http://vimeo.com/6132324</p>
 
 	<form action="">
 		<div class="row">
-			<input type="text" placeholder="URL" class="input_url" name="suggestion[url]" value="" ng-model="model.url" />
+			<input type="text" placeholder="URL" class="input_url" name="suggestion[url]" data-rv-value="model.url" />
 			<a class="button btn_retrieve" href="#" data-rv-show="state.showBtnRetrieve">
 				Retrieve information
 			</a>
@@ -21,8 +24,9 @@
 		</div>
 		
 		<div class="row">
-			<input type="text" placeholder="Description" class="input_description" name="suggestion[description]" value="" />
-			<input type="text" placeholder="Who is on it?" class="input_who" name="suggestion[who]" value="" />
+			<input type="text" placeholder="Title" class="input_title" name="suggestion[title]" data-rv-value="model.title" />
+			<input type="text" placeholder="Description" class="input_description" name="suggestion[description]" data-rv-value="model.description" />
+			<input type="text" placeholder="Who is on it?" class="input_who" name="suggestion[who]" data-rv-value="model.who" />
 		</div>
 		
 		<div class="row">
