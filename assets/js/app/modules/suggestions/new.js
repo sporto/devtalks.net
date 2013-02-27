@@ -6,26 +6,13 @@ APP.modules.suggestions.new = (function () {
 	var Control = can.Control({
 
 		init: function (ele, options) {
-			//this.$loader_save = $('.loader_save', this.element);
-			this.$inputUrl = $('.input_url', this.element);
-			this.$inputDes = $('.input_description', this.element);
+
 			this.$selectTags = $('.select_tags', this.element);
-			//this.$inputDes = $('.input_description', this.element);
 
-			this.state = new can.Observe({
-				showBtnRetrieve: true,
-				showLoaderRetrieve: false,
-				showBtnSave: true,
-				showLoaderSave: false
-			});
+			this.state = new can.Observe();
+			this.model = new can.Observe();
 
-			this.model = new can.Observe({
-				url: '',
-				title: '',
-				description: '',
-				who: '',
-				thumbs: {}
-			});
+			this.reset();
 
 			rivets.bind(this.element, {state: this.state, model: this.model});
 
@@ -54,7 +41,7 @@ APP.modules.suggestions.new = (function () {
 
 		retrieve: function () {
 			var self = this;
-			var url = this.$inputUrl.val();
+			var url = this.model.attr('url');
 			this.state.attr('showLoaderRetrieve', true);
 			this.state.attr('showBtnRetrieve', false);
 
@@ -65,11 +52,13 @@ APP.modules.suggestions.new = (function () {
 
 			pro
 				.done(function(data, textStatus, xhr) {
-					// self.$inputDes.val(data.title);
-					// self.$inputDes.val(data.description);
-					self.model.attr('title', data.title);
-					self.model.attr('description', data.description);
-					self.model.attr('thumbs', data.thumbs);
+					self.model.attr({
+						title: data.title,
+						description: data.description,
+						thumbS: data.thumbS,
+						thumbM: data.thumbM,
+						thumbL: data.thumbL
+					});
 				})
 				.fail(function(xhr, textStatus, error) {
 					APP.flashError(error);
@@ -100,7 +89,9 @@ APP.modules.suggestions.new = (function () {
 
 			pro
 				.done(function(data, textStatus, xhr) {
-					self.$inputDes.val(data.description);
+					//self.$inputDes.val(data.description);
+					APP.flashSuccess('Saved');
+					self.reset();
 				})
 				.fail(function(xhr, textStatus, error) {
 					APP.flashError(error);
@@ -109,7 +100,29 @@ APP.modules.suggestions.new = (function () {
 					self.state.attr('showLoaderSave', false);
 					self.state.attr('showBtnSave', true);
 				});
+		},
 
+		reset: function () {
+
+			this.state.attr({
+				showBtnRetrieve: true,
+				showLoaderRetrieve: false,
+				showBtnSave: true,
+				showLoaderSave: false
+			});
+
+			this.model.attr({
+				url: '',
+				title: '',
+				description: '',
+				who: '',
+				thumbS: '',
+				thumbM: '',
+				thumbL: ''
+			});
+
+			// TODO reset the tags
+			this.$selectTags.val('');
 		}
 	});
 

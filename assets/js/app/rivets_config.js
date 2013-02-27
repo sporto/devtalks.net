@@ -17,3 +17,7 @@ rivets.configure({
 		}
 	}
 });
+
+rivets.formatters.blank = function (value) {
+	return value == null || value === "";
+};

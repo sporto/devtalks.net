@@ -10,7 +10,9 @@ function run(id, cb) {
 	  var info = {
 	  	title: data.raw.title,
 	  	description: data.raw.description,
-	  	thumbs: data.thumb
+	  	thumbS: data.thumb.s,
+	  	thumbM: data.thumb.m,
+	  	thumbL: data.thumb.l
 	  }
 	  return cb(null, info);
 	});
