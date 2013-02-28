@@ -6,6 +6,7 @@ APP.modules.suggestions.new = (function () {
 	var Control = can.Control({
 
 		init: function (ele, options) {
+			var self = this;
 
 			this.$selectTags = $('.select_tags', this.element);
 
@@ -13,10 +14,18 @@ APP.modules.suggestions.new = (function () {
 			this.model = new can.Observe();
 
 			this.reset();
+			this.bindings();
+			this.setupTags();
+		},
+
+		bindings: function () {
+			var self = this;
+
+			this.model.bind('change', function( ev, attr, how, newVal, oldVal ) {
+				self.checkBtnSave();
+			});
 
 			rivets.bind(this.element, {state: this.state, model: this.model});
-
-			this.setupTags();
 		},
 
 		'.btn_retrieve click': function (ele, ev) {
@@ -29,6 +38,16 @@ APP.modules.suggestions.new = (function () {
 		'.btn_save click': function (ele, ev) {
 			this.save();
 			return false;
+		},
+
+		checkBtnSave: function() {
+			this.state.attr('showBtnSave', this.isValid());
+		},
+
+		isValid: function () {
+			if (this.model.attr('url') === '') return false;
+			if (this.model.attr('title') === '') return false;
+			return true;
 		},
 
 		setupTags: function () {
@@ -105,8 +124,10 @@ APP.modules.suggestions.new = (function () {
 		reset: function () {
 
 			this.state.attr({
+				enableBtnRetrieve: false,
 				showBtnRetrieve: true,
 				showLoaderRetrieve: false,
+				enableBtnSave: false,
 				showBtnSave: true,
 				showLoaderSave: false
 			});

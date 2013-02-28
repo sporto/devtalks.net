@@ -13,7 +13,7 @@
 	<form action="">
 		<div class="row">
 			<input type="text" placeholder="URL" class="input_url" name="suggestion[url]" data-rv-value="model.url" />
-			<a class="button btn_retrieve" href="#" data-rv-show="state.showBtnRetrieve">
+			<a class="button btn_retrieve" href="#" data-rv-enabled="state.enableBtnRetrieve" data-rv-show="state.showBtnRetrieve">
 				Retrieve information
 			</a>
 			<div class="loader" style="display:block;" data-rv-show="state.showLoaderRetrieve">
@@ -46,7 +46,7 @@
 		<br />
 		
 		<div class="row">
-			<a class="button btn_save" href="#" data-rv-show="state.showBtnSave">Save</a>
+			<button class="button btn_save" href="#" data-rv-enabled="state.enableBtnSave" data-rv-show="state.showBtnSave">Save</button>
 			<div class="loader" style="display:block;" data-rv-show="state.showLoaderSave">
 				<img src="/img/lib/loader.gif" alt="">
 			</div>
