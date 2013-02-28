@@ -3,56 +3,58 @@
 
 <div id="<%= viewId %>" class="suggestions new" data-tags="<%= JSON.stringify(tags) %>">
 
-	<div class="row">
-		<h1>New</h1>
-	</div>
-	
-	<p>http://www.youtube.com/watch?v=OsO_UrT8ELI</p>
-	<p>http://vimeo.com/6132324</p>
+	<script id="template" type="text/mustache">
+		<div class="row">
+			<h1>New</h1>
+		</div>
+		
+		<p>http://www.youtube.com/watch?v=OsO_UrT8ELI</p>
+		<p>http://vimeo.com/6132324</p>
 
-	<form action="">
-		<div class="row">
-			<input type="text" placeholder="URL" class="input_url" name="suggestion[url]" data-rv-value="model.url" />
-			<a class="button btn_retrieve" href="#" data-rv-enabled="state.enableBtnRetrieve" data-rv-show="state.showBtnRetrieve">
-				Retrieve information
-			</a>
-			<div class="loader" style="display:block;" data-rv-show="state.showLoaderRetrieve">
-				<img src="/img/lib/loader.gif" alt="">
+		<form action="">
+			<div class="row">
+				<input type="text" placeholder="URL" class="input_url" name="suggestion[url]" value="{{model.url}}" />
+				<button class="button btn_retrieve" {{state.enableBtnRetrieve}}>
+					Retrieve information
+				</button>
+				<div class="loader" style="display:block;" data-rv-show="state.showLoaderRetrieve">
+					<img src="/img/lib/loader.gif" alt="">
+				</div>
+				<br />
+				<br />
 			</div>
-			<br />
-			<br />
-		</div>
-		
-		<div class="row" data-rv-hide="model.thumbM | blank">
-			<div class="th"><img data-rv-src="model.thumbM"></div>
-			<br />
-		</div>
-		
-		<div class="row">
-			<input type="text" placeholder="Title" class="input_title" name="suggestion[title]" data-rv-value="model.title" />
-			<input type="text" placeholder="Description" class="input_description" name="suggestion[description]" data-rv-value="model.description" />
-			<input type="text" placeholder="Who is on it?" class="input_who" name="suggestion[who]" data-rv-value="model.who" />
-		</div>
-		
-		<div class="row">
-			<div class="one columns">
-				<label>Tags</label>
+			
+			<div class="row" data-rv-hide="model.thumbM | blank">
+				<div class="th"><img data-rv-src="model.thumbM"></div>
+				<br />
 			</div>
-			<div class="eleven columns">
-				<div class="select_tags" style="width:250px;">
+			
+			<div class="row">
+				<input type="text" placeholder="Title" class="input_title" name="suggestion[title]" data-rv-value="model.title" />
+				<input type="text" placeholder="Description" class="input_description" name="suggestion[description]" data-rv-value="model.description" />
+				<input type="text" placeholder="Who is on it?" class="input_who" name="suggestion[who]" data-rv-value="model.who" />
+			</div>
+			
+			<div class="row">
+				<div class="one columns">
+					<label>Tags</label>
+				</div>
+				<div class="eleven columns">
+					<div class="select_tags" style="width:250px;">
+					</div>
 				</div>
 			</div>
-		</div>
-		<br />
-		
-		<div class="row">
-			<button class="button btn_save" href="#" data-rv-enabled="state.enableBtnSave" data-rv-show="state.showBtnSave">Save</button>
-			<div class="loader" style="display:block;" data-rv-show="state.showLoaderSave">
-				<img src="/img/lib/loader.gif" alt="">
+			<br />
+			
+			<div class="row">
+				<button class="button btn_save" href="#" {{state.enableBtnSave}} data-rv-show="state.showBtnSave">Save</button>
+				<div class="loader" style="display:block;" data-rv-show="state.showLoaderSave">
+					<img src="/img/lib/loader.gif" alt="">
+				</div>
 			</div>
-		</div>
-	</form>
-	
+		</form>
+	</script>
+
 	<script>
 		$(function () {
 			APP.modules.suggestions.new.init('#<%= viewId %>');

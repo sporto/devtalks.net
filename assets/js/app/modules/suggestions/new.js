@@ -14,6 +14,10 @@ APP.modules.suggestions.new = (function () {
 			this.model = new can.Observe();
 
 			this.reset();
+
+			var template = can.view("#template", {state: this.state, model: this.model});
+			can.$(this.element).append(template);
+
 			this.bindings();
 			this.setupTags();
 		},
@@ -21,11 +25,19 @@ APP.modules.suggestions.new = (function () {
 		bindings: function () {
 			var self = this;
 
-			this.model.bind('change', function( ev, attr, how, newVal, oldVal ) {
-				self.checkBtnSave();
+			this.model.bind('url', function (ev, newVal, oldVal) {
+				var val = newVal.indexOf('http://') > -1 ? '' : 'disabled';
+				self.state.attr('enableBtnRetrieve', val);
 			});
 
-			rivets.bind(this.element, {state: this.state, model: this.model});
+			// this.model.bind('change', function( ev, attr, how, newVal, oldVal ) {
+			// 	console.log(newVal);
+			// 	// self.checkBtnSave();
+			// });
+		},
+
+		'.input_url keyup': function (ele, ev) {
+			this.model.attr('url', ele.val());
 		},
 
 		'.btn_retrieve click': function (ele, ev) {
@@ -124,16 +136,16 @@ APP.modules.suggestions.new = (function () {
 		reset: function () {
 
 			this.state.attr({
-				enableBtnRetrieve: false,
+				enableBtnRetrieve: 'disabled',
 				showBtnRetrieve: true,
 				showLoaderRetrieve: false,
-				enableBtnSave: false,
+				enableBtnSave: 'disabled',
 				showBtnSave: true,
 				showLoaderSave: false
 			});
 
 			this.model.attr({
-				url: '',
+				url: 'xx',
 				title: '',
 				description: '',
 				who: '',
