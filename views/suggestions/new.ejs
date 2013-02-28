@@ -14,24 +14,35 @@
 		<form action="">
 			<div class="row">
 				<input type="text" placeholder="URL" class="input_url" name="suggestion[url]" value="{{model.url}}" />
+				
+				{{#state.showBtnRetrieve}}
 				<button class="button btn_retrieve" {{state.enableBtnRetrieve}}>
 					Retrieve information
 				</button>
-				<div class="loader" style="display:block;" data-rv-show="state.showLoaderRetrieve">
+				{{/state.showBtnRetrieve}}
+
+				<button class="btn_reset">Reset</button>
+				
+				{{#state.showLoaderRetrieve}}
+				<div class="loader" style="display:block;">
 					<img src="/img/lib/loader.gif" alt="">
 				</div>
+				{{/state.showLoaderRetrieve}}
+				
 				<br />
 				<br />
 			</div>
 			
-			<div class="row" data-rv-hide="model.thumbM | blank">
-				<div class="th"><img data-rv-src="model.thumbM"></div>
+			{{#model.thumbM}}
+			<div class="row">
+				<div class="th"><img src="{{model.thumbM}}"></div>
 				<br />
 			</div>
+			{{/model.thumbM}}
 			
 			<div class="row">
-				<input type="text" placeholder="Title" class="input_title" name="suggestion[title]" data-rv-value="model.title" />
-				<input type="text" placeholder="Description" class="input_description" name="suggestion[description]" data-rv-value="model.description" />
+				<input type="text" placeholder="Title" class="input_title" name="suggestion[title]" value="{{model.title}}" />
+				<input type="text" placeholder="Description" class="input_description" name="suggestion[description]" value="{{model.description}}" />
 				<input type="text" placeholder="Who is on it?" class="input_who" name="suggestion[who]" data-rv-value="model.who" />
 			</div>
 			

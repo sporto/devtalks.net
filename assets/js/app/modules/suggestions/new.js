@@ -47,6 +47,11 @@ APP.modules.suggestions.new = (function () {
 			return false;
 		},
 
+		'.btn_reset click': function (ele, ev) {
+			this.reset();
+			return false;
+		},
+
 		'.btn_save click': function (ele, ev) {
 			this.save();
 			return false;
