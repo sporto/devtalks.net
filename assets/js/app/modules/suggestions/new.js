@@ -8,7 +8,6 @@ APP.modules.suggestions.new = (function () {
 		init: function (ele, options) {
 			var self = this;
 
-			this.$selectTags = $('.select_tags', this.element);
 
 			this.state = new can.Observe();
 			this.model = new can.Observe();
@@ -17,6 +16,8 @@ APP.modules.suggestions.new = (function () {
 
 			var template = can.view("#template", {state: this.state, model: this.model});
 			can.$(this.element).append(template);
+
+			this.$selectTags = $('.select_tags', this.element);
 
 			this.bindings();
 			this.setupTags();
@@ -38,6 +39,10 @@ APP.modules.suggestions.new = (function () {
 
 		'.input_url keyup': function (ele, ev) {
 			this.model.attr('url', ele.val());
+		},
+
+		'.input_title keyup': function (ele, ev) {
+			this.model.attr('title', ele.val());
 		},
 
 		'.btn_retrieve click': function (ele, ev) {
@@ -69,7 +74,7 @@ APP.modules.suggestions.new = (function () {
 
 		setupTags: function () {
 			var tags = this.element.data('tags');
-			//console.log(tags)
+			console.log(tags)
 			this.$selectTags.select2({
 				tags: tags
 			});
@@ -150,7 +155,7 @@ APP.modules.suggestions.new = (function () {
 			});
 
 			this.model.attr({
-				url: 'xx',
+				url: '',
 				title: '',
 				description: '',
 				who: '',
@@ -159,8 +164,9 @@ APP.modules.suggestions.new = (function () {
 				thumbL: ''
 			});
 
-			// TODO reset the tags
-			this.$selectTags.val('');
+			if (this.$selectTags) {
+				this.$selectTags.select2('val','');
+			}
 		}
 	});
 
