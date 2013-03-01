@@ -14,6 +14,8 @@ module.exports = {
 		//console.log('suggestions - create')
 		var data = req.body.suggestion;
 
+		console.log(data);
+
 		var doc = new Video(data);
 		doc.approved = false;
 

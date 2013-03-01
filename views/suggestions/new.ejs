@@ -1,77 +1,66 @@
 <% layout('../layout') -%>
 <% var viewId = uid.generate() %>
 
-<div id="<%= viewId %>" class="suggestions new" data-tags="<%= JSON.stringify(tags) %>">
+<div id="<%= viewId %>" class="suggestions new" data-tags="<%= JSON.stringify(tags) %>"
+		 ng-controller="suggestions.NewCtrl" xmlns="http://www.w3.org/1999/html">
 
-	<script id="template" type="text/mustache">
 		<div class="row">
 			<h1>New</h1>
 		</div>
-		
+
 		<p>http://www.youtube.com/watch?v=OsO_UrT8ELI</p>
 		<p>http://vimeo.com/6132324</p>
 
-		<form action="">
+		<form name="suggestion_form" action="" nonvalidate>
 			<div class="row">
-				<input type="text" placeholder="URL" class="input_url" name="suggestion[url]" value="{{model.url}}" />
-				
-				{{#state.showBtnRetrieve}}
-				<button class="button btn_retrieve" {{state.enableBtnRetrieve}}>
+				<input type="text" placeholder="URL" ng-model="model.url" name="url" required />
+
+				<small class="error" ng-show="suggestion_form.url.$invalid">
+					<span ng-show="suggestion_form.url.$error.required">Please add a url</span>
+				</small>
+
+				<button class="button" ng-disabled="!state.enableBtnRetrieve()" ng-click="clickRetrieve($event)" ng-show="!state.retrieving">
 					Retrieve information
 				</button>
-				{{/state.showBtnRetrieve}}
 
-				<button class="btn_reset">Reset</button>
-				
-				{{#state.showLoaderRetrieve}}
-				<div class="loader" style="display:block;">
-					<img src="/img/lib/loader.gif" alt="">
-				</div>
-				{{/state.showLoaderRetrieve}}
-				
+				<div class="loader" ng-show="state.retrieving" style="display:none;"><img src="/img/lib/loader.gif" alt=""></div>
+
+				<button ng-click="clickReset($event)">Reset</button>
+
 				<br />
 				<br />
 			</div>
-			
-			{{#model.thumbM}}
+
+			<div class="row" ng-show="model.thumbM">
+				<div class="th"><img ng-src="{{model.thumbM}}" /></div>
+				<br />
+			</div>
+
 			<div class="row">
-				<div class="th"><img src="{{model.thumbM}}"></div>
-				<br />
+				<input type="text" placeholder="Title" ng-model="model.title" name="title" required />
+
+				<small class="error" ng-show="suggestion_form.title.$invalid">
+					<span ng-show="suggestion_form.title.$error.required">Please add a title</span>
+				</small>
+
+				<textarea ng-model="model.description"></textarea>
 			</div>
-			{{/model.thumbM}}
-			
-			<div class="row">
-				<input type="text" placeholder="Title" class="input_title" name="suggestion[title]" value="{{model.title}}" />
-				<input type="text" placeholder="Description" class="input_description" name="suggestion[description]" value="{{model.description}}" />
-				<input type="text" placeholder="Who is on it?" class="input_who" name="suggestion[who]" data-rv-value="model.who" />
-			</div>
-			
+
 			<div class="row">
 				<div class="one columns">
 					<label>Tags</label>
 				</div>
 				<div class="eleven columns">
-					<div class="select_tags" style="width:250px;">
-					</div>
+					<div class="select_tags" style="width:400px;"></div>
 				</div>
+
 			</div>
 			<br />
-			
+
 			<div class="row">
-				<button class="button btn_save" href="#" {{state.enableBtnSave}} data-rv-show="state.showBtnSave">Save</button>
-				<div class="loader" style="display:block;" data-rv-show="state.showLoaderSave">
-					<img src="/img/lib/loader.gif" alt="">
-				</div>
+				<button class="button" ng-show="!state.saving" ng-disabled="suggestion_form.$invalid" ng-click="clickSave($event)">Save</button>
+				<div class="loader" style="display:none;" ng-show="state.saving"><img src="/img/lib/loader.gif" alt=""></div>
 			</div>
 		</form>
-		{{model.url}}
-		{{model.title}}
-	</script>
-
-	<script>
-		$(function () {
-			APP.modules.suggestions.new.init('#<%= viewId %>');
-		});
-	</script>
 
 </div>

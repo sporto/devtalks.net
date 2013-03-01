@@ -1,178 +1,104 @@
-Namespacer('APP.modules.suggestions');
+angular.module('ANG', [])
+	.controller('suggestions.NewCtrl', function ($scope, $http, $element) {
 
-APP.modules.suggestions.new = (function () {
-	'use strict';
+		var $selectTags = $('.select_tags', $element);
 
-	var Control = can.Control({
+		setupTags();
+		reset();
 
-		init: function (ele, options) {
-			var self = this;
+		////// UI handlers
 
+		$scope.clickRetrieve = function (ev) {
+			ev.preventDefault();
+			retrieve();
+		}
 
-			this.state = new can.Observe();
-			this.model = new can.Observe();
+		$scope.clickSave = function (ev) {
+			ev.preventDefault();
+			save();
+		}
 
-			this.reset();
+		$scope.clickReset = function (ev) {
+				ev.preventDefault();
+				reset();
+		}
 
-			var template = can.view("#template", {state: this.state, model: this.model});
-			can.$(this.element).append(template);
+		/// utility functions
 
-			this.$selectTags = $('.select_tags', this.element);
-
-			this.bindings();
-			this.setupTags();
-		},
-
-		bindings: function () {
-			var self = this;
-
-			this.model.bind('url', function (ev, newVal, oldVal) {
-				var val = newVal.indexOf('http://') > -1 ? '' : 'disabled';
-				self.state.attr('enableBtnRetrieve', val);
-			});
-
-			// this.model.bind('change', function( ev, attr, how, newVal, oldVal ) {
-			// 	console.log(newVal);
-			// 	// self.checkBtnSave();
-			// });
-		},
-
-		'.input_url keyup': function (ele, ev) {
-			this.model.attr('url', ele.val());
-		},
-
-		'.input_title keyup': function (ele, ev) {
-			this.model.attr('title', ele.val());
-		},
-
-		'.btn_retrieve click': function (ele, ev) {
-			this.state.attr('showLoaderRetrieve', true);
-			this.state.attr('showBtnRetrieve', false);
-			this.retrieve();
-			return false;
-		},
-
-		'.btn_reset click': function (ele, ev) {
-			this.reset();
-			return false;
-		},
-
-		'.btn_save click': function (ele, ev) {
-			this.save();
-			return false;
-		},
-
-		checkBtnSave: function() {
-			this.state.attr('showBtnSave', this.isValid());
-		},
-
-		isValid: function () {
-			if (this.model.attr('url') === '') return false;
-			if (this.model.attr('title') === '') return false;
-			return true;
-		},
-
-		setupTags: function () {
-			var tags = this.element.data('tags');
-			console.log(tags)
-			this.$selectTags.select2({
-				tags: tags
-			});
-		},
-
-		retrieve: function () {
-			var self = this;
-			var url = this.model.attr('url');
-			this.state.attr('showLoaderRetrieve', true);
-			this.state.attr('showBtnRetrieve', false);
-
-			var pro = $.ajax({
-				url: '/api/v1/urls',
-				data: {url: url}
-			});
-
-			pro
-				.done(function(data, textStatus, xhr) {
-					self.model.attr({
-						title: data.title,
-						description: data.description,
-						thumbS: data.thumbS,
-						thumbM: data.thumbM,
-						thumbL: data.thumbL
-					});
-				})
-				.fail(function(xhr, textStatus, error) {
-					APP.flashError(error);
-				})
-				.always(function () {
-					self.state.attr('showLoaderRetrieve', false);
-					self.state.attr('showBtnRetrieve', true);
-				});
-
-		},
-
-		save: function () {
-			var self = this;
-			this.state.attr('showLoaderSave', true);
-			this.state.attr('showBtnSave', false);
-			
-			//var data = io.form($('form', this.element)).object();
-			var data = {
-				suggestion: this.model.attr()
+		function reset() {
+			$scope.state = {
+				retrieving: false,
+				saving: false,
+				enableBtnRetrieve: function () {
+					if ($scope.model.url) {
+						return ($scope.model.url.indexOf('http://') > -1);
+					} else {
+						return false;
+					}
+				}
 			};
-			data.suggestion.tags = this.$selectTags.val().split(',');
 
-			var pro = $.ajax({
-				url: '/api/v1/suggestions',
-				type: 'POST',
-				data: data
-			});
-
-			pro
-				.done(function(data, textStatus, xhr) {
-					//self.$inputDes.val(data.description);
-					APP.flashSuccess('Saved');
-					self.reset();
-				})
-				.fail(function(xhr, textStatus, error) {
-					APP.flashError(error);
-				})
-				.always(function () {
-					self.state.attr('showLoaderSave', false);
-					self.state.attr('showBtnSave', true);
-				});
-		},
-
-		reset: function () {
-
-			this.state.attr({
-				enableBtnRetrieve: 'disabled',
-				showBtnRetrieve: true,
-				showLoaderRetrieve: false,
-				enableBtnSave: 'disabled',
-				showBtnSave: true,
-				showLoaderSave: false
-			});
-
-			this.model.attr({
+			$scope.model = {
 				url: '',
 				title: '',
 				description: '',
-				who: '',
-				thumbS: '',
 				thumbM: '',
-				thumbL: ''
+				tags: []
+			}
+
+			$selectTags.select2('val','');
+		}
+
+		function setupTags() {
+			var tags = $element.data('tags');
+
+			$selectTags.select2({
+				tags: tags
 			});
 
-			if (this.$selectTags) {
-				this.$selectTags.select2('val','');
-			}
+			$selectTags
+				.on('change', function (event) {
+					var tags = event.val;
+					$scope.model.tags = tags;
+					$scope.$digest();
+				});
 		}
-	});
 
-	return {
-		init: function (viewId) {
-			var control = new Control($(viewId));
+		function retrieve() {
+			$scope.state.retrieving = true;
+
+			var params = {url: $scope.model.url};
+
+			$http.get('/api/v1/urls', {params: params})
+				.success(function (data, status, headers, config) {
+					$scope.model.title = data.title;
+					$scope.model.description = data.description;
+					$scope.model.thumbS = data.thumbS;
+					$scope.model.thumbM = data.thumbM;
+					$scope.model.thumbL = data.thumbL;
+					$scope.state.retrieving = false;
+				})
+				.error(function(data, status, headers, config) {
+					APP.flashError(status);
+					$scope.state.retrieving = false;
+				});
 		}
-	}
-}());
+
+		function save() {
+			$scope.state.saving = true;
+
+			var data = {suggestion: $scope.model};
+
+			$http.post('/api/v1/suggestions', data)
+				.success(function (data, status, headers, config) {
+					APP.flashSuccess('Saved');
+					$scope.state.saving = false;
+					reset();
+				})
+				.error(function(data, status, headers, config) {
+					APP.flashError(status);
+					$scope.state.saving = false;
+				});
+		}
+
+});
