@@ -1,7 +1,7 @@
-angular.module('ANG.suggestions', [])
-	.controller('IndexCtrl', function ($scope, $http) {
+angular.module('ANG', [])
+	.controller('admin.suggestions.IndexCtrl', function ($scope, $http) {
 //
-//			$scope.a = 'A'
+		$scope.a = 'A'
 //
 //			$scope.clickApprove = function (ev) {
 //				ev.preventDefault();

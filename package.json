@@ -14,7 +14,6 @@
     "shortid": "~1.0.9",
     "underscore": "~1.4.4",
     "youtube-feeds": "~2.0.0",
-    "jake": "~0.2.33",
     "when": "~1.8.0",
     "express-namespace": "~0.1.1",
     "mongodb": "~1.2.12",

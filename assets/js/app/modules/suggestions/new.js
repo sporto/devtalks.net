@@ -1,4 +1,4 @@
-angular.module('ANG', [])
+angular.module('ANG')
 	.controller('suggestions.NewCtrl', function ($scope, $http, $element) {
 
 		var $selectTags = $('.select_tags', $element);
