@@ -1,3 +1,23 @@
+angular.module('ANG.suggestions', [])
+	.controller('IndexCtrl', function ($scope, $http) {
+//
+//			$scope.a = 'A'
+//
+//			$scope.clickApprove = function (ev) {
+//				ev.preventDefault();
+//				var $tr = $ele.closest('tr');
+//				var id = $tr.data('id');
+//				console.log(id);
+//			}
+//
+//			$scope.clickDelete = function (ev) {
+//				ev.preventDefault();
+//				var $tr = $ele.closest('tr');
+//				var id = $tr.data('id');
+//			}
+	});
+
+/*
 Namespacer('APP.modules.admin.suggestions');
 
 APP.modules.admin.suggestions.index = (function () {
@@ -57,3 +77,4 @@ APP.modules.admin.suggestions.index = (function () {
 	}
 
 }());
+*/

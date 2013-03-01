@@ -1,7 +1,8 @@
 <% layout('../../layout') -%>
 <% var viewId = uid.generate() %>
 
-<div  id="<%= viewId %>" class="admin suggestions index row">
+<div  id="<%= viewId %>" class="admin suggestions index row" ng-controller="suggestions.IndexCtrl">
+	{{a}}
 	<table>
 		<thead>
 			<tr>
@@ -22,18 +23,12 @@
 					<td><%= ele.who %></td>
 					<td><%= ele.tags %></td>
 					<td>
-						<a href="#" title="" class="btn_approve">Approve</a>
-						<a href="#" title="" class="btn_delete">Delete</a>
+						<a href="#" title="" ng-click="clickApprove($event)">Approve</a>
+						<a href="#" title="" ng-click="clickDelete($event)">Delete</a>
 					</td>
 				</tr>
 			<% }) %>
 		</tbody>
 	</table>
-	
-	<script>
-		$(function() {
-			APP.modules.admin.suggestions.index.init('#<%= viewId %>');
-		})
-	</script>
 
 </div>
