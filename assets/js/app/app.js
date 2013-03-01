@@ -4,7 +4,7 @@ angular.module('ANG.admin', []);
 angular.module('ANG.admin.suggestions', []);
 
 angular.module('ANG')
-	.factory('flashService', function($rootScope) {
+	.service('flashService', function($rootScope) {
 		return {
 			flashError: function (msg) {
 				toastr.error(msg);
@@ -16,8 +16,10 @@ angular.module('ANG')
 	});
 
 angular.module('ANG')
-	.controller('AppCtrl', function () {
-
+	.controller('AppCtrl', function ($scope) {
+		$scope.$on('flashError', function () {
+			console.log('flashError');
+		})
 	});
 
 (function () {

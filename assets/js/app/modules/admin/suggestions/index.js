@@ -2,6 +2,8 @@ angular.module('ANG', [])
 	.controller('admin.suggestions.IndexCtrl', function ($scope, $http) {
 //
 		$scope.a = 'A'
+
+			$scope.$emit('flashError', 'hello');
 //
 //			$scope.clickApprove = function (ev) {
 //				ev.preventDefault();
