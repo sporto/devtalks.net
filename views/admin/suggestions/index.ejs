@@ -1,28 +1,31 @@
 <% layout('../../layout') -%>
 <% var viewId = uid.generate() %>
 
-<div  id="<%= viewId %>" class="admin suggestions index" ng-controller="admin.suggestions.IndexCtrl" data-suggestions="<%= JSON.stringify(suggestions) %>">
+<div id="<%= viewId %>" class="admin suggestions index ng-cloak" ng-controller="admin.suggestions.IndexCtrl" data-suggestions="<%= JSON.stringify(suggestions) %>">
 	
 	<div class="row">
 		<p><span class="label">{{suggestions.length}}</span> suggestions to approve.</p>
 	</div>
 	
-	<div class="row">
+	<div class="row" ng-show="suggestions.length == 0">
+		<div data-alert class="alert-box">
+			No suggestions found
+		</div>
+	</div>
+	
+	<div class="row" ng-show="suggestions.length > 0">
 		<table>
 			<thead>
 				<tr>
-					<th>id</th>
 					<th>Url</th>
 					<th>Title</th>
 					<th>Desc</th>
-
 					<th>Tags</th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="suggestion in suggestions">
-					<td>{{suggestion._id}}</td>
 					<td>{{suggestion.url}}</td>
 					<td>{{suggestion.title}}</td>
 					<td>{{suggestion.description}}</td>

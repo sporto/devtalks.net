@@ -11,4 +11,8 @@ var schema = mongoose.Schema({
 	thumbs: Object
 });
 
+schema.static('suggestions', function (callback) {
+	return this.where('approved', false).or([{'deleted': false}, {'deleted': null}]).exec(callback);
+});
+
 module.exports = mongoose.model('Video', schema);

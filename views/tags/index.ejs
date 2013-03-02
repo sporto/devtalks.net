@@ -1,28 +1,25 @@
 <% layout('../layout') -%>
 <% var viewId = uid.generate() %>
 
-<div id="<%= viewId %>" class="tags index">
+<div id="<%= viewId %>" class="tags index ng-cloak" ng-controller='tags.IndexCtrl'>
 
 	<div class="row">
 		<div class="cloud">
 			<% tags.forEach(function (ele, ix) { %>
-				<a href="/tags/<%= ele._id %>" rel="<%= ele.value %>" data-id="<%= ele._id %>"><%= ele._id %></a>
+				<a href="/tags/<%= ele._id %>" rel="<%= ele.value %>" ng-click="clickTag($event, '<%= ele._id %>')"><%= ele._id %></a>
 			<% }); %>
 		</div>
 	</div>
 	
 	<div class="row">
-		<div class="videos"></div>
+		<p>{{videos.length}} videos found for {{selectedTag}}</p>
+		
+		<div class="videos">
+			<div class="video" ng-repeat="video in videos">
+				<a href="" class="th" ng-src="video.thumbM"></a>
+				<div class="title">{{video.title}}</div>
+			</div>
+		</div>
 	</div>
-	
-	<script type="text/mustache" id="videosTemplate">
-		{{url}}
-	</script>
-	
-	<script>
-		$(function () {
-			APP.modules.tags.index.init('#<%= viewId %>');
-		});
-	</script>
 
 </div>

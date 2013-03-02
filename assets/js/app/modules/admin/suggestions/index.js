@@ -1,19 +1,24 @@
 angular.module('APP')
 	.controller('admin.suggestions.IndexCtrl', function ($scope, $http, $element, notifyUserService, Suggestion) {
 
-		//notifyUserService.flashError('hello');
 		// $scope.suggestions = $element.data('suggestions');
 		$scope.suggestions = Suggestion.query();
 
 		$scope.clickApprove = function (ev, ix, suggestion) {
 			ev.preventDefault();
-			// console.log(suggestion)
+
 			suggestion.$approve(function (doc) {
 				notifyUserService.flashSuccess('Approved');
 				$scope.suggestions.splice(ix, 1);
 			}, function (res) {
 				notifyUserService.flashError(res.data);
 			});
+
+			// suggestion.$approve()
+			// 	.then(function (doc) {
+			// 		notifyUserService.flashSuccess('Approved');
+			// 		$scope.suggestions.splice(ix, 1);
+			// 	});
 
 			// pro.then(function (doc) {
 			// 	console.log(doc);

@@ -1,37 +1,21 @@
-Namespacer('APP.modules.tags');
+angular.module('APP')
+	.controller('tags.IndexCtrl', function ($scope, $element, $http) {
 
-APP.modules.tags.index = (function () {
-	var Control = can.Control({
+		var $tags = $('.cloud a', $element);
+		$tags.tagcloud();
 
-		init: function (el, options) {
-			$('.cloud a').tagcloud();
-			$('.videos', this.element).append(can.view('videosTemplate', [{url: 'ddd'}]));
-		},
+		$scope.videos = [];
+		$scope.selectedTag = '';
 
-		'.cloud a click': function(ele, ev) {
-			var id = $(ele).data('id');
-			var url = '/api/v1/tags/' + id + '/videos';
-			$.ajax({
-				url : url,
-				type: 'GET', // 'POST'
-				success: function(data, textStatus, xhr) {
-					console.log(data);
-					// console.log(textStatus);
-					// console.log(xhr);
-				},
-				error: function(xhr, textStatus, errorThrown) {
-					// console.log(xhr);
-					// console.log(textStatus);
-					// console.log(errorThrown);
-				}
+		$scope.clickTag = function (ev, tag) {
+			ev.preventDefault();
+			$scope.selectedTag = tag;
+			$http.get('/api/v1/tags/' + tag + '/videos', {})
+			.success(function (data, status, headers, config) {
+				$scope.videos = data;
+			})
+			.error(function(data, status, headers, config) {
+				
 			});
-			return false;
 		}
 	});
-
-	return {
-		init: function (viewId) {
-			var control = new Control($(viewId));
-		}
-	}
-}());

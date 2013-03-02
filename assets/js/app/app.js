@@ -11,9 +11,7 @@ angular.module('APP')
 		this.flashSuccess = function (msg) {
 			toastr.success(msg);
 		}
-	});
-
-angular.module('APP')
+	})
 	.factory('Suggestion', function($resource) {
 		return $resource('/api/v1/suggestions/:id/:action', 
 			{
@@ -25,4 +23,4 @@ angular.module('APP')
 					params: {action: 'approve'}
 				}
 			});
-	})
+	});

@@ -6,16 +6,11 @@ module.exports = {
 		function done(err, suggestions) {
 			res.send(suggestions);
 		}
-
-		// Video.find({approved: false}).exec(done);
-		Video.where('approved', false).or([{'deleted': false}, {'deleted': null}]).exec(done);
+		Video.suggestions(done);
 	},
 
 	create: function (req, res) {
-		//console.log('suggestions - create')
 		var data = req.body.suggestion;
-
-		//console.log(data);
 
 		var doc = new Video(data);
 		doc.approved = false;
@@ -28,7 +23,6 @@ module.exports = {
 
 	approve: function (req, res) {
 		var id = req.params.suggestion;
-		// return res.send(422);
 
 		function findDone(err, doc) {
 			if (err) return res.send(505);
@@ -45,7 +39,6 @@ module.exports = {
 
 	destroy: function (req, res) {
 		var id = req.params.suggestion;
-		// console.log(id);
 
 		function findDone(err, doc) {
 			if (err) return res.send(505);
