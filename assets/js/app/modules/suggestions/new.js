@@ -1,5 +1,5 @@
-angular.module('ANG')
-	.controller('suggestions.NewCtrl', function ($scope, $http, $element) {
+angular.module('APP')
+	.controller('suggestions.NewCtrl', function ($scope, $http, $element, notifyUserService) {
 
 		var $selectTags = $('.select_tags', $element);
 
@@ -79,7 +79,7 @@ angular.module('ANG')
 					$scope.state.retrieving = false;
 				})
 				.error(function(data, status, headers, config) {
-					APP.flashError(status);
+					notifyUserService.flashError(status);
 					$scope.state.retrieving = false;
 				});
 		}
@@ -91,12 +91,12 @@ angular.module('ANG')
 
 			$http.post('/api/v1/suggestions', data)
 				.success(function (data, status, headers, config) {
-					APP.flashSuccess('Saved');
+					notifyUserService.flashSuccess('Saved');
 					$scope.state.saving = false;
 					reset();
 				})
 				.error(function(data, status, headers, config) {
-					APP.flashError(status);
+					notifyUserService.flashError(status);
 					$scope.state.saving = false;
 				});
 		}

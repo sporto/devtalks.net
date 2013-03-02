@@ -1,22 +1,25 @@
-angular.module('ANG', [])
-	.controller('admin.suggestions.IndexCtrl', function ($scope, $http) {
-//
+angular.module('APP')
+	.controller('admin.suggestions.IndexCtrl', function ($scope, $http, notifyUserService) {
+
 		$scope.a = 'A'
 
-			$scope.$emit('flashError', 'hello');
-//
-//			$scope.clickApprove = function (ev) {
-//				ev.preventDefault();
-//				var $tr = $ele.closest('tr');
-//				var id = $tr.data('id');
-//				console.log(id);
-//			}
-//
-//			$scope.clickDelete = function (ev) {
-//				ev.preventDefault();
-//				var $tr = $ele.closest('tr');
-//				var id = $tr.data('id');
-//			}
+			//notifyUserService.flashError('hello');
+
+			$scope.clickApprove = function (ev, id) {
+				ev.preventDefault();
+				console.log(id);
+				var ele = ev.currentTarget;
+				var $el = $(ele);
+				var $tr = $el.closest('tr');
+				var id = $tr.data('id');
+				console.log(id);
+			}
+
+			$scope.clickDelete = function (ev) {
+				ev.preventDefault();
+				var $tr = $ele.closest('tr');
+				var id = $tr.data('id');
+			}
 	});
 
 /*

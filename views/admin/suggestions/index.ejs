@@ -23,8 +23,8 @@
 					<td><%= ele.who %></td>
 					<td><%= ele.tags %></td>
 					<td>
-						<a href="#" title="" ng-click="clickApprove($event)">Approve</a>
-						<a href="#" title="" ng-click="clickDelete($event)">Delete</a>
+						<a href="#" title="" ng-click="clickApprove($event, '<%= ele._id %>')">Approve</a>
+						<a href="#" title="" ng-click="clickDelete($event, '<%= ele._id %>')">Delete</a>
 					</td>
 				</tr>
 			<% }) %>
