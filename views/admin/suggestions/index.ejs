@@ -1,30 +1,39 @@
 <% layout('../../layout') -%>
 <% var viewId = uid.generate() %>
 
-<div  id="<%= viewId %>" class="admin suggestions index row" ng-controller="admin.suggestions.IndexCtrl" data-suggestions="<%= JSON.stringify(suggestions) %>">
-	<table>
-		<thead>
-			<tr>
-				<th>Url</th>
-				<th>Title</th>
-				<th>Desc</th>
+<div  id="<%= viewId %>" class="admin suggestions index" ng-controller="admin.suggestions.IndexCtrl" data-suggestions="<%= JSON.stringify(suggestions) %>">
+	
+	<div class="row">
+		<p><span class="label">{{suggestions.length}}</span> suggestions to approve.</p>
+	</div>
+	
+	<div class="row">
+		<table>
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>Url</th>
+					<th>Title</th>
+					<th>Desc</th>
 
-				<th>Tags</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="suggestion in suggestions">
-				<td>{{suggestion.url}}</td>
-				<td>{{suggestion.title}}</td>
-				<td>{{suggestion.description}}</td>
-				<td>{{suggestion.tags}}</td>
-				<td>
-					<a href="#" title="" ng-click="clickApprove($event, $index)">Approve</a>
-					<a href="#" title="" ng-click="clickDelete($event, $index)">Delete</a>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+					<th>Tags</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="suggestion in suggestions">
+					<td>{{suggestion._id}}</td>
+					<td>{{suggestion.url}}</td>
+					<td>{{suggestion.title}}</td>
+					<td>{{suggestion.description}}</td>
+					<td>{{suggestion.tags}}</td>
+					<td>
+						<a href="#" title="" ng-click="clickApprove($event, $index, suggestion)">Approve</a>
+						<a href="#" title="" ng-click="clickDelete($event, $index, suggestion)">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 
 </div>

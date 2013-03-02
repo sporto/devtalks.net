@@ -1,31 +1,33 @@
 angular.module('APP')
-	.controller('admin.suggestions.IndexCtrl', function ($scope, $http, $element, notifyUserService) {
+	.controller('admin.suggestions.IndexCtrl', function ($scope, $http, $element, notifyUserService, Suggestion) {
 
 		//notifyUserService.flashError('hello');
-		$scope.suggestions = $element.data('suggestions');
+		// $scope.suggestions = $element.data('suggestions');
+		$scope.suggestions = Suggestion.query();
 
-		$scope.clickApprove = function (ev, ix) {
+		$scope.clickApprove = function (ev, ix, suggestion) {
 			ev.preventDefault();
-			approve(ix);
-		}
-
-		$scope.clickDelete = function (ev, ix) {
-			ev.preventDefault();
-			remove(ix);
-		}
-
-//		function getIdForRow(el) {
-//			var $tr = $(el).closest('tr');
-//			return $tr.data('id');
-//		}
-
-		function approve(suggestion) {
-
-		}
-
-		function remove(ix) {
-			if (confirm("Are you sure?")) {
+			// console.log(suggestion)
+			suggestion.$approve(function (doc) {
+				notifyUserService.flashSuccess('Approved');
 				$scope.suggestions.splice(ix, 1);
+			}, function (res) {
+				notifyUserService.flashError(res.data);
+			});
+
+			// pro.then(function (doc) {
+			// 	console.log(doc);
+			// })
+		}
+
+		$scope.clickDelete = function (ev, ix, suggestion) {
+			ev.preventDefault();
+			if (confirm("Are you sure?")) {
+				suggestion.$delete(function () {
+					$scope.suggestions.splice(ix, 1);
+				}, function (res) {
+					notifyUserService.flashError(res.data);
+				});
 			}
 		}
 

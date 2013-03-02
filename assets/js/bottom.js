@@ -1,4 +1,5 @@
 //= require lib/angular.min
+//= require lib/angular-resource.min
 //= require lib/namespacer.min
 //= require lib/jquery-io.min
 //= require lib/can.jquery.min

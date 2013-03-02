@@ -14,7 +14,7 @@ module.exports = function (app) {
 		var urls = require('./controllers/api/v1/urls')
 		
 		app.resource('suggestions', suggestions);
-		app.get('/suggestions/:suggestion/approve', suggestions.approve);
+		app.patch('/suggestions/:suggestion/approve', suggestions.approve);
 		app.resource('tags', tags);
 		app.get('/tags/:tag/videos', tags.videos);
 		app.get('/urls', urls.show);

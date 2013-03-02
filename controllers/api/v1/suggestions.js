@@ -7,14 +7,15 @@ module.exports = {
 			res.send(suggestions);
 		}
 
-		Video.find({approved: false}).exec(done);
+		// Video.find({approved: false}).exec(done);
+		Video.where('approved', false).or([{'deleted': false}, {'deleted': null}]).exec(done);
 	},
 
 	create: function (req, res) {
 		//console.log('suggestions - create')
 		var data = req.body.suggestion;
 
-		console.log(data);
+		//console.log(data);
 
 		var doc = new Video(data);
 		doc.approved = false;
@@ -27,14 +28,15 @@ module.exports = {
 
 	approve: function (req, res) {
 		var id = req.params.suggestion;
+		// return res.send(422);
 
 		function findDone(err, doc) {
 			if (err) return res.send(505);
 
 			doc.approved = true;
-			doc.save(function (err) {
+			doc.save(function (err, doc) {
 				if (err) return res.send(505);
-				res.send(200);
+				res.send(doc);
 			});
 		}
 
@@ -48,12 +50,10 @@ module.exports = {
 		function findDone(err, doc) {
 			if (err) return res.send(505);
 
-			//console.log(doc)
-
 			doc.deleted = true;
-			doc.save(function (err) {
+			doc.save(function (err, doc) {
 				if (err) return res.send(505);
-				res.send(200);
+				res.send(doc);
 			});
 		}
 
