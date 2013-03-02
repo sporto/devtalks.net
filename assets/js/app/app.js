@@ -12,3 +12,8 @@ angular.module('APP')
 			toastr.success(msg);
 		}
 	});
+
+angular.module('APP.models', ['ngResource'])
+	.factory('suggestions', function($resource) {
+			return $resource('/api/v1/suggestions');
+		})
