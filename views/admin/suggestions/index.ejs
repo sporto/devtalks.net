@@ -1,33 +1,29 @@
 <% layout('../../layout') -%>
 <% var viewId = uid.generate() %>
 
-<div  id="<%= viewId %>" class="admin suggestions index row" ng-controller="admin.suggestions.IndexCtrl">
-	{{a}}
+<div  id="<%= viewId %>" class="admin suggestions index row" ng-controller="admin.suggestions.IndexCtrl" data-suggestions="<%= JSON.stringify(suggestions) %>">
 	<table>
 		<thead>
 			<tr>
 				<th>Url</th>
 				<th>Title</th>
 				<th>Desc</th>
-				<th>Who</th>
+
 				<th>Tags</th>
 				<th></th>
 			</tr>
 		</thead>
 		<tbody>
-			<% suggestions.forEach(function (ele, ix) { %>
-				<tr data-id="<%= ele._id %>">
-					<td><%= ele.url %></td>
-					<td><%= ele.title %></td>
-					<td><%= ele.description %></td>
-					<td><%= ele.who %></td>
-					<td><%= ele.tags %></td>
-					<td>
-						<a href="#" title="" ng-click="clickApprove($event, '<%= ele._id %>')">Approve</a>
-						<a href="#" title="" ng-click="clickDelete($event, '<%= ele._id %>')">Delete</a>
-					</td>
-				</tr>
-			<% }) %>
+			<tr ng-repeat="suggestion in suggestions">
+				<td>{{suggestion.url}}</td>
+				<td>{{suggestion.title}}</td>
+				<td>{{suggestion.description}}</td>
+				<td>{{suggestion.tags}}</td>
+				<td>
+					<a href="#" title="" ng-click="clickApprove($event, suggestion)">Approve</a>
+					<a href="#" title="" ng-click="clickDelete($event, suggestion)">Delete</a>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 

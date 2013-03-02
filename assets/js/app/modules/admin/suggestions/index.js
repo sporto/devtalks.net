@@ -1,25 +1,34 @@
 angular.module('APP')
-	.controller('admin.suggestions.IndexCtrl', function ($scope, $http, notifyUserService) {
+	.controller('admin.suggestions.IndexCtrl', function ($scope, $http, $element, notifyUserService) {
 
-		$scope.a = 'A'
+		//notifyUserService.flashError('hello');
+		$scope.suggestions = $element.data('suggestions');
 
-			//notifyUserService.flashError('hello');
+		$scope.clickApprove = function (ev, suggestion) {
+			ev.preventDefault();
+			approve(suggestion);
+		}
 
-			$scope.clickApprove = function (ev, id) {
-				ev.preventDefault();
-				console.log(id);
-				var ele = ev.currentTarget;
-				var $el = $(ele);
-				var $tr = $el.closest('tr');
-				var id = $tr.data('id');
-				console.log(id);
+		$scope.clickDelete = function (ev, suggestion) {
+			ev.preventDefault();
+			remove(suggestion);
+		}
+
+//		function getIdForRow(el) {
+//			var $tr = $(el).closest('tr');
+//			return $tr.data('id');
+//		}
+
+		function approve(suggestion) {
+
+		}
+
+		function remove(suggestion) {
+			if (confirm("Are you sure?")) {
+				$scope.suggestion.slice();
 			}
+		}
 
-			$scope.clickDelete = function (ev) {
-				ev.preventDefault();
-				var $tr = $ele.closest('tr');
-				var id = $tr.data('id');
-			}
 	});
 
 /*
