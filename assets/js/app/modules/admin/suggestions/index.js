@@ -4,14 +4,14 @@ angular.module('APP')
 		//notifyUserService.flashError('hello');
 		$scope.suggestions = $element.data('suggestions');
 
-		$scope.clickApprove = function (ev, suggestion) {
+		$scope.clickApprove = function (ev, ix) {
 			ev.preventDefault();
-			approve(suggestion);
+			approve(ix);
 		}
 
-		$scope.clickDelete = function (ev, suggestion) {
+		$scope.clickDelete = function (ev, ix) {
 			ev.preventDefault();
-			remove(suggestion);
+			remove(ix);
 		}
 
 //		function getIdForRow(el) {
@@ -23,9 +23,9 @@ angular.module('APP')
 
 		}
 
-		function remove(suggestion) {
+		function remove(ix) {
 			if (confirm("Are you sure?")) {
-				$scope.suggestion.slice();
+				$scope.suggestions.splice(ix, 1);
 			}
 		}
 
