@@ -7,6 +7,7 @@ var engine = require('ejs-locals');
 var http = require('http');
 var path = require('path');
 var db = require('./db');
+var passport = require('passport');
 
 require('express-resource');
 require('express-namespace');
@@ -26,6 +27,8 @@ app.configure(function() {
 	app.use(express.methodOverride());
 	app.use(express.cookieParser('your secret here'));
 	app.use(express.session());
+	app.use(passport.initialize());
+  app.use(passport.session());
 	app.use(app.router);
 	app.use(require('connect-assets')());
 	app.use(require('less-middleware')({
@@ -37,6 +40,8 @@ app.configure(function() {
 app.configure('development', function() {
 	app.use(express.errorHandler());
 });
+
+require('./config/authentication')(app);
 
 require('./router')(app);
 
