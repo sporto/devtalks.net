@@ -1,0 +1,20 @@
+<% layout('../layout') -%>
+<% var viewId = uid.generate() %>
+
+<div id="<%= viewId %>" class="videos show">
+	<div class="row">
+		<h1><%= video.title %></h1>
+		<p>
+			<a href="<%= video.url %>" target="_blank"><%= video.url %></a>
+		</p>
+		<p>
+			Tags:
+			<% video.tags.forEach(function (tag, ix) { %>
+				<span class="label"><%= tag %></span>
+			<% }); %>
+		</p>
+		<div>
+			<%= video.description %>
+		</div>
+	</div>
+</div>

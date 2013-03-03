@@ -8,7 +8,9 @@ var schema = mongoose.Schema({
 	description: String,
 	tags: Array,
 	who: String,
-	thumbs: Object
+	thumbS: String,
+	thumbM: String,
+	thumbL: String
 });
 
 schema.static('suggestions', function (callback) {

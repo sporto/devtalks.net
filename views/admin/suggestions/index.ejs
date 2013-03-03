@@ -15,21 +15,26 @@
 	
 	<div class="row" ng-show="suggestions.length > 0">
 		<table>
-			<thead>
-				<tr>
-					<th>Url</th>
-					<th>Title</th>
-					<th>Desc</th>
-					<th>Tags</th>
-					<th></th>
-				</tr>
-			</thead>
+
 			<tbody>
 				<tr ng-repeat="suggestion in suggestions">
-					<td>{{suggestion.url}}</td>
-					<td>{{suggestion.title}}</td>
-					<td>{{suggestion.description}}</td>
-					<td>{{suggestion.tags}}</td>
+					
+					<td>
+						<h3>{{suggestion.title}}</h3>
+						<p>
+							<a ng-href="{{suggestion.url}}" target="_blank">{{suggestion.url}}</a>
+						</p>
+						<p>
+							{{suggestion.tags}}
+						</p>
+						<p>
+							{{suggestion.thumbM}}
+						</p>
+						<br />
+						{{suggestion.description}}
+					</td>
+					
+					
 					<td>
 						<a href="#" title="" ng-click="clickApprove($event, $index, suggestion)">Approve</a>
 						<a href="#" title="" ng-click="clickDelete($event, $index, suggestion)">Delete</a>

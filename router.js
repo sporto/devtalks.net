@@ -5,6 +5,7 @@ module.exports = function (app) {
 	var controllers = require('./controllers/web');
 
 	app.get('/', controllers.index);
+	app.resource('videos', require('./controllers/web/videos'));
 	app.resource('suggestions', require('./controllers/web/suggestions'));
 	app.resource('tags', require('./controllers/web/tags'));
 
