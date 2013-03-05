@@ -80,9 +80,9 @@ module.exports = function (app) {
 			res.redirect('/');
 		});
 
-	app.get('/login', function(req, res){
-		res.render('sessions/new', { user: req.user });
-	});
+	// app.get('/login', function(req, res){
+	// 	res.render('sessions/new', { user: req.user });
+	// });
 
 	app.get('/logout', function(req, res){
 	  req.logout();
