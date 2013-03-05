@@ -4,15 +4,13 @@
 <div id="<%= viewId %>" class="suggestions new" data-tags="<%= JSON.stringify(tags) %>"
 		 ng-controller="suggestions.NewCtrl" xmlns="http://www.w3.org/1999/html">
 
-		<div class="row">
+	<div class="row">
+		<div class="large-12 columns">
 			<h1>Suggest a video</h1>
-		</div>
 
-		<p>http://www.youtube.com/watch?v=OsO_UrT8ELI</p>
-		<p>http://vimeo.com/6132324</p>
 
-		<form name="suggestion_form" action="" nonvalidate>
-			<div class="row">
+			<form name="suggestion_form" action="" nonvalidate>
+
 				<input type="text" placeholder="URL" ng-model="model.url" name="url" required />
 
 				<small class="error" ng-show="suggestion_form.url.$invalid">
@@ -29,37 +27,39 @@
 
 				<br />
 				<br />
-			</div>
 
-			<div class="row" ng-show="model.thumbM">
-				<div class="th"><img ng-src="{{model.thumbM}}" /></div>
-				<br />
+
+				<div ng-show="model.thumbM">
+					<div class="th"><img ng-src="{{model.thumbM}}" /></div>
+					<br />
+				</div>
+
+				
+					<input type="text" placeholder="Title" ng-model="model.title" name="title" required />
+
+					<small class="error" ng-show="suggestion_form.title.$invalid">
+						<span ng-show="suggestion_form.title.$error.required">Please add a title</span>
+					</small>
+
+					<textarea ng-model="model.description"></textarea>
+				</div>
 			</div>
 
 			<div class="row">
-				<input type="text" placeholder="Title" ng-model="model.title" name="title" required />
-
-				<small class="error" ng-show="suggestion_form.title.$invalid">
-					<span ng-show="suggestion_form.title.$error.required">Please add a title</span>
-				</small>
-
-				<textarea ng-model="model.description"></textarea>
-			</div>
-
-			<div class="row">
-				<div class="one columns">
+				<div class="large-12 columns">
 					<label>Tags</label>
+					<div class="select_tags" style="width:100%;"></div>
 				</div>
-				<div class="eleven columns">
-					<div class="select_tags" style="width:400px;"></div>
-				</div>
-
+				
 			</div>
+			
 			<br />
 
 			<div class="row">
-				<button class="button" ng-show="!state.saving" ng-disabled="suggestion_form.$invalid" ng-click="clickSave($event)">Save</button>
-				<div class="loader" style="display:none;" ng-show="state.saving"><img src="/img/lib/loader.gif" alt=""></div>
+				<div class="large-12 columns">
+					<button class="button" ng-show="!state.saving" ng-disabled="suggestion_form.$invalid" ng-click="clickSave($event)">Save</button>
+					<div class="loader" style="display:none;" ng-show="state.saving"><img src="/img/lib/loader.gif" alt=""></div>
+				</div>
 			</div>
 		</form>
 

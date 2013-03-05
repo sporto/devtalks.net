@@ -4,17 +4,20 @@
 <div id="<%= viewId %>" class="tags index ng-cloak" ng-controller='tags.IndexCtrl'>
 
 	<div class="row">
-		<h1>Tags</h1>
-		<div class="cloud">
-			<% tags.forEach(function (ele, ix) { %>
-				<a href="/tags/<%= ele._id %>" rel="<%= ele.value %>" ng-click="clickTag($event, '<%= ele._id %>')"><%= ele._id %></a>
-			<% }); %>
-		</div>
-		<br />
-	</div>
+		<div class="large-12 columns">
+			<h1>Tags</h1>
+			<div class="cloud">
+				<% tags.forEach(function (ele, ix) { %>
+					<a href="/tags/<%= ele._id %>" rel="<%= ele.value %>" ng-click="clickTag($event, '<%= ele._id %>')"><%= ele._id %></a>
+				<% }); %>
+			</div>
+			<br />
+
 	
-	<div class="row" ng-show="videos.length > 0">
-		<p>{{videos.length}} videos found for {{selectedTag}}</p>
+			<div ng-show="videos.length > 0">
+				<p>{{videos.length}} videos found for {{selectedTag}}</p>
+			</div>
+		</div>
 	</div>
 
 	<div class="video row" ng-repeat="video in videos">

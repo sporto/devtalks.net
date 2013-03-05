@@ -4,44 +4,47 @@
 <div id="<%= viewId %>" class="admin suggestions index ng-cloak" ng-controller="admin.suggestions.IndexCtrl" data-suggestions="<%= JSON.stringify(suggestions) %>">
 	
 	<div class="row">
-		<p><span class="label">{{suggestions.length}}</span> suggestions to approve.</p>
-	</div>
+		<div class="large-12 columns">
+			<p><span class="label">{{suggestions.length}}</span> suggestions to approve.</p>
 	
-	<div class="row" ng-show="suggestions.length == 0">
-		<div data-alert class="alert-box">
-			No suggestions found
-		</div>
-	</div>
-	
-	<div class="row" ng-show="suggestions.length > 0">
-		<table>
+			<div ng-show="suggestions.length == 0">
+				<div data-alert class="alert-box">
+					No suggestions found
+				</div>
+			</div>
+			
+			<div ng-show="suggestions.length > 0">
+				<table>
 
-			<tbody>
-				<tr ng-repeat="suggestion in suggestions">
-					
-					<td>
-						<h3>{{suggestion.title}}</h3>
-						<p>
-							<a ng-href="{{suggestion.url}}" target="_blank">{{suggestion.url}}</a>
-						</p>
-						<p>
-							{{suggestion.tags}}
-						</p>
-						<p>
-							{{suggestion.thumbM}}
-						</p>
-						<br />
-						{{suggestion.description}}
-					</td>
-					
-					
-					<td>
-						<a href="#" title="" ng-click="clickApprove($event, $index, suggestion)">Approve</a>
-						<a href="#" title="" ng-click="clickDelete($event, $index, suggestion)">Delete</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+					<tbody>
+						<tr ng-repeat="suggestion in suggestions">
+							
+							<td>
+								<h3>{{suggestion.title}}</h3>
+								<p>
+									<a ng-href="{{suggestion.url}}" target="_blank">{{suggestion.url}}</a>
+								</p>
+								<p>
+									{{suggestion.tags}}
+								</p>
+								<p>
+									{{suggestion.thumbM}}
+								</p>
+								<br />
+								{{suggestion.description}}
+							</td>
+							
+							
+							<td>
+								<a href="#" title="" ng-click="clickApprove($event, $index, suggestion)">Approve</a>
+								<a href="#" title="" ng-click="clickDelete($event, $index, suggestion)">Delete</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+		</div>
 	</div>
 
 </div>
