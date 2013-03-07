@@ -10,7 +10,12 @@ angular.module('APP')
 		$scope.clickTag = function (ev, tag) {
 			ev.preventDefault();
 			$scope.selectedTag = tag;
-			$http.get('/api/v1/tags/search', {})
+			var config = {
+				params: {
+					tags: [tag, 'hi']
+				}
+			}
+			$http.get('/api/v1/tags/search', config)
 			.success(function (data, status, headers, config) {
 				$scope.videos = data;
 			})
