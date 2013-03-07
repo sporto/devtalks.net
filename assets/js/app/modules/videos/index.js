@@ -23,5 +23,10 @@ angular.module('APP')
 				
 			});
 		}
+
+		$scope.filter = function (ev, value) {
+			ev.preventDefault();
+			console.log(value);
+		}
 	
 	});

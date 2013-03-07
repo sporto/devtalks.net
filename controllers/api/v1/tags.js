@@ -33,17 +33,12 @@ module.exports = {
 		var query = req.query;
 		var tags = query.tags || [];
 
-		console.log(query)
-		console.log(tags[0])
-		console.log(req.params)
-
 		function done(err, docs) {
 			if (err) return res.send(505);
 			return res.send(docs);
 		}
 
 		var q = {'approved': true, 'tags': {$in: tags}};
-		console.log(q)
 		Video.find(q).exec(done);
 	}
 
