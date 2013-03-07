@@ -13,7 +13,7 @@ module.exports = {
 		Tags.weights(done);
 	},
 
-	videos: function(req, res) {
+	videos: function (req, res) {
 		var id = req.params.tag;
 
 		function done(err, docs) {
@@ -22,7 +22,20 @@ module.exports = {
 			return res.send(docs);
 		}
 
-		Video.find({'tags': id, 'approved': true}).exec(done);
+		if (id === 'all') {
+			Video.find({'approved': true}).exec(done);
+		} else {
+			Video.find({'tags': id, 'approved': true}).exec(done);
+		}
+	},
+
+	search: function (req, res) {
+		function done(err, docs) {
+			if (err) return res.send(505);
+			return res.send(docs);
+		}
+
+		Video.find({'approved': true}).exec(done);
 	}
 
 }

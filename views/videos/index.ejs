@@ -1,7 +1,7 @@
 <% layout('../layout') -%>
 <% var viewId = uid.generate() %>
 
-<div id="<%= viewId %>" class="videos index">
+<div id="<%= viewId %>" class="videos index ng-cloak" ng-controller="videos.IndexCtrl">
 
 	<div class="row">
 		<div class="large-12 columns">
@@ -12,12 +12,33 @@
 					<li><a href="#">Highest rating</a></li>
 					<li class="divider"></li>
 					<li>Tags:
-						
+						<div class="cloud">
+							<a href="/tags/all" rel="1" ng-click="clickTag($event, 'all')">all</a>
+							<% tags.forEach(function (ele, ix) { %>
+								<a href="/tags/<%= ele._id %>" rel="<%= ele.value %>" ng-click="clickTag($event, '<%= ele._id %>')"><%= ele._id %></a>
+							<% }); %>
+						</div>
 					</li>
 				</ul>
 			</div>
 			<div class="large-9 columns">
-				Res
+			
+				<div ng-show="videos.length > 0">
+					<p>{{videos.length}} videos found for {{selectedTag}}</p>
+				</div>
+				
+				<div class="video row" ng-repeat="video in videos">
+					<div class="large-3 columns">
+						<a ng-href="/videos/{{video._id}}" class="th">
+							<img ng-src="{{video.thumbS}}" alt="" />
+						</a>
+					</div>
+					<div class="large-9 columns">
+						<h3>{{video.title}}</h3>
+						<a ng-href="/videos/{{video._id}}">{{video.url}}</a>
+					</div>
+				</div>
+				
 			</div>
 		
 		</div>

@@ -24,3 +24,14 @@ angular.module('APP')
 				}
 			});
 	});
+
+// angular.module('APP')
+// 	.directive('tags', function () {
+// 		return {
+// 			scope: {
+// 				tags: '='
+// 			},
+// 			template: '<div><a href="" rel="" ng-repeat="tag in tags">{{tag._id}}</a></div>',
+// 			restrict: 'E'
+// 		}
+// 	});

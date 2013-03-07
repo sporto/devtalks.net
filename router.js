@@ -18,6 +18,7 @@ module.exports = function (app) {
 		app.patch('/suggestions/:suggestion/approve', suggestions.approve);
 		app.resource('tags', tags);
 		app.get('/tags/:tag/videos', tags.videos);
+		app.get('/tags/search', tags.search);
 		app.get('/urls', urls.show);
 	});
 
