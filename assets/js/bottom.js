@@ -1,3 +1,4 @@
+//= require lib/underscore-min
 //= require lib/angular.min
 //= require lib/angular-resource.min
 //= require lib/toastr.min
