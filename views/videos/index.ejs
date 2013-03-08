@@ -1,7 +1,7 @@
 <% layout('../layout') -%>
 <% var viewId = uid.generate() %>
 
-<div id="<%= viewId %>" class="videos index ng-cloak" ng-controller="videos.IndexCtrl">
+<div id="<%= viewId %>" class="videos index ng-cloak" ng-controller="videos.IndexCtrl" data-tags="<%= JSON.stringify(tags) %>">
 
 	<div class="row">
 		<div class="large-12 columns">
@@ -11,12 +11,14 @@
 					<li><a href="#" ng-click="filter($event, 'latests')">Latests</a></li>
 					<li><a href="#" ng-click="filter($event, 'rating')">Highest rating</a></li>
 					<li class="divider"></li>
+					<li class="selected_tags">
+						<a href="#" ng-repeat="tag in selectedTags" ng-click="removeTag($event, $index, tag)">
+							<span  class="radius label">{{tag._id}} <i class="icon-remove"></i></span>
+						</a>
+					</li>
 					<li>Tags:
 						<div class="cloud">
-							<a href="/tags/all" rel="1" ng-click="clickTag($event, 'all')">all</a>
-							<% tags.forEach(function (ele, ix) { %>
-								<a href="/tags/<%= ele._id %>" rel="<%= ele.value %>" ng-click="clickTag($event, '<%= ele._id %>')"><%= ele._id %></a>
-							<% }); %>
+							<a href="/tags/all" rel="1" ng-repeat="tag in unselectedTags" ng-click="clickTag($event, $index, tag)">{{tag._id}}</a>
 						</div>
 					</li>
 				</ul>
