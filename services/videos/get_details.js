@@ -1,12 +1,13 @@
 var findProvider = require('./find_provider');
+var youtube = require('./youtube');
+var vimeo = require('./vimeo');
 
 var retrievers = {
-	youtube: require('./youtube'),
-	vimeo: require('./vimeo')
+	youtube: youtube,
+	vimeo: vimeo
 }
 
 function run(url, cb) {
-
 	var data = findProvider.run(url);
 	var provider = data.provider;
 	var id = data.id;

@@ -1,11 +1,20 @@
-var assert = require("assert")
-var subject = require('../../../services/videos/get_details')
+var assert = require("assert");
+var rewire = require("rewire");
+var sinon = require("sinon");
+var subject = rewire('../../../services/videos/get_details');
+
+subject.__set__("retrievers", {
+	youtube: {
+			run: function (id, cb) {
+			cb(null, {provider: 'youtube'});
+		}
+	},
+	vimeo: {
+
+	}
+});
 
 describe('get_details', function() {
-
-	//subject.retrievers.youtube = ;
-
-	//sinons.stub(subject._retrieves.youtube, '')
 
 	describe('unknown', function () {
 		var url = "http://www.xxexxx.com/watch?v=wxtFtVfAeeE";
@@ -24,11 +33,11 @@ describe('get_details', function() {
 		it('it should know it is youtube', function(done) {
 
 			subject.run(url, function (err, info) {
-				
-				console.log(info)
+				assert.equal(info.provider, 'youtube')
+			
 				done()
 			});
-		})
+		});
 
 
 		// it('it find the video id', function() {
