@@ -4,7 +4,10 @@ var foo = {
 }
 
 module.exports = {
-	run: function () {
+	getBar: function () {
+		return bar;
+	},
+	getFoo: function () {
 		return foo;
 	}
 };

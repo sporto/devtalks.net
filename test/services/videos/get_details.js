@@ -1,18 +1,14 @@
 var assert = require("assert");
 var rewire = require("rewire");
 var sinon = require("sinon");
-var subject = rewire('../../../services/videos/get_details');
+var subject = require('../../../services/videos/get_details');
 
-subject.__set__("retrievers", {
-	youtube: {
-			run: function (id, cb) {
-			cb(null, {provider: 'youtube'});
-		}
-	},
-	vimeo: {
-
+var fakeYoutube = {
+	run: function (id, cb) {
+		return cb(null, {provider: 'youtube'});
 	}
-});
+}
+subject._youtube = fakeYoutube;
 
 describe('get_details', function() {
 
@@ -31,19 +27,11 @@ describe('get_details', function() {
 		var url = "http://www.youtube.com/watch?v=wxtFtVfAeeE";
 
 		it('it should know it is youtube', function(done) {
-
 			subject.run(url, function (err, info) {
-				assert.equal(info.provider, 'youtube')
-			
-				done()
+				assert.equal(info.provider, 'youtube');
+				done();
 			});
 		});
-
-
-		// it('it find the video id', function() {
-		// 	var res = subject.run(url);
-		// 	assert.equal(res.id, 'wxtFtVfAeeE')
-		// })
 	});
 
 	// describe('vimeo', function() {
