@@ -7,7 +7,6 @@ module.exports = function (app) {
 	app.get('/', controllers.index);
 	app.resource('videos', require('./controllers/web/videos'));
 	app.resource('suggestions', require('./controllers/web/suggestions'));
-	app.resource('tags', require('./controllers/web/tags'));
 
 	app.namespace('/api/v1', function(){
 		var videos =				require('./controllers/api/v1/videos');
