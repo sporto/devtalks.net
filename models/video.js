@@ -7,9 +7,9 @@ var schema = mongoose.Schema({
 	deleted: Boolean,
 	url: String,
 	title: String,
+	presenter: String,
 	description: String,
 	tags: Array,
-	who: String,
 	thumbS: String,
 	thumbM: String,
 	thumbL: String

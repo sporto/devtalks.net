@@ -23,9 +23,6 @@
 
 				<div class="loader" ng-show="state.retrieving" style="display:none;"><img src="/img/lib/loader.gif" alt=""></div>
 
-				<button ng-click="clickReset($event)">Reset</button>
-
-				<br />
 				<br />
 
 
@@ -40,6 +37,8 @@
 					<small class="error" ng-show="suggestion_form.title.$invalid">
 						<span ng-show="suggestion_form.title.$error.required">Please add a title</span>
 					</small>
+					
+					<input type="text" placeholder="Presenter(s)" ng-model="model.presenter" name="presenter" />
 
 					<textarea ng-model="model.description"></textarea>
 				</div>

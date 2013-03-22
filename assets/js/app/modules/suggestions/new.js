@@ -41,6 +41,7 @@ angular.module('APP')
 			$scope.model = {
 				url: '',
 				title: '',
+				presenter: '',
 				description: '',
 				thumbM: '',
 				tags: []
@@ -72,6 +73,7 @@ angular.module('APP')
 			$http.get('/api/v1/urls', {params: params})
 				.success(function (data, status, headers, config) {
 					$scope.model.title = data.title;
+					$scope.model.presenter = data.presenter;
 					$scope.model.description = data.description;
 					$scope.model.thumbS = data.thumbS;
 					$scope.model.thumbM = data.thumbM;
@@ -79,7 +81,7 @@ angular.module('APP')
 					$scope.state.retrieving = false;
 				})
 				.error(function(data, status, headers, config) {
-					notifyUserService.flashError(status);
+					notifyUserService.flashError("Sorry we can't recognize this provider, please add the information manually.");
 					$scope.state.retrieving = false;
 				});
 		}

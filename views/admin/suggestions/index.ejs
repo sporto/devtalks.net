@@ -18,22 +18,22 @@
 
 					<tbody>
 						<tr ng-repeat="suggestion in suggestions">
+							<td>
+								<img ng-src="{{suggestion.thumbM}}" alt="" />
+							</td>
 							
 							<td>
 								<h3>{{suggestion.title}}</h3>
+								<p>{{suggestion.presenter}}</p>
 								<p>
 									<a ng-href="{{suggestion.url}}" target="_blank">{{suggestion.url}}</a>
 								</p>
 								<p>
 									{{suggestion.tags}}
 								</p>
-								<p>
-									{{suggestion.thumbM}}
-								</p>
 								<br />
 								{{suggestion.description}}
 							</td>
-							
 							
 							<td>
 								<a href="#" title="" ng-click="clickApprove($event, $index, suggestion)">Approve</a>

@@ -14,7 +14,7 @@ module.exports = {
 		var retriever = this["_" + provider];
 
 		if (retriever) {
-			return retriever.run(id, cb);
+			return retriever.run(url, id, cb);
 		} else {
 			return cb(new Error('Provider not found'));
 		}
