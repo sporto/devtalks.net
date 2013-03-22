@@ -4,8 +4,16 @@
 <div id="<%= viewId %>" class="videos show">
 	<div class="row">
 		<div class="large-12 columns">
-		
+
 			<h1><%= video.title %></h1>
+			<div>
+				<% if (video.provider === 'vimeo') { %>
+					<%- include show_vimeo %>
+				<% } %>
+				<% if (video.provider === 'youtube') { %>
+					<%- include show_youtube %>
+				<% } %>
+			</div>
 			<p>
 				<a href="<%= video.url %>" target="_blank"><%= video.url %></a>
 			</p>
@@ -20,6 +28,6 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<%- include ../disqus -%>
 </div>
