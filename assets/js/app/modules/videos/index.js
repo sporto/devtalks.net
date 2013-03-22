@@ -7,16 +7,13 @@ angular.module('APP')
 		$scope.videos = [];
 		$scope.selectedTags = [];
 		$scope.unselectedTags = $element.data('tags');
-		// $scope.unselectedTags.unshift({_id: 'all', value: 1});
-
-		// $scope.$watch('selectedTags', function (newVal) {
-		// 	console.log(newVal);
-		// });
 
 		$scope.clickTag = function (ev, ix, tag) {
 			ev.preventDefault();
 			$scope.selectedTags.push(tag);
 			$scope.unselectedTags.splice(ix, 1);
+			tag.selected = !tag.selected;
+			console.log(tag)
 			getVideos();
 		}
 
@@ -27,10 +24,9 @@ angular.module('APP')
 			getVideos();
 		}
 
-		$scope.filter = function (ev, value) {
-			ev.preventDefault();
-			// console.log(value);
-		}
+		// $scope.filter = function (ev, value) {
+		// 	ev.preventDefault();
+		// }
 
 		function getVideos() {
 			var tags = _.pluck($scope.selectedTags, '_id');
@@ -39,7 +35,7 @@ angular.module('APP')
 					tags: tags
 				}
 			}
-			$http.get('/api/v1/tags/search', config)
+			$http.get('/api/v1/videos/search', config)
 			.success(function (data, status, headers, config) {
 				$scope.videos = data;
 			})
