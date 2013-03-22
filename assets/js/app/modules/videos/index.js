@@ -5,31 +5,26 @@ angular.module('APP')
 		// $tags.tagcloud();
 
 		$scope.videos = [];
-		$scope.selectedTags = [];
-		$scope.unselectedTags = $element.data('tags');
+		$scope.tags = $element.data('tags');
 
-		$scope.clickTag = function (ev, ix, tag) {
-			ev.preventDefault();
-			$scope.selectedTags.push(tag);
-			$scope.unselectedTags.splice(ix, 1);
+		$scope.clickTag = function (ix, tag) {
 			tag.selected = !tag.selected;
-			console.log(tag)
 			getVideos();
 		}
 
-		$scope.removeTag = function (ev, ix, tag) {
-			ev.preventDefault();
-			$scope.selectedTags.splice(ix, 1);
-			$scope.unselectedTags.push(tag);
-			getVideos();
+		$scope.selected = function (item) {
+			return item.selected;
 		}
 
-		// $scope.filter = function (ev, value) {
-		// 	ev.preventDefault();
-		// }
+		$scope.unselected = function (item) {
+			return !item.selected;
+		}
 
 		function getVideos() {
-			var tags = _.pluck($scope.selectedTags, '_id');
+			var tags = [];
+			_.each($scope.tags, function (ele) {
+				if (ele.selected) tags.push(ele._id);
+			});
 			var config = {
 				params: {
 					tags: tags

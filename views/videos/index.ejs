@@ -14,13 +14,13 @@
 						<li class="divider"></li>
 					-->
 					<li class="selected_tags">
-						<a href="#" ng-repeat="tag in selectedTags" ng-click="removeTag($event, $index, tag)">
+						<a href="javascript://" ng-repeat="tag in tags | filter: selected" ng-click="clickTag($index, tag)">
 							<span  class="radius label">{{tag._id}} <i class="icon-remove"></i></span>
 						</a>
 					</li>
 					<li>Tags:
 						<div class="cloud">
-							<a href="/tags/all" rel="1" ng-repeat="tag in unselectedTags" ng-click="clickTag($event, $index, tag)">{{tag._id}}</a>
+							<a href="javascript://" rel="{{tag.value}}" ng-repeat="tag in tags | filter: unselected" ng-click="clickTag($index, tag)">{{tag._id}}</a>
 						</div>
 					</li>
 				</ul>
