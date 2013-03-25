@@ -1,3 +1,6 @@
 {
-	"test": ["_design/something"]
+	"videos": [
+		"_design/videos",
+		"_design/tags"
+	]
 }

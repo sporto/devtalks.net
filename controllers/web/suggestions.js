@@ -1,6 +1,7 @@
 // var Suggestion = require('../../models/suggestion');
 
-var tags = require('../../collections/tags');
+//var tags = require('../../collections/tags');
+var getTagsService = require('../../services/tags/get_list');
 
 module.exports = {
 
@@ -10,7 +11,7 @@ module.exports = {
 			res.render('suggestions/new', {title: 'Express', tags: tags, user: req.user});
 		}
 
-		tags.uniques(done);
+		getTagsService.run(done);
 	}
 
 }

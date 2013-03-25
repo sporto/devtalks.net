@@ -55,7 +55,7 @@ app.locals({
 });
 
 // connect to mongo
-db.connect();
+// db.connect();
 
 // app.set('title', )
 

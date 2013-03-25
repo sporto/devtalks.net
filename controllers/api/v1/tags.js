@@ -1,5 +1,6 @@
 var Video		= require('../../../models/video');
 var Tags		= require('../../../collections/tags');
+var db = require('../../../db');
 
 module.exports = {
 
@@ -30,6 +31,12 @@ module.exports = {
 		} else {
 			Video.find({'tags': id, 'approved': true}).exec(done);
 		}
+	},
+
+	test: function (req, res) {
+		db.view('tags', 'all', {keys: ['art', 'ruby']}, function (err, docs) {
+			res.send(docs);
+		});
 	}
 
 }
