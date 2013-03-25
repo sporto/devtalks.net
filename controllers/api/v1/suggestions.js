@@ -15,7 +15,7 @@ module.exports = {
 	create: function (req, res) {
 		var data = req.body.suggestion;
 		createService.run(data, function (err, doc) {
-			if (err) return res.send(505);
+			if (err) return res.send(505, err.message);
 			return res.send(200, doc);
 		});
 	},

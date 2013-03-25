@@ -98,7 +98,7 @@ angular.module('APP')
 					reset();
 				})
 				.error(function(data, status, headers, config) {
-					notifyUserService.flashError(status);
+					notifyUserService.flashError(data);
 					$scope.state.saving = false;
 				});
 		}

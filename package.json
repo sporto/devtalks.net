@@ -21,7 +21,8 @@
     "nconf": "~0.6.7",
     "when": "~1.8.1",
     "videoinfo": "latest",
-    "nano": "~3.3.8"
+    "nano": "~3.3.8",
+    "validator": "~0.4.28"
   },
   "devDependencies": {
     "rewire": "~1.1.1",
