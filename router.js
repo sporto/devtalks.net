@@ -21,9 +21,7 @@ module.exports = function (app) {
 		app.patch('/suggestions/:suggestion/approve', suggestions.approve);
 
 		app.resource('tags', tags);
-		//app.get('/tags/:tag/videos', tags.videos);
-		app.get('/tags/test', tags.test);
-
+		
 		app.get('/urls', urls.show);
 	});
 

@@ -1,9 +1,6 @@
 angular.module('APP')
 	.controller('videos.IndexCtrl', function ($scope, $element, $http) {
 
-		// var $tags = $('.cloud a', $element);
-		// $tags.tagcloud();
-
 		$scope.videos = [];
 		$scope.tags = $element.data('tags');
 
@@ -23,7 +20,7 @@ angular.module('APP')
 		function getVideos() {
 			var tags = [];
 			_.each($scope.tags, function (ele) {
-				if (ele.selected) tags.push(ele._id);
+				if (ele.selected) tags.push(ele.key);
 			});
 			var config = {
 				params: {

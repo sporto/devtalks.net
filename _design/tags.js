@@ -4,7 +4,7 @@ module.exports = {
 		// raw list of tags with duplicates
 		all: {
 			map: function(doc) {
-				if(doc.kind === "video" && !doc.approved) {
+				if(doc.kind === "video" && doc.approved) {
 					for(i in doc.tags) {
 						emit(doc.tags[i], 1);
 					}
@@ -14,7 +14,7 @@ module.exports = {
 
 		weights: {
 			map: function(doc) {
-				if(doc.kind === "video" && !doc.approved) {
+				if(doc.kind === "video" && doc.approved) {
 					for(i in doc.tags) {
 						emit(doc.tags[i], 1);
 					}

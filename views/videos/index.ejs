@@ -15,12 +15,12 @@
 					-->
 					<li class="selected_tags">
 						<a href="javascript://" ng-repeat="tag in tags | filter: selected" ng-click="clickTag($index, tag)">
-							<span  class="radius label">{{tag._id}} <i class="icon-remove"></i></span>
+							<span  class="radius label">{{tag.key}} <i class="icon-remove"></i></span>
 						</a>
 					</li>
 					<li>Tags:
 						<div class="cloud">
-							<a href="javascript://" rel="{{tag.value}}" ng-repeat="tag in tags | filter: unselected" ng-click="clickTag($index, tag)">{{tag._id}}</a>
+							<a href="javascript://" rel="{{tag.value}}" ng-repeat="tag in tags | filter: unselected" ng-click="clickTag($index, tag)">{{tag.key}}</a>
 						</div>
 					</li>
 				</ul>

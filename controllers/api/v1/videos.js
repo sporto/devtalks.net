@@ -1,5 +1,5 @@
-var Video		= require('../../../models/video');
 var _ = require('underscore');
+var findService = require('../../../services/videos/find_by_tags');
 
 module.exports = {
 
@@ -12,13 +12,10 @@ module.exports = {
 			tags = [tags];
 		}
 
-		function done(err, docs) {
+		findService.run(tags, function (err, docs) {
 			if (err) return res.send(505);
 			return res.send(docs);
-		}
-
-		var q = {'approved': true, 'tags': {$in: tags}};
-		Video.find(q).exec(done);
+		});
 	}
 
 }

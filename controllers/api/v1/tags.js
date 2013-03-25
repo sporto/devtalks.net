@@ -1,6 +1,5 @@
-var Video		= require('../../../models/video');
-var Tags		= require('../../../collections/tags');
 var db = require('../../../db');
+var getTagListService = require('../../../services/tags/get_list');
 
 module.exports = {
 
@@ -8,35 +7,11 @@ module.exports = {
 	// tags/
 	index: function (req, res) {
 
-		function done(err, docs) {
+		getTagListService.run(function (err, docs) {
 			if (err) return res.send(404);
 			return res.send(docs);
-		}
-
-		Tags.weights(done);
-	},
-
-	// find videos for a given tag
-	// tags/:tag/videos
-	videos: function (req, res) {
-		var id = req.params.tag;
-
-		function done(err, docs) {
-			if (err) return res.send(505);
-			return res.send(docs);
-		}
-
-		if (id === 'all') {
-			Video.find({'approved': true}).exec(done);
-		} else {
-			Video.find({'tags': id, 'approved': true}).exec(done);
-		}
-	},
-
-	test: function (req, res) {
-		db.view('tags', 'all', {keys: ['art', 'ruby']}, function (err, docs) {
-			res.send(docs);
 		});
+
 	}
 
 }

@@ -1,6 +1,5 @@
-var Video = require('../../models/video');
-var tags = require('../../collections/tags');
-var when = require('when')
+var when = require('when');
+var getTagsWeightsService = require('../../services/tags/get_weights');
 
 module.exports = {
 
@@ -9,9 +8,11 @@ module.exports = {
 
 		def.then(function(tags) {
 			res.render('videos/index', {user: req.user, tags: tags});
+		}, function () {
+			res.send(500);
 		});
 
-		tags.weights(function (err, tags) {
+		getTagsWeightsService.run(function (err, tags) {
 			if (err) {
 				def.reject(new Error(err));
 			} else {
