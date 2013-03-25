@@ -2,8 +2,7 @@ var db = require('../../db');
 
 module.exports = {
 	run: function (data, cb) {
-		data.approved = false;
-		data.kind = 'video';
+		data.kind = 'user';
 		return db.insert(data, cb);
 	}
 }

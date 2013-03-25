@@ -3,7 +3,10 @@ var GitHubStrategy = require('passport-github').Strategy;
 var nconf = require('nconf');
 var GITHUB_CLIENT_ID = nconf.get('GITHUB_CLIENT_ID');
 var GITHUB_CLIENT_SECRET = nconf.get('GITHUB_CLIENT_SECRET');
-var User = require('../models/user');
+
+var getUserService = require('../services/users/get');
+var findByProviderService = require('../services/users/find_by_provider');
+var createUserService = require('../services/users/create');
 
 module.exports = function (app) {
 
@@ -20,7 +23,7 @@ module.exports = function (app) {
 
 	passport.deserializeUser(function(id, done) {
 		// console.log('deserializeUser');
-		User.findById(id, function (err, user) {
+		getUserService.run(id, function (err, user) {
 			done(err, user);
 		});
 	});
@@ -37,22 +40,25 @@ module.exports = function (app) {
 		function(accessToken, refreshToken, profile, done) {
 			// console.log(profile);
 
-	    User.findOne({ githubId: profile.id }, function (err, user) {
+			findByProviderService.run('github', profile.id, function (err, user) {
 	    	// console.log(err);
 	    	// console.log(user);
+	    	if (user) {
+	    		return done(err, user);
+	    	}
+
 	    	var userInfo = {
 	    		username: profile.username,
-	    		githubId: profile.id,
+	    		provider: 'github',
+	    		providerId: profile.id,
 	    		avatarUrl: profile._json.avatar_url,
 	    		gravatarId: profile._json.gravatar_id
 	    	}
 
-	    	if (user) {
-	    		return done(err, user);
-	    	}
-	    	User.create(userInfo, function (err, user) {
+	    	createUserService.run(userInfo, function (err, user) {
 					return done(err, user);
 	    	});
+
 	    });
 	  }
 	));

@@ -1,5 +1,6 @@
 var when = require('when');
 var getTagsWeightsService = require('../../services/tags/get_weights');
+var getVideoService = require('../../services/videos/get');
 
 module.exports = {
 
@@ -25,14 +26,11 @@ module.exports = {
 	show: function (req, res) {
 
 		var id = req.params.video;
-		console.log(id);
+		
+		getVideoService.run(id, function (err, doc) {
+			res.render('videos/show', {title: 'Express', video: doc, user: req.user});
+		});
 
-		function done(err, video) {
-			//console.log(video);
-			res.render('videos/show', {title: 'Express', video: video, user: req.user});
-		}
-
-		Video.findById(id, done);
 	}
 
 }

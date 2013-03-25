@@ -1,5 +1,5 @@
 // var Video = require('../../../models/video');
-var saveService = require('../../../services/suggestions/save');
+var createService = require('../../../services/suggestions/create');
 var approveService = require('../../../services/suggestions/approve');
 var destroyService = require('../../../services/videos/destroy');
 var getAllService = require('../../../services/suggestions/get_all');
@@ -14,7 +14,7 @@ module.exports = {
 
 	create: function (req, res) {
 		var data = req.body.suggestion;
-		saveService.run(data, function (err, doc) {
+		createService.run(data, function (err, doc) {
 			if (err) return res.send(505);
 			return res.send(200, doc);
 		});
