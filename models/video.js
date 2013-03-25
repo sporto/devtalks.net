@@ -1,5 +1,4 @@
-find_provider = require('../services/videos/find_provider');
-
+var findProviderService = require('videoinfo');
 var mongoose = require('mongoose');
 
 var schema = mongoose.Schema({
@@ -20,10 +19,10 @@ schema.static('suggestions', function (callback) {
 });
 
 schema.virtual('provider').get(function () {
-	return find_provider.run(this.url).provider;
+	return findProviderService.findProvider(this.url);
 });
 schema.virtual('providerId').get(function () {
-	return find_provider.run(this.url).id;
+	return findProviderService.findProvider(this.url);
 });
 
 module.exports = mongoose.model('Video', schema);
