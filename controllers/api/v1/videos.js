@@ -16,6 +16,10 @@ module.exports = {
 			if (err) return res.send(505);
 			return res.send(docs);
 		});
+	},
+
+	mark_seen: function (req, res) {
+		res.send(200);
 	}
 
 }

@@ -16,6 +16,7 @@ module.exports = function (app) {
 		
 		app.resource('videos', videos);
 		app.get('/videos/search', videos.search);
+		app.post('/videos/:video/mark_seen', videos.mark_seen);
 
 		app.resource('suggestions', suggestions);
 		app.patch('/suggestions/:suggestion/approve', suggestions.approve);
