@@ -2,6 +2,7 @@
 	"videos": [
 		"_design/videos",
 		"_design/tags",
-		"_design/users"
+		"_design/users",
+		"_design/actions"
 	]
 }

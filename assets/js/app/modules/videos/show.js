@@ -1,6 +1,5 @@
-angular.module('APP').controller('videos.ShowCtrl', function($scope, $element, $http) {
+angular.module('APP').controller('videos.ShowCtrl', ['$scope', '$element', '$http', 'notifyUserService', function($scope, $element, $http, notifyUserService) {
 
-	// var id = $element.data('id');
 	$scope.video = $element.data('video');
 
 	$scope.markAsSeen = function() {
@@ -19,4 +18,4 @@ angular.module('APP').controller('videos.ShowCtrl', function($scope, $element, $
 			});
 	}
 
-});
+}]);

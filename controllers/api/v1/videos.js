@@ -1,5 +1,6 @@
 var _ = require('underscore');
 var findService = require('../../../services/videos/find_by_tags');
+var markAsSeenService = require('../../../services/videos/mark_seen');
 
 module.exports = {
 
@@ -19,7 +20,18 @@ module.exports = {
 	},
 
 	mark_seen: function (req, res) {
-		res.send(200);
+		if (req.user) {
+			var videoId = req.params.video;
+			var userId = req.user._id;
+
+			markAsSeenService.run(videoId, userId, function (err) {
+				if (err) return res.send(400);
+				res.send(200);
+			});
+
+		} else {
+			res.send(400);
+		}
 	}
 
 }

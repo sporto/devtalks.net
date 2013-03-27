@@ -1,6 +1,7 @@
 var when = require('when');
-var getTagsWeightsService = require('../../services/tags/get_weights');
-var getVideoService = require('../../services/videos/get');
+var getTagsWeightsService =		require('../../services/tags/get_weights');
+var getVideoService =					require('../../services/videos/get');
+var getSeenServ =							require('../../services/videos/get_seen');
 
 module.exports = {
 
@@ -26,10 +27,42 @@ module.exports = {
 	show: function (req, res) {
 
 		var id = req.params.video;
-		
+
+		var defVideo = when.defer();
+		var defSeen = when.defer();
+		var all = when.all([defVideo, defSeen]);
+
 		getVideoService.run(id, function (err, doc) {
-			res.render('videos/show', {title: 'Express', video: doc, user: req.user});
+			if (err) {
+				defVideo.reject(err);
+			} else {
+				defVideo.resolve(doc);
+			}
 		});
+
+		// get video seen only if there is a logged in user
+		if (req.user) {
+			var userId = req.user._id;
+			getSeenServ.run(id, userId, function (err, val) {
+				if (err) {
+					defSeen.reject(err);
+				} else {
+					defSeen.resolve(val);
+				}
+			});
+		} else {
+			// no user
+			defSeen.resolve(false);
+		}
+
+		all.then(function (arr) {
+			var doc = arr[0];
+			doc.seen = arr[1];
+			res.render('videos/show', {title: 'Express', video: doc, user: req.user});
+		}, function () {
+			res.send(400);
+		});
+
 
 	}
 
