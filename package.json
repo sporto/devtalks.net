@@ -22,7 +22,8 @@
     "when": "~1.8.1",
     "videoinfo": "latest",
     "nano": "~3.3.8",
-    "validator": "~0.4.28"
+    "validator": "~0.4.28",
+    "async": "~0.2.6"
   },
   "devDependencies": {
     "rewire": "~1.1.1",

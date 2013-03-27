@@ -30,12 +30,12 @@
 		</div>
 	</div>
 		
-		
 	<div class="row">
 		<div class="large-12 columns">
 			<p>
 				<a href="<%= video.url %>" target="_blank"><%= video.url %></a>
 			</p>
+			<p>Watch count: <%= video.watchCount || 0 %></p>
 			<p>
 				Tags:
 				<% video.tags.forEach(function (tag, ix) { %>

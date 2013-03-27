@@ -1,6 +1,3 @@
-// var Suggestion = require('../../models/suggestion');
-
-//var tags = require('../../collections/tags');
 var getTagsService = require('../../services/tags/get_list');
 
 module.exports = {
