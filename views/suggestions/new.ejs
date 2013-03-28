@@ -1,20 +1,20 @@
 <% layout('../layout') -%>
 <% var viewId = uid.generate() %>
 
-<div id="<%= viewId %>" class="suggestions new" data-tags="<%= JSON.stringify(tags) %>"
+<div id="<%= viewId %>" class="suggestions new ng-cloak" data-tags="<%= JSON.stringify(tags) %>"
 		 ng-controller="suggestions.NewCtrl" xmlns="http://www.w3.org/1999/html">
 
 	<div class="row">
 		<div class="large-12 columns">
 			<h1>Suggest a video</h1>
 
-
 			<form name="suggestion_form" action="" nonvalidate>
 
-				<input type="text" placeholder="URL" ng-model="model.url" name="url" required />
+				<input type="url" placeholder="URL" ng-model="model.url" name="url" required />
 
-				<small class="error" ng-show="suggestion_form.url.$invalid">
+				<small class="error" ng-show="suggestion_form.url.$dirty && suggestion_form.url.$invalid">
 					<span ng-show="suggestion_form.url.$error.required">Please add a url</span>
+					<span ng-show="suggestion_form.url.$error.url">Please add a valid url</span>
 				</small>
 
 				<button class="button" ng-disabled="!state.enableBtnRetrieve()" ng-click="clickRetrieve($event)" ng-show="!state.retrieving">
@@ -25,16 +25,16 @@
 
 				<br />
 
-
 				<div ng-show="model.thumbM">
 					<div class="th"><img ng-src="{{model.thumbM}}" /></div>
 					<br />
 				</div>
 
-					<input type="text" placeholder="Title" ng-model="model.title" name="title" required />
+					<input type="text" placeholder="Title" ng-model="model.title" ng-minlength="5" name="title" required />
 
-					<small class="error" ng-show="suggestion_form.title.$invalid">
+					<small class="error" ng-show="suggestion_form.title.$dirty && suggestion_form.title.$invalid">
 						<span ng-show="suggestion_form.title.$error.required">Please add a title</span>
+						<span ng-show="suggestion_form.title.$error.minlength">Please add at least 5 characters</span>
 					</small>
 					
 					<input type="text" placeholder="Presenter(s)" ng-model="model.presenter" name="presenter" />
