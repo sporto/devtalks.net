@@ -7,7 +7,7 @@ module.exports = {
 		var url = req.query.url;
 
 		getDetailsService.run(url, function (err, info) {
-			console.log(err);
+			//console.log(err);
 			if (err) {
 				return res.send(404);
 			}

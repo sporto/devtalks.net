@@ -23,7 +23,8 @@
     "videoinfo": "~0.1.6",
     "nano": "~3.3.8",
     "validator": "~0.4.28",
-    "async": "~0.2.6"
+    "async": "~0.2.6",
+    "connect-flash": "~0.1.0"
   },
   "devDependencies": {
     "rewire": "~1.1.1",

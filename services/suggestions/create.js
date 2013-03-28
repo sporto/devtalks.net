@@ -17,7 +17,8 @@ module.exports = {
 
 		// check the url
 		findByUrlServ.run(data.url, function (err, docs) {
-			if (docs) {
+
+			if (docs.length > 0) {
 				return cb(new Error('This url has alredy been submitted'));
 			} else {
 				if (data.tags.length === 0) {

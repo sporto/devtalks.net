@@ -22,7 +22,8 @@ module.exports = function(app) {
 	});
 
 	passport.deserializeUser(function(id, done) {
-		// console.log('deserializeUser');
+		console.log('deserializeUser');
+		console.log(id);
 		getUserService.run(id, function(err, user) {
 			done(err, user);
 		});
@@ -76,10 +77,16 @@ module.exports = function(app) {
 	//   login page.  Otherwise, the primary route function function will be called,
 	//   which, in this example, will redirect the user to the home page.
 	app.get('/auth/github/callback', passport.authenticate('github', {
-		failureRedirect: '/login'
-	}), function(req, res) {
-		res.redirect('back')
-	});
+		failureRedirect: '/login',
+		successRedirect: 'back',
+		failureFlash: true,
+		successFlash: 'Welcome'}
+		));
+	// }), function(req, res) {
+	// 	console.log('logged in');
+	// 	console.log(req.user);
+	// 	res.redirect('back');
+	// });
 
 	// app.get('/login', function(req, res){
 	// 	res.render('sessions/new', { user: req.user });

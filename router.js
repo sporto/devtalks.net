@@ -3,14 +3,21 @@
 var checkAuthServ = require('./services/authorisations/check');
 
 function setViewVars(req, res, next) {
-	// console.log('setViewVars')
-	checkAuthServ.run(req.user, 'suggestion', 'manage', function (err, val) {
-		// console.log(err)
-		res.locals.allowAdmin = val;
-		res.locals.user = req.user;
+	console.log('setViewVars');
 
+	res.locals.allowAdmin = false;
+	res.locals.user = req.user;
+
+	if (req.user) {
+		checkAuthServ.run(req.user, 'suggestion', 'manage', function (err, val) {
+			console.log(err);
+			res.locals.allowAdmin = val;
+			return next();
+		});
+	} else {
+		console.log('No user');
 		return next();
-	});
+	}
 }
 
 module.exports = function (app) {
@@ -21,8 +28,6 @@ module.exports = function (app) {
 	app.get('/videos', setViewVars, require('./controllers/web/videos').index);
 	app.get('/videos/:video', setViewVars, require('./controllers/web/videos').show);
 	app.get('/suggestions/new', setViewVars, require('./controllers/web/suggestions').new);
-	// app.resource('videos', setViewVars, require('./controllers/web/videos'));
-	// app.resource('suggestions', setViewVars, require('./controllers/web/suggestions'));
 
 	app.namespace('/api/v1', function(){
 		var videos =				require('./controllers/api/v1/videos');
