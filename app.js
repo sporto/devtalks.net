@@ -31,12 +31,13 @@ app.configure(function() {
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(express.cookieParser('I like you'));
-	app.use(express.session({cookie: {maxAge: 60000}}));
+	app.use(express.session());
 	app.use(flash());
 	app.use(passport.initialize());
 	app.use(passport.session());
 	app.use(app.router);
 	app.use(require('connect-assets')());
+	app.use(express.csrf());
 	app.use(require('less-middleware')({
 		src: __dirname + '/public'
 	}));

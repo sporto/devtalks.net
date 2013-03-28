@@ -2,6 +2,11 @@
 
 var checkAuthServ = require('./services/authorisations/check');
 
+function csrf(req, res, next) {
+	res.locals.token = req.session._csrf;
+	next();
+}
+
 function setViewVars(req, res, next) {
 	console.log('setViewVars');
 
@@ -27,7 +32,7 @@ module.exports = function (app) {
 	app.get('/', setViewVars, controllers.index);
 	app.get('/videos', setViewVars, require('./controllers/web/videos').index);
 	app.get('/videos/:video', setViewVars, require('./controllers/web/videos').show);
-	app.get('/suggestions/new', setViewVars, require('./controllers/web/suggestions').new);
+	app.get('/suggestions/new', csrf, setViewVars, require('./controllers/web/suggestions').new);
 
 	app.namespace('/api/v1', function(){
 		var videos =				require('./controllers/api/v1/videos');
@@ -39,7 +44,7 @@ module.exports = function (app) {
 		app.get('/videos/search', videos.search);
 		app.post('/videos/:video/mark_seen', videos.mark_seen);
 
-		app.resource('suggestions', suggestions);
+		app.post('/suggestions', suggestions.create);
 		app.patch('/suggestions/:suggestion/approve', suggestions.approve);
 
 		app.resource('tags', tags);

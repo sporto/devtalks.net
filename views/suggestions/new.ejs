@@ -9,6 +9,8 @@
 			<h1>Suggest a video</h1>
 
 			<form name="suggestion_form" action="" nonvalidate>
+			
+				<input type="hidden" name="_csrf" value="<%= token %>">
 
 				<input type="url" placeholder="URL" ng-model="model.url" name="url" required />
 
