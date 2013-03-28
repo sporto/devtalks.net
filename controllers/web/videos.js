@@ -9,7 +9,7 @@ module.exports = {
 		var def = when.defer();
 
 		def.then(function(tags) {
-			res.render('videos/index', {user: req.user, tags: tags});
+			res.render('videos/index', {tags: tags});
 		}, function () {
 			res.send(500);
 		});

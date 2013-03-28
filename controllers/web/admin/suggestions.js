@@ -1,16 +1,15 @@
-// var Video = require('../../../models/video');
 var getAllService = require('../../../services/suggestions/get_all');
+var checkAuthServ = require('../../../services/authorisations/check');
 
 module.exports = {
 	index: function (req, res) {
-
-		// function done(err, suggestions) {
-		// 	res.render('admin/suggestions/index', {title: 'Express', suggestions: suggestions, user: req.user});
-		// }
-
-		// getAllService.run(done);
-
-		res.render('admin/suggestions/index', {title: 'Express', suggestions: [], user: req.user});
+		checkAuthServ.run(req.user, 'suggestion', 'manage', function (err, val) {
+			if (val) {
+				res.render('admin/suggestions/index', {suggestions: []});
+			} else {
+				res.send(401);
+			}
+		});
 
 	}
 }

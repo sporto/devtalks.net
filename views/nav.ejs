@@ -1,4 +1,3 @@
-
 <nav class="top-bar">
 	<ul class="title-area">
 		<!-- Title Area -->
@@ -24,10 +23,12 @@
 				<a href="/suggestions/new">Suggest</a>
 			</li>
 			<li class="divider"></li>
-			<li>
-				<a href="/admin/suggestions">Admin suggestions</a>
-			</li>
-			<li class="divider"></li>
+			<% if (allowAdmin) { %>
+				<li>
+					<a href="/admin/suggestions">Admin suggestions</a>
+				</li>
+				<li class="divider"></li>
+			<% } %>
 		</ul>
 
 		<ul class="right">
