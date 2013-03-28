@@ -11,17 +11,17 @@ angular.module('APP')
 		$scope.clickRetrieve = function (ev) {
 			ev.preventDefault();
 			retrieve();
-		}
+		};
 
 		$scope.clickSave = function (ev) {
 			ev.preventDefault();
 			save();
-		}
+		};
 
 		$scope.clickReset = function (ev) {
-				ev.preventDefault();
-				reset();
-		}
+			ev.preventDefault();
+			reset();
+		};
 
 		/// utility functions
 
@@ -45,9 +45,9 @@ angular.module('APP')
 				description: '',
 				thumbM: '',
 				tags: []
-			}
+			};
 
-			$selectTags.select2('val','');
+			$selectTags.select2('val', '');
 		}
 
 		function setupTags() {
