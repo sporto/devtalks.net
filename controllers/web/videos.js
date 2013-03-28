@@ -58,7 +58,7 @@ module.exports = {
 		all.then(function (arr) {
 			var doc = arr[0];
 			doc.seen = arr[1];
-			res.render('videos/show', {title: 'Express', video: doc, user: req.user});
+			res.render('videos/show', {video: doc, title: "Videos for Geeks - " + doc.title});
 		}, function () {
 			res.send(400);
 		});
