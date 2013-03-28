@@ -81,7 +81,7 @@ angular.module('APP')
 					$scope.state.retrieving = false;
 				})
 				.error(function(data, status, headers, config) {
-					notifyUserService.flashError("Sorry we can't recognize this provider, please add the information manually.");
+					notifyUserService.flashError("Sorry we couldn't find this video, please add the information manually.");
 					$scope.state.retrieving = false;
 				});
 		}
