@@ -9,6 +9,7 @@ var path = require('path');
 var db = require('./db');
 var passport = require('passport');
 var nconf = require('nconf');
+var flash = require('connect-flash');
 
 require('express-resource');
 require('express-namespace');
@@ -29,8 +30,9 @@ app.configure(function() {
 	app.use(express.logger('dev'));
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
-	app.use(express.cookieParser('your secret here'));
-	app.use(express.session());
+	app.use(express.cookieParser('I like you'));
+	app.use(express.session({cookie: {maxAge: 60000}}));
+	app.use(flash());
 	app.use(passport.initialize());
 	app.use(passport.session());
 	app.use(app.router);
