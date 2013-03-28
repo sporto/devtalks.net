@@ -13,6 +13,8 @@ module.exports = {
 			return cb(e);
 		}
 
+		if (data.tags.length === 0) return cb(new Error('Please enter some tags'));
+
 		// check the url
 		findByUrlServ.run(data.url, function (err, docs) {
 			if (docs) {
