@@ -44,9 +44,13 @@ module.exports = {
 		if (req.user) {
 			var userId = req.user._id;
 			getSeenServ.run(id, userId, function (err, val) {
+				console.log('getSeenServ cb');
+
 				if (err) {
+					console.log(err);
 					defSeen.reject(err);
 				} else {
+					console.log('val = ' + val);
 					defSeen.resolve(val);
 				}
 			});
