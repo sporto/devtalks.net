@@ -29,7 +29,7 @@ module.exports = function (app) {
 
 	var controllers = require('./controllers/web');
 
-	app.get('/', setViewVars, controllers.index);
+	app.get('/', setViewVars, setViewVars, require('./controllers/web/videos').index);
 	app.get('/videos', setViewVars, require('./controllers/web/videos').index);
 	app.get('/videos/:video', setViewVars, require('./controllers/web/videos').show);
 	app.get('/suggestions/new', csrf, setViewVars, require('./controllers/web/suggestions').new);
