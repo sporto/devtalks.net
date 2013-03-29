@@ -1,4 +1,4 @@
-Videos for Coders
+Videos for Geeks
 =================
 
 A work in progress

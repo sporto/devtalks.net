@@ -28,6 +28,7 @@ module.exports = {
 				data.approved = false;
 				data.kind = 'video';
 				data.provider = videoinfo.getProvider(data.url);
+				data.providerId = videoinfo.getId(data.url);
 
 				return db.insert(data, cb);
 			}
