@@ -10,6 +10,7 @@ var db = require('./db');
 var passport = require('passport');
 var nconf = require('nconf');
 var flash = require('connect-flash');
+var sanitizeHtmlServ = require('./services/shared/sanitize_html');
 
 require('express-resource');
 require('express-namespace');
@@ -54,7 +55,8 @@ require('./router')(app);
 
 app.locals({
 	title: 'Videos for Geeks',
-	uid: require('shortid')
+	uid: require('shortid'),
+	sanitizeHtml: sanitizeHtmlServ.run
 });
 
 http.createServer(app).listen(app.get('port'), function() {

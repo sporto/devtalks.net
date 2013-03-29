@@ -43,7 +43,7 @@
 				<% }); %>
 			</p>
 			<div>
-				<%= video.description %>
+				<%- sanitizeHtml(video.description) %>
 			</div>
 		</div>
 	</div>
