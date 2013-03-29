@@ -44,6 +44,7 @@ module.exports = function (app) {
 		app.get('/videos/search', videos.search);
 		app.post('/videos/:video/mark_seen', videos.mark_seen);
 
+		app.get('/suggestions', suggestions.index);
 		app.post('/suggestions', suggestions.create);
 		app.patch('/suggestions/:suggestion/approve', suggestions.approve);
 
