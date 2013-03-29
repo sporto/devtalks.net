@@ -10,6 +10,7 @@ var db = require('./db');
 var passport = require('passport');
 var nconf = require('nconf');
 var flash = require('connect-flash');
+var rollbar = require('rollbar');
 var sanitizeHtmlServ = require('./services/shared/sanitize_html');
 
 require('express-resource');
@@ -17,6 +18,9 @@ require('express-namespace');
 
 //load env variables
 nconf.use('memory').env().file({file: './env.json'});
+
+// register uncaught error handler
+rollbar.handleUncaughtExceptions(nconf.get('ROLLBAR_ACCESS_TOKEN'));
 
 var app = express();
 
@@ -39,6 +43,7 @@ app.configure(function() {
 	app.use(app.router);
 	app.use(require('connect-assets')());
 	app.use(express.csrf());
+	app.use(rollbar.errorHandler());	// Make sure this line is below the app.router line
 	app.use(require('less-middleware')({
 		src: __dirname + '/public'
 	}));

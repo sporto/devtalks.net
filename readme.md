@@ -9,7 +9,8 @@ Add a file called `env.json` in the root. This file should have:
 
 {
 	"GITHUB_CLIENT_ID": "you-github-client-id",
-	"GITHUB_CLIENT_SECRET": "your-github-client-secret"
+	"GITHUB_CLIENT_SECRET": "your-github-client-secret",
+	"ROLLBAR_ACCESS_TOKEN": "your-rollbar-access-token"
 }
 
 ### Loading CouchDB views
