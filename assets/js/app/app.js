@@ -1,5 +1,6 @@
 angular.module('APP', ['ngResource']);
 angular.module('APP.suggestions', []);
+angular.module('APP.videos', []);
 angular.module('APP.admin', []);
 angular.module('APP.admin.suggestions', []);
 

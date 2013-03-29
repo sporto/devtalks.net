@@ -1,4 +1,6 @@
-angular.module('APP').controller('videos.ShowCtrl', ['$scope', '$element', '$http', 'notifyUserService', function($scope, $element, $http, notifyUserService) {
+angular.module('APP').controller('videos.ShowCtrl', 
+	['$scope', '$element', '$http', 'notifyUserService', 
+	function($scope, $element, $http, notifyUserService) {
 
 	$scope.video = $element.data('video');
 

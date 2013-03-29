@@ -1,5 +1,7 @@
 angular.module('APP')
-	.controller('suggestions.NewCtrl', function ($scope, $http, $element, notifyUserService) {
+	.controller('suggestions.NewCtrl', 
+		['$scope', '$http', '$element', 'notifyUserService',
+		function ($scope, $http, $element, notifyUserService) {
 
 		var $selectTags = $('.select_tags', $element);
 
@@ -103,4 +105,4 @@ angular.module('APP')
 				});
 		}
 
-});
+}]);

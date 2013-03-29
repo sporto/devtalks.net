@@ -1,5 +1,7 @@
 angular.module('APP')
-	.controller('videos.IndexCtrl', function ($scope, $element, $http) {
+	.controller('videos.IndexCtrl', 
+		['$scope', '$element', '$http', 
+		function ($scope, $element, $http) {
 
 		$scope.videos = [];
 		$scope.tags = $element.data('tags');
@@ -36,4 +38,4 @@ angular.module('APP')
 			});
 		}
 	
-	});
+	}]);
