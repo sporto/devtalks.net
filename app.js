@@ -59,7 +59,7 @@ require('./config/authentication')(app);
 require('./router')(app);
 
 app.locals({
-	title: 'Videos for Geeks',
+	title: 'devTalks',
 	uid: require('shortid'),
 	sanitizeHtml: sanitizeHtmlServ.run
 });
