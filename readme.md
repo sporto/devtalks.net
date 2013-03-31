@@ -1,23 +1,38 @@
-Videos for Geeks
+devTalks.net
 =================
 
-A work in progress
+A site for discovering and watching the best programming videos and tutorials.
+
+## Setting up development environment
+
+### Global node modules
+
+The following node modules should be installed globally
+
+- jake
 
 ### env.json
 
-Add a file called `env.json` in the root. This file should have:
+Create a file called `env.json` in the root. This file should look like this:
 
-{
-	"GITHUB_CLIENT_ID": "you-github-client-id",
-	"GITHUB_CLIENT_SECRET": "your-github-client-secret",
-	"ROLLBAR_ACCESS_TOKEN": "your-rollbar-access-token"
-}
+	{
+		"ENV": "development",
+		"GITHUB_CLIENT_ID": "you-github-client-id",
+		"GITHUB_CLIENT_SECRET": "your-github-client-secret",
+		"ROLLBAR_ACCESS_TOKEN": "your-rollbar-access-token"
+	}
 
-### Loading CouchDB views
+### Uploading CouchDB views
+
+To upload the CouchDB views run
 
 	jake views
 
 ### Trello Board
 
 	https://trello.com/board/videosforgeeks/5120d5d405ac782c6c002f3c
+
+## License
+
+MIT License, see License.
 
