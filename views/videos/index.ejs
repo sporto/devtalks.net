@@ -3,9 +3,10 @@
 
 <div id="<%= viewId %>" class="videos index ng-cloak" ng-controller="videos.IndexCtrl" data-tags="<%= JSON.stringify(tags) %>">
 
+	<br />
 	<div class="row">
 		<div class="large-12 columns">
-			<h1>Find Videos</h1>
+			
 			<div class="large-2 columns">
 				<ul class="side-nav">
 					<!--
@@ -32,10 +33,13 @@
 				</div>
 
 				<div ng-show="videos.length == 0">
-					<p>&nbsp;</p>
-					<div class="alert-box">
-						Select a tag on the left
-					</div>
+					<h1 class="subheader">Welcome!</h1>
+					<p>
+						Discover great talks about your favorites software development topics.<br />
+						Select a tag on the left to start.
+					</p>
+					
+					
 				</div>
 				
 				<div class="video row" ng-repeat="video in videos">
