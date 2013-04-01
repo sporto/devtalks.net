@@ -1,3 +1,5 @@
+var nconf = require('nconf');
+
 namespace('db', function () {
 
 	desc('This is the default task.');
