@@ -6,7 +6,6 @@ var express = require('express');
 var engine = require('ejs-locals');
 var http = require('http');
 var path = require('path');
-var db = require('./db');
 var passport = require('passport');
 var nconf = require('nconf');
 var flash = require('connect-flash');
