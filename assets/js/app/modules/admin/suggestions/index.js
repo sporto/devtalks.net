@@ -3,7 +3,6 @@ angular.module('APP')
 		['$scope', '$http', '$element', 'notifyUserService', 'Suggestion',
 		function ($scope, $http, $element, notifyUserService, Suggestion) {
 
-		// $scope.suggestions = $element.data('suggestions');
 		$scope.suggestions = Suggestion.query();
 
 		$scope.clickApprove = function (ev, ix, suggestion) {

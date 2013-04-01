@@ -15,7 +15,7 @@ angular.module('APP')
 			toastr.success(msg);
 		}
 	})
-	.factory('Suggestion', function($resource) {
+	.factory('Suggestion', ['$resource', function($resource) {
 		return $resource('/api/v1/suggestions/:id/:action', 
 			{
 				id: '@_id'
@@ -26,4 +26,4 @@ angular.module('APP')
 					params: {action: 'approve'}
 				}
 			});
-	});
+	}]);
