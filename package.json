@@ -1,6 +1,10 @@
 {
   "name": "devtalks.net",
   "subdomain": "devtalks",
+  "domains": [
+    "devtalks.net",
+    "www.devtalks.net"
+  ],
   "scripts": {
     "start": "node app.js"
   },
