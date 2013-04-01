@@ -5,8 +5,7 @@ var updateWatchCountServ = require('./update_watch_count');
 module.exports = {
 	run: function (videoId, userId, mainCallback) {
 		var doc = {
-			kind: 'action',
-			action: 'seen',
+			kind: 'sight',
 			videoId: videoId,
 			userId: userId
 		}

@@ -3,6 +3,6 @@
 		"_design/videos",
 		"_design/tags",
 		"_design/users",
-		"_design/actions"
+		"_design/sights"
 	]
 }

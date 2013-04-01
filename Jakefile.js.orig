@@ -1,7 +1,8 @@
-namespace('db', function () {
+<<<<<<< Updated upstream
+var nconf = require('nconf');
 
-	desc('This is the default task.');
-	task('views', {async: true}, function (params) {
+desc('This is the default task.');
+task('views', {async: true}, function (params) {
 
 	nconf.use('memory').env().file({file: './env.json'});
 
@@ -13,6 +14,16 @@ namespace('db', function () {
 	}
 
 	var couchpenter = new (require('couchpenter'))(dbPath);
+=======
+namespace('db', function () {
+
+	desc('This is the default task.');
+	task('views', {async: true}, function (params) {
+>>>>>>> Stashed changes
+
+		var couchpenter = new (require('couchpenter'))(
+			'http://localhost:5984/'
+		);
 
 		couchpenter.setUpDocumentsOverwrite(function (err, results) {
 			console.log(err);

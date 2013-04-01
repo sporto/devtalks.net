@@ -1,7 +1,18 @@
 devTalks.net
 =================
 
-A site for discovering and watching the best programming videos and tutorials.
+This is the source code for [devtalks.net](http://devtalks.net). A site for discovering and watching the best programming videos and tutorials.
+
+## Technology Stack
+
+DevTalks.net is build using:
+
+- Node.js for the server
+- Express.js as the Node framework
+- Angular.js as the front end framework
+- jQuery
+- CouchDB as database
+- Zurb Foundation as CSS framework
 
 ## Setting up development environment
 
@@ -27,7 +38,11 @@ Create a file called `env.json` in the root. This file should look like this:
 
 To upload the CouchDB views run
 
-	jake views
+	jake db:views
+
+For production use
+	
+	NODE_ENV=production jake db:views
 
 ### Trello Board
 

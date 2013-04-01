@@ -2,14 +2,21 @@ var db = require('../../db');
 
 module.exports = {
 	run: function (videoId, userId, cb) {
+<<<<<<< Updated upstream
+		db.view('actions', 'seen', {key: [videoId, userId]}, function (err, res) {
+			console.log('err = ' + err);
+			console.log('res = ' + res);
+
+=======
 		db.view('sights', 'by_user', {key: [videoId, userId]}, function (err, res) {
 			//console.log(res);
+>>>>>>> Stashed changes
 			if (err) return cb(err);
 
 			var seen = false;
 
 			if (res.rows) {
-				seen = res.rows.length > 0;
+				var seen = res.rows.length > 0;
 			}
 			
 			return cb(null, seen);

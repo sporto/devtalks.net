@@ -1,10 +1,10 @@
 module.exports = {
-	_id: "_design/actions",
+	_id: "_design/sights",
 	views: {
 
-		seen: {
+		by_user: {
 			map: function (doc) {
-				if (doc.kind === "action" && doc.action === 'seen') {
+				if (doc.kind === "sight") {
 					emit([doc.videoId, doc.userId], null);
 				}
 			}
