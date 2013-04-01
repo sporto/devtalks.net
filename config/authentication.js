@@ -36,7 +36,7 @@ module.exports = function(app) {
 	passport.use(new GitHubStrategy({
 		clientID: GITHUB_CLIENT_ID,
 		clientSecret: GITHUB_CLIENT_SECRET,
-		callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+		callbackURL: "http://devtalks.net/auth/github/callback"
 	}, function(accessToken, refreshToken, profile, done) {
 		// console.log(profile);
 		findByProviderService.run('github', profile.id, function(err, user) {
@@ -77,7 +77,7 @@ module.exports = function(app) {
 	//   login page.  Otherwise, the primary route function function will be called,
 	//   which, in this example, will redirect the user to the home page.
 	app.get('/auth/github/callback', passport.authenticate('github', {
-		failureRedirect: '/login',
+		failureRedirect: '/',
 		successRedirect: 'back',
 		failureFlash: true,
 		successFlash: 'Welcome'}
