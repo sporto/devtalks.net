@@ -1,3 +1,5 @@
+$(document).foundation();
+
 angular.module('APP', ['ngResource']);
 angular.module('APP.suggestions', []);
 angular.module('APP.videos', []);
