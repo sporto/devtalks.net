@@ -58,7 +58,7 @@ require('./config/authentication')(app);
 require('./router')(app);
 
 app.locals({
-	env: nconf.get('ENV'),
+	env: process.env.NODE_ENV,
 	title: 'devTalks',
 	uid: require('shortid'),
 	sanitizeHtml: sanitizeHtmlServ.run

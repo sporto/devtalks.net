@@ -16,7 +16,6 @@ The following node modules should be installed globally
 Create a file called `env.json` in the root. This file should look like this:
 
 	{
-		"ENV": "development",
 		"DB_PATH_DEV": "http://localhost:5984",
 		"DB_PATH_PRO": "https://path-to-couch-db:1234/",
 		"GITHUB_CLIENT_ID": "you-github-client-id",
