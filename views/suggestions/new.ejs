@@ -19,7 +19,7 @@
 					<span ng-show="suggestion_form.url.$error.url">Please add a valid url</span>
 				</small>
 
-				<button class="small button" ng-disabled="!state.enableBtnRetrieve()" ng-click="clickRetrieve($event)" ng-show="!state.retrieving">
+				<button class="small button" ng-disabled="suggestion_form.url.$invalid" ng-click="clickRetrieve($event)" ng-show="!state.retrieving">
 					Retrieve information
 				</button>
 

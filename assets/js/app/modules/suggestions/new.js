@@ -30,14 +30,7 @@ angular.module('APP')
 		function reset() {
 			$scope.state = {
 				retrieving: false,
-				saving: false,
-				enableBtnRetrieve: function () {
-					if ($scope.model.url) {
-						return ($scope.model.url.indexOf('http://') > -1);
-					} else {
-						return false;
-					}
-				}
+				saving: false
 			};
 
 			$scope.model = {
