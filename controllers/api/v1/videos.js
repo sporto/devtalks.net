@@ -1,5 +1,6 @@
 var _ = require('underscore');
 var findService = require('../../../services/videos/find_by_tags');
+var findLatestServ = require('../../../services/videos/find_latest');
 var markAsSeenService = require('../../../services/videos/mark_seen');
 
 module.exports = {
@@ -14,6 +15,13 @@ module.exports = {
 		}
 
 		findService.run(tags, function (err, docs) {
+			if (err) return res.send(505);
+			return res.send(docs);
+		});
+	},
+
+	latest: function (req, res) {
+		findLatestServ.run(function (err, docs) {
 			if (err) return res.send(505);
 			return res.send(docs);
 		});

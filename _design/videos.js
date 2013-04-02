@@ -1,6 +1,14 @@
 module.exports = {
 	_id: "_design/videos",
 	views: {
+
+		all: {
+			map: function (doc) {
+				if (doc.kind === "video") {
+					emit(doc, null);
+				}
+			}
+		},
 		
 		unapproved: {
 			map: function (doc) {

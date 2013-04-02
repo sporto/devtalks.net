@@ -23,16 +23,16 @@
 			</div>
 			<div class="large-10 columns">
 			
-				<div ng-show="videos.length > 0">
-					<p>{{videos.length}} videos found for {{selectedTag}}</p>
+				<div ng-show="location.path() === '/latest'">
+					<h1 class="subheader">Latest additions</h1>
 				</div>
-
-				<div ng-show="videos.length == 0">
-					<h1 class="subheader">Welcome!</h1>
-					<p>
-						Discover great talks about your favorites software development topics.<br />
-						Select a tag on the left to start.
-					</p>
+				
+				<div ng-show="location.path() === '/search'">
+					<h1 class="subheader">Search</h1>
+				</div>
+			
+				<div ng-show="videos.length > 0">
+					<p>{{videos.length}} videos found</p>
 				</div>
 				
 				<i class="icon-refresh icon-spin" ng-show="state.retrieving"></i>

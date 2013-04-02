@@ -41,6 +41,7 @@ module.exports = function (app) {
 		
 		app.resource('videos', videos);
 		app.get('/videos/search', videos.search);
+		app.get('/videos/latest', videos.latest);
 		app.post('/videos/:video/mark_seen', videos.mark_seen);
 
 		app.get('/suggestions', suggestions.index);

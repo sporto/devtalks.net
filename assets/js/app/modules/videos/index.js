@@ -1,13 +1,17 @@
 angular.module('APP')
 	//declare a route so angular knows to broadcast about it when it's hit
 	.config(['$routeProvider', function($routeProvider) {
-		$routeProvider.when('/search', {});
+		$routeProvider
+			.when('/latest', {})
+			.when('/search', {})
+			.otherwise({redirectTo: '/latest'});
 	}])
 	.controller('videos.IndexCtrl',
 		['$scope', '$element', '$http', '$location', '$route',
 		function ($scope, $element, $http, $location, $route) {
 			// the $route needs to be injected so angular will trigger the route events
 
+		$scope.location = $location;
 		$scope.videos = [];
 		$scope.allTags = $element.data('tags');
 		$scope.query = {tags: []};
@@ -58,7 +62,13 @@ angular.module('APP')
 		function removeTagFromRoute(ix, tag) {
 			var tags = getSelectedTagsFromRoute();
 			tags.splice(ix, 1);
-			$location.search({tags: tags});
+			
+			if (tags.length === 0) {
+				$location.path('/latest');
+				$location.search({});
+			} else {
+				$location.search({tags: tags});
+			}
 		}
 
 		function getQueryFromRoute() {
@@ -68,7 +78,7 @@ angular.module('APP')
 
 		function processRoute() {
 			refreshQuery();
-			search();
+			fetch();
 		}
 
 		function refreshQuery() {
@@ -83,12 +93,14 @@ angular.module('APP')
 			});
 		}
 
-		function search() {
+		function fetch(url) {
+			var url = "/api/v1/videos" + $location.path();
+			
 			$scope.state.retrieving = true;
 			var config = {
 				params: $scope.query
 			}
-			$http.get('/api/v1/videos/search', config)
+			$http.get(url, config)
 			.success(function (data, status, headers, config) {
 				$scope.videos = data;
 				$scope.state.retrieving = false;
