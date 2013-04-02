@@ -45,7 +45,8 @@
 					</div>
 					<div class="large-9 columns">
 						<h3>{{video.title}}</h3>
-						<a ng-href="/videos/{{video._id}}">Watch</a>
+						<p>Added on {{video.createdAt | date:'yyyy-MM-dd'}}</p>
+						<a ng-href="/videos/{{video._id}}"><i class="icon-eye-open"></i> Watch</a>
 					</div>
 				</div>
 				

@@ -6,6 +6,7 @@ var getSeenServ =							require('../../services/videos/get_seen');
 module.exports = {
 
 	index: function (req, res) {
+		console.log('videos/index');
 		var def = when.defer();
 
 		def.then(function(tags) {
@@ -15,6 +16,7 @@ module.exports = {
 		});
 
 		getTagsWeightsService.run(function (err, tags) {
+			console.log(err);
 			if (err) {
 				def.reject(new Error(err));
 			} else {

@@ -18,6 +18,7 @@ var db = require('../../db');
 
 module.exports = {
 	run: function (cb) {
+		console.log('tags/get_weights');
 		db.view('tags', 'weights', {group: true}, function (err, res) {
 			if (err) return cb(err);
 			cb(null, res.rows);
