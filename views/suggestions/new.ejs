@@ -22,8 +22,7 @@
 				<button class="small button" ng-disabled="suggestion_form.url.$invalid" ng-click="clickRetrieve($event)" ng-show="!state.retrieving">
 					Retrieve information
 				</button>
-
-				<div class="loader" ng-show="state.retrieving" style="display:none;"><img src="/img/lib/loader.gif" alt=""></div>
+				<i class="icon-refresh icon-spin" ng-show="state.retrieving"></i>
 
 				<br />
 
@@ -59,7 +58,7 @@
 			<div class="row">
 				<div class="large-12 columns">
 					<button class="button" ng-show="!state.saving" ng-disabled="suggestion_form.$invalid" ng-click="clickSave($event)">Save</button>
-					<div class="loader" style="display:none;" ng-show="state.saving"><img src="/img/lib/loader.gif" alt=""></div>
+					<i class="icon-refresh icon-spin" ng-show="state.saving"></i>
 				</div>
 			</div>
 		</form>

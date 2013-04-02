@@ -9,11 +9,6 @@
 			
 			<div class="large-2 columns">
 				<ul class="side-nav">
-					<!--
-						<li><a href="#" ng-click="filter($event, 'latests')">Latests</a></li>
-						<li><a href="#" ng-click="filter($event, 'rating')">Highest rating</a></li>
-						<li class="divider"></li>
-					-->
 					<li class="selected_tags">
 						<a href="javascript://" ng-repeat="tag in query.tags" ng-click="removeTag($index, tag)">
 							<span  class="radius label">{{tag}} <i class="icon-remove"></i></span>
@@ -38,9 +33,9 @@
 						Discover great talks about your favorites software development topics.<br />
 						Select a tag on the left to start.
 					</p>
-					
-					
 				</div>
+				
+				<i class="icon-refresh icon-spin" ng-show="state.retrieving"></i>
 				
 				<div class="video row" ng-repeat="video in videos">
 					<div class="large-3 columns">

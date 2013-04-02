@@ -11,6 +11,9 @@ angular.module('APP')
 		$scope.videos = [];
 		$scope.allTags = $element.data('tags');
 		$scope.query = {tags: []};
+		$scope.state = {
+			retrieving: false
+		}
 
 		$scope.addTag = function (ix, tag) {
 			addTagToRoute(ix, tag.key);
@@ -81,15 +84,17 @@ angular.module('APP')
 		}
 
 		function search() {
+			$scope.state.retrieving = true;
 			var config = {
 				params: $scope.query
 			}
 			$http.get('/api/v1/videos/search', config)
 			.success(function (data, status, headers, config) {
 				$scope.videos = data;
+				$scope.state.retrieving = false;
 			})
 			.error(function(data, status, headers, config) {
-				
+				$scope.state.retrieving = false;
 			});
 		}
 	
