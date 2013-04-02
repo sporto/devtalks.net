@@ -1,3 +1,4 @@
+@topbar_bg_color: #222;
 
 body {
 	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -13,7 +14,7 @@ a {
 
 
 .top-bar{
-	background-color: #222;
+	background-color: @topbar_bg_color;
 	.name{
 		img{
 			margin: 6px 0 0 0;
@@ -35,9 +36,15 @@ a {
 		}
 	}
 }
+.top-bar.expanded {
+	background-color: @topbar_bg_color;
+	.title-area{
+		background-color: @topbar_bg_color;
+	}
+}
 
 .top-bar-section li a:not(.button) {
-	background-color: #222;
+	background-color: @topbar_bg_color;
 }
 
 .selected_tags{
