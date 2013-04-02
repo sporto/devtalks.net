@@ -1,5 +1,5 @@
 {
-	"videos": [
+	"devtalks": [
 		"_design/videos",
 		"_design/tags",
 		"_design/users",
