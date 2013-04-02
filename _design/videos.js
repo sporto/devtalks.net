@@ -4,7 +4,7 @@ module.exports = {
 
 		all: {
 			map: function (doc) {
-				if (doc.kind === "video") {
+				if (doc.kind === "video" && doc.approved) {
 					emit(doc, null);
 				}
 			}
