@@ -15,12 +15,12 @@ function setViewVars(req, res, next) {
 
 	if (req.user) {
 		checkAuthServ.run(req.user, 'suggestion', 'manage', function (err, val) {
-			console.log(err);
+			//console.log(err);
 			res.locals.allowAdmin = val;
 			return next();
 		});
 	} else {
-		console.log('No user');
+		//console.log('No user');
 		return next();
 	}
 }
@@ -55,6 +55,5 @@ module.exports = function (app) {
 	app.namespace('/admin', function() {
 		app.get('/suggestions', setViewVars, require('./controllers/web/admin/suggestions').index);
 	});
-
 }
 

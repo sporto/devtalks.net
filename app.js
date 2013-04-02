@@ -47,6 +47,13 @@ app.configure(function() {
 		src: __dirname + '/public'
 	}));
 	app.use(express.static(path.join(__dirname, 'public')));
+	app.use(function(req, res) {
+     res.render('pages/404', {title: '404: File Not Found'});
+  });
+  // Handle 500
+  app.use(function(error, req, res, next) {
+     res.render('pages/500', {title:'500: Internal Server Error', error: error});
+  });
 });
 
 app.configure('development', function() {
@@ -61,7 +68,9 @@ app.locals({
 	env: process.env.NODE_ENV,
 	title: 'devTalks',
 	uid: require('shortid'),
-	sanitizeHtml: sanitizeHtmlServ.run
+	sanitizeHtml: sanitizeHtmlServ.run,
+	allowAdmin: false,
+	user: null
 });
 
 http.createServer(app).listen(app.get('port'), function() {

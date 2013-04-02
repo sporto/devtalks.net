@@ -7,12 +7,12 @@ This is the source code for [devtalks.net](http://devtalks.net). A site for disc
 
 DevTalks.net is build using:
 
-- Node.js for the server
-- Express.js as the Node framework
-- Angular.js as the front end framework
+- Node.js
+- Express.js
+- Angular.js
 - jQuery
-- CouchDB as database
-- Zurb Foundation as CSS framework
+- CouchDB
+- Zurb Foundation CSS
 
 ## Setting up development environment
 
