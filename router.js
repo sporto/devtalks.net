@@ -27,7 +27,8 @@ function setViewVars(req, res, next) {
 
 module.exports = function (app) {
 
-	app.get('/', setViewVars, setViewVars, require('./controllers/web/videos').index);
+	app.get('/', setViewVars, require('./controllers/web/videos').index);
+	app.get('/about', setViewVars, require('./controllers/web/pages').about);
 	app.get('/videos', setViewVars, require('./controllers/web/videos').index);
 	app.get('/videos/:video', setViewVars, require('./controllers/web/videos').show);
 	app.get('/suggestions/new', csrf, setViewVars, require('./controllers/web/suggestions').new);
