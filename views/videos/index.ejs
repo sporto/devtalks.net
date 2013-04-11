@@ -44,8 +44,9 @@
 						</a>
 					</div>
 					<div class="large-9 columns">
-						<h3>{{video.title}}</h3>
-						<p>Added on {{video.createdAt | date:'yyyy-MM-dd'}}</p>
+						<h4>{{video.title}}</h4>
+						<p><span ng-show="{{video.presenter}}">{{video.presenter}}.&nbsp;&nbsp;</span>
+						<span class="subtle small">Added on {{video.createdAt | date:'yyyy-MM-dd'}}</span></p>
 						<a ng-href="/videos/{{video._id}}"><i class="icon-eye-open"></i> Watch</a>
 					</div>
 				</div>
