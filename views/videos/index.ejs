@@ -46,7 +46,7 @@
 					</div>
 					<div class="large-9 columns">
 						<h4>{{video.title}}</h4>
-						<p><span ng-show="{{video.presenter}}">{{video.presenter}}.&nbsp;&nbsp;</span>
+						<p><span ng-show="{{video.presenter != null}}">{{video.presenter}}.&nbsp;&nbsp;</span>
 						<span class="subtle small">Added on {{video.createdAt | date:'yyyy-MM-dd'}}</span></p>
 						<p><span ng-repeat="tag in video.tags" class="radius label secondary">{{tag}}</span></p>
 						<a ng-href="/videos/{{video._id}}" class="small button"><i class="icon-eye-open"></i> Watch</a>
