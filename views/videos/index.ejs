@@ -14,7 +14,7 @@
 							<span  class="radius label">{{tag}} <i class="icon-remove"></i></span>
 						</a>
 					</li>
-					<li>Tags:
+					<li>Popular tags:
 						<div class="cloud">
 							<a href="javascript://" rel="{{tag.value}}" ng-repeat="tag in allTags | filter: unselected" ng-click="addTag($index, tag)">{{tag.key}}</a>
 						</div>

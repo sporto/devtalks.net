@@ -15,8 +15,8 @@ module.exports = {
 			res.send(500);
 		});
 
-		getTagsWeightsService.run(function (err, tags) {
-			console.log(err);
+		getTagsWeightsService.run({limit: 30, weightOrder: true}, function (err, tags) {
+			//console.log(err);
 			if (err) {
 				def.reject(new Error(err));
 			} else {
