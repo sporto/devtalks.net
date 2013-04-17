@@ -15,7 +15,6 @@ function setViewVars(req, res, next) {
 
 	if (req.user) {
 		checkAuthServ.run(req.user, 'suggestion', 'manage', function (err, val) {
-			//console.log(err);
 			res.locals.allowAdmin = val;
 			return next();
 		});
@@ -31,13 +30,14 @@ module.exports = function (app) {
 	app.get('/about', setViewVars, require('./controllers/web/pages').about);
 	app.get('/videos', setViewVars, require('./controllers/web/videos').index);
 	app.get('/videos/:video', setViewVars, require('./controllers/web/videos').show);
+	app.get('/videos/:video/edit', csrf, setViewVars, require('./controllers/web/videos').edit);
 	app.get('/suggestions/new', csrf, setViewVars, require('./controllers/web/suggestions').new);
 
 	app.namespace('/api/v1', function(){
-		var videos =				require('./controllers/api/v1/videos');
-		var suggestions =		require('./controllers/api/v1/suggestions');
-		var tags =					require('./controllers/api/v1/tags');
-		var urls =					require('./controllers/api/v1/urls');
+		var videos =        require('./controllers/api/v1/videos');
+		var suggestions =   require('./controllers/api/v1/suggestions');
+		var tags =          require('./controllers/api/v1/tags');
+		var urls =          require('./controllers/api/v1/urls');
 		
 		app.resource('videos', videos);
 		app.get('/videos/search', videos.search);

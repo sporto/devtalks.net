@@ -1,7 +1,8 @@
 var when = require('when');
-var getTagsWeightsService =		require('../../services/tags/get_weights');
-var getVideoService =					require('../../services/videos/get');
-var getSeenServ =							require('../../services/videos/get_seen');
+var getTagsWeightsService =   require('../../services/tags/get_weights');
+var getTagsService =          require('../../services/tags/get_list');
+var getVideoService =         require('../../services/videos/get');
+var getSeenServ =             require('../../services/videos/get_seen');
 
 module.exports = {
 
@@ -69,7 +70,29 @@ module.exports = {
 			res.send(400);
 		});
 
+	},
 
+	edit: function (req, res) {
+		//get the video
+		var id = req.params.video;
+
+		var defTags = when.defer();
+		var defVideo = when.defer();
+		var all = when.all([defTags, defVideo]);
+
+		getTagsService.run(function (err, tags) {
+			defTags.resolve(tags);
+		});
+
+		getVideoService.run(id, function (err, doc) {
+			defVideo.resolve(doc);
+		});
+
+		all.then(function (tags, doc) {
+			res.render('videos/edit', {tags: tags, video: doc, pageTitle: 'Edit Video'});
+		}, function () {
+			res.send(500);
+		});
 	}
 
 }
