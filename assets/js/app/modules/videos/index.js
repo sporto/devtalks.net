@@ -93,7 +93,7 @@ angular.module('APP')
 			});
 		}
 
-		function fetch(url) {
+		function fetch() {
 			var url = "/api/v1/videos" + $location.path();
 			
 			$scope.state.retrieving = true;
