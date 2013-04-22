@@ -3,3 +3,5 @@ node_modules
 env.json
 *.sublime-workspace
 *.sublime-project
+npm-debug.log
+test-results.xml

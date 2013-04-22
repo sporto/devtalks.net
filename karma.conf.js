@@ -7,19 +7,25 @@
 
 
 // base path, that will be used to resolve files and exclude
-basePath = '../..';
+basePath = '';
 
 frameworks = ['mocha'];
 
 // list of files / patterns to load in the browser
 files = [
 	// Adapter
-	MOCHA,
-	MOCHA_ADAPTER,
-
-  'test/client/mocks.js',
-  'static/karma.src.js',
-  'test/client/*.spec.js'
+	JASMINE,
+	JASMINE_ADAPTER,
+	'node_modules/chai/chai.js',
+	'assets/js/lib/jquery.js',
+	'assets/js/lib/angular.min.js',
+	'assets/js/lib/**/*.js',
+	'test/angular-mocks.js',
+	'assets/js/lib/foundation.min.js',
+	'assets/js/app/**/*.js',
+	//'test/client/mocks.js',
+	// 'static/karma.src.js',
+	'test/client/**/*_spec.js'
 ];
 
 // list of files to exclude
@@ -65,7 +71,7 @@ autoWatch = true;
 // - PhantomJS
 // - IE (only Windows)
 // CLI --browsers Chrome,Firefox,Safari
-browsers = [];
+browsers = ['Firefox'];
 
 // If browser does not capture in given timeout [ms], kill it
 // CLI --capture-timeout 5000
