@@ -1,5 +1,5 @@
 angular.module('APP')
-	.controller('admin.suggestions.IndexCtrl', 
+	.controller('admin.suggestions.IndexCtrl',
 		['$scope', '$http', '$element', 'notifyUserService', 'Suggestion',
 		function ($scope, $http, $element, notifyUserService, Suggestion) {
 

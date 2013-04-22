@@ -1,47 +1,52 @@
 <% layout('../layout') -%>
 <% var viewId = uid.generate() %>
 
-<div id="<%= viewId %>" class="suggestions new ng-cloak" data-tags="<%= JSON.stringify(tags) %>"
-	ng-controller="videos.FormCtrl" xmlns="http://www.w3.org/1999/html">
+<%= video %>
 
-	<div class="row">
-		<div class="large-12 columns">
-			<h1><%= pageTitle %></h1>
+<div id="<%= viewId %>" class="suggestions new ng-cloak"
+	ng-init="tags=<%= JSON.stringify(tags) %>;video=<%= JSON.stringify(video) %>;">
+	
+	<div ng-controller="videos.FormCtrl">
 
-			<form name="suggestion_form" action="" nonvalidate>
-			
-				<input type="hidden" name="_csrf" value="<%= token %>">
+		<form name="form" action="" nonvalidate>
+		
+			<div class="row">
+				<div class="large-12 columns">
+					<h1><%= pageTitle %></h1>
+					<p>ID: {{video._id}}</p>
 
-				<input type="url" placeholder="URL" ng-model="model.url" name="url" required />
+					<input type="hidden" name="_csrf" value="<%= token %>">
 
-				<small class="error" ng-show="suggestion_form.url.$dirty && suggestion_form.url.$invalid">
-					<span ng-show="suggestion_form.url.$error.required">Please add a url</span>
-					<span ng-show="suggestion_form.url.$error.url">Please add a valid url</span>
-				</small>
+					<input type="url" placeholder="URL" ng-model="video.url" name="url" required value="<%= video.url %>" />
 
-				<button class="small button" ng-disabled="suggestion_form.url.$invalid" ng-click="clickRetrieve($event)" ng-show="!state.retrieving">
-					Retrieve information
-				</button>
-				<i class="icon-refresh icon-spin" ng-show="state.retrieving"></i>
+					<small class="error" ng-show="form.url.$dirty && form.url.$invalid">
+						<span ng-show="form.url.$error.required">Please add a url</span>
+						<span ng-show="form.url.$error.url">Please add a valid url</span>
+					</small>
 
-				<br />
+					<button class="small button" ng-disabled="form.url.$invalid" ng-click="clickRetrieve($event)" ng-show="!state.retrieving">
+						Retrieve information
+					</button>
+					<i class="icon-refresh icon-spin" ng-show="state.retrieving"></i>
 
-				<div ng-show="model.thumbM">
-					<div class="th"><img ng-src="{{model.thumbM}}" /></div>
 					<br />
-				</div>
 
-					<input type="text" placeholder="Title" ng-model="model.title" ng-minlength="5" name="title" required />
+					<div ng-show="video.thumbM">
+						<div class="th"><img ng-src="{{video.thumbM}}" /></div>
+						<br />
+					</div>
 
-					<small class="error" ng-show="suggestion_form.title.$dirty && suggestion_form.title.$invalid">
-						<span ng-show="suggestion_form.title.$error.required">Please add a title</span>
-						<span ng-show="suggestion_form.title.$error.minlength">Please add at least 5 characters</span>
+					<input type="text" placeholder="Title" ng-model="video.title" ng-minlength="5" name="title" required />
+
+					<small class="error" ng-show="form.title.$dirty && form.title.$invalid">
+						<span ng-show="form.title.$error.required">Please add a title</span>
+						<span ng-show="form.title.$error.minlength">Please add at least 5 characters</span>
 					</small>
 					
-					<input type="text" placeholder="Presenter(s)" ng-model="model.presenter" name="presenter" />
+					<input type="text" placeholder="Presenter(s)" ng-model="video.presenter" name="presenter" />
 					
 					<label for="">Description</label>
-					<textarea ng-model="model.description"></textarea>
+					<textarea ng-model="video.description"></textarea>
 				</div>
 			</div>
 
@@ -50,17 +55,19 @@
 					<label>Tags</label>
 					<div class="select_tags" style="width:100%;"></div>
 				</div>
-				
 			</div>
 			
 			<br />
 
 			<div class="row">
 				<div class="large-12 columns">
-					<button class="button" ng-show="!state.saving" ng-disabled="suggestion_form.$invalid" ng-click="clickSave($event)">Save</button>
+					<button class="button" ng-show="!state.saving" ng-disabled="form.$invalid" ng-click="clickSave($event)">Save</button>
 					<i class="icon-refresh icon-spin" ng-show="state.saving"></i>
 				</div>
 			</div>
+			
 		</form>
+		
+	</div>
 
 </div>

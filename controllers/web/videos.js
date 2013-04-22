@@ -85,11 +85,14 @@ module.exports = {
 		});
 
 		getVideoService.run(id, function (err, doc) {
+			// console.log(doc)
 			defVideo.resolve(doc);
 		});
 
-		all.then(function (tags, doc) {
-			res.render('videos/edit', {tags: tags, video: doc, pageTitle: 'Edit Video'});
+		all.then(function (arr) {
+			var tags = arr[0];
+			var video = arr[1];
+			res.render('videos/edit', {tags: tags, video: video, pageTitle: 'Edit Video'});
 		}, function () {
 			res.send(500);
 		});

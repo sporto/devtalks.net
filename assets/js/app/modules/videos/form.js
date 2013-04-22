@@ -5,6 +5,8 @@ angular.module('APP')
 
 		var $selectTags = $('.select_tags', $element);
 
+		// var data = $element.data('record');
+
 		setupTags();
 		reset();
 
@@ -33,29 +35,29 @@ angular.module('APP')
 				saving: false
 			};
 
-			$scope.model = {
-				url: '',
-				title: '',
-				presenter: '',
-				description: '',
-				thumbM: '',
-				tags: []
-			};
+			// $scope.video = {
+			// 	url: '',
+			// 	title: '',
+			// 	presenter: '',
+			// 	description: '',
+			// 	thumbM: '',
+			// 	tags: []
+			// };
 
 			$selectTags.select2('val', '');
 		}
 
 		function setupTags() {
-			var tags = $element.data('tags');
+			//var tags = $element.data('tags');
 
 			$selectTags.select2({
-				tags: tags
+				tags: $scope.tags
 			});
 
 			$selectTags
 				.on('change', function (event) {
 					var tags = event.val;
-					$scope.model.tags = tags;
+					$scope.video.tags = tags;
 					$scope.$digest();
 				});
 		}
@@ -63,16 +65,16 @@ angular.module('APP')
 		function retrieve() {
 			$scope.state.retrieving = true;
 
-			var params = {url: $scope.model.url};
+			var params = {url: $scope.video.url};
 
 			$http.get('/api/v1/urls', {params: params})
 				.success(function (data, status, headers, config) {
-					$scope.model.title = data.title;
-					$scope.model.presenter = data.presenter;
-					$scope.model.description = data.description;
-					$scope.model.thumbS = data.thumbS;
-					$scope.model.thumbM = data.thumbM;
-					$scope.model.thumbL = data.thumbL;
+					$scope.video.title = data.title;
+					$scope.video.presenter = data.presenter;
+					$scope.video.description = data.description;
+					$scope.video.thumbS = data.thumbS;
+					$scope.video.thumbM = data.thumbM;
+					$scope.video.thumbL = data.thumbL;
 					$scope.state.retrieving = false;
 				})
 				.error(function(data, status, headers, config) {
@@ -84,7 +86,9 @@ angular.module('APP')
 		function save() {
 			$scope.state.saving = true;
 
-			var data = {suggestion: $scope.model};
+			var data = {video: $scope.video};
+
+			// TODO use angular resource instead
 
 			$http.post('/api/v1/suggestions', data)
 				.success(function (data, status, headers, config) {
