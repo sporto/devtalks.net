@@ -1,11 +1,11 @@
 angular.module('APP')
 	.controller('videos.FormCtrl', 
-		['$scope', '$http', '$element', 'notifyUserService',
-		function ($scope, $http, $element, notifyUserService) {
+	['$scope', '$http', '$element', 'notifyUserService', 'Video',
+		function ($scope, $http, $element, notifyUserService, Video) {
 
 		var $selectTags = $('.select_tags', $element);
 
-		// var data = $element.data('record');
+		$scope.video = new Video($scope.videoSeed);
 
 		setupTags();
 		reset();
@@ -22,11 +22,6 @@ angular.module('APP')
 			save();
 		};
 
-		$scope.clickReset = function (ev) {
-			ev.preventDefault();
-			reset();
-		};
-
 		/// utility functions
 
 		function reset() {
@@ -35,16 +30,7 @@ angular.module('APP')
 				saving: false
 			};
 
-			// $scope.video = {
-			// 	url: '',
-			// 	title: '',
-			// 	presenter: '',
-			// 	description: '',
-			// 	thumbM: '',
-			// 	tags: []
-			// };
-
-			$selectTags.select2('val', '');
+			$selectTags.select2('val', $scope.video.tags);
 		}
 
 		function setupTags() {
@@ -62,6 +48,7 @@ angular.module('APP')
 				});
 		}
 
+		//retrieve info about a video
 		function retrieve() {
 			$scope.state.retrieving = true;
 
@@ -86,20 +73,14 @@ angular.module('APP')
 		function save() {
 			$scope.state.saving = true;
 
-			var data = {video: $scope.video};
+			$scope.video.$save(function (video) {
+				notifyUserService.flashSuccess('Saved');
+				$scope.state.saving = false;
+			}, function (xhr) {
+				notifyUserService.flashError(xhr.data);
+				$scope.state.saving = false;
+			});
 
-			// TODO use angular resource instead
-
-			$http.post('/api/v1/suggestions', data)
-				.success(function (data, status, headers, config) {
-					notifyUserService.flashSuccess('Saved');
-					$scope.state.saving = false;
-					reset();
-				})
-				.error(function(data, status, headers, config) {
-					notifyUserService.flashError(data);
-					$scope.state.saving = false;
-				});
 		}
 
 }]);

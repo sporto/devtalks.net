@@ -39,7 +39,7 @@ module.exports = function (app) {
 		var tags =          require('./controllers/api/v1/tags');
 		var urls =          require('./controllers/api/v1/urls');
 		
-		app.resource('videos', videos);
+		app.post('/videos/:video', csrf, videos.update);
 		app.get('/videos/search', videos.search);
 		app.get('/videos/latest', videos.latest);
 		app.post('/videos/:video/mark_seen', videos.mark_seen);

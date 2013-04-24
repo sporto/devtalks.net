@@ -1,9 +1,22 @@
-var _ = require('underscore');
-var findService = require('../../../services/videos/find_by_tags');
-var findLatestServ = require('../../../services/videos/find_latest');
-var markAsSeenService = require('../../../services/videos/mark_seen');
+var _ =                  require('underscore');
+var findService =        require('../../../services/videos/find_by_tags');
+var findLatestServ =     require('../../../services/videos/find_latest');
+var markAsSeenService =  require('../../../services/videos/mark_seen');
+var saveService =        require('../../../services/videos/save');
 
 module.exports = {
+
+	
+	update: function (req, res) {
+		// TODO check permission
+		// console.log('UPDATE');
+		// console.log(req.body)
+		saveService.run(req.body, function (err, doc) {
+			if (err) return res.send(400);
+			return res.send(doc, 200);
+		});
+	},
+
 
 	search: function (req, res) {
 		var query = req.query;
@@ -15,17 +28,19 @@ module.exports = {
 		}
 
 		findService.run(tags, function (err, docs) {
-			if (err) return res.send(505);
+			if (err) return res.send(505); // not found
 			return res.send(docs);
 		});
 	},
 
+
 	latest: function (req, res) {
 		findLatestServ.run(function (err, docs) {
-			if (err) return res.send(505);
+			if (err) return res.send(505); // not found
 			return res.send(docs);
 		});
 	},
+
 
 	mark_seen: function (req, res) {
 		if (req.user) {

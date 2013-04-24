@@ -15,6 +15,16 @@ angular.module('APP')
 			toastr.success(msg);
 		}
 	})
+	.factory('Video', ['$resource', function($resource) {
+		return $resource('/api/v1/videos/:id/:action', 
+			{id: '@_id'},
+			{
+				approve: {
+					method: 'PATCH',
+					params: {action: 'approve'}
+				}
+			});
+	}])
 	.factory('Suggestion', ['$resource', function($resource) {
 		return $resource('/api/v1/suggestions/:id/:action', 
 			{

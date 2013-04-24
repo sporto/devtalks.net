@@ -1,10 +1,8 @@
 <% layout('../layout') -%>
 <% var viewId = uid.generate() %>
 
-<%= video %>
-
 <div id="<%= viewId %>" class="suggestions new ng-cloak"
-	ng-init="tags=<%= JSON.stringify(tags) %>;video=<%= JSON.stringify(video) %>;">
+	ng-init="tags=<%= JSON.stringify(tags) %>;videoSeed=<%= JSON.stringify(video) %>;">
 	
 	<div ng-controller="videos.FormCtrl">
 
