@@ -16,7 +16,7 @@ angular.module('APP')
 		}
 	})
 	.factory('Video', ['$resource', function($resource) {
-		return $resource('/api/v1/videos/:id/:action', 
+		return $resource('/api/v1/videos/:id/:action',
 			{id: '@_id'},
 			{
 				approve: {

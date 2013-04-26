@@ -1,10 +1,22 @@
 var _ =                  require('underscore');
+var logger =             require('../../../logger');
+var createService =      require('../../../services/videos/create');
 var findService =        require('../../../services/videos/find_by_tags');
 var findLatestServ =     require('../../../services/videos/find_latest');
 var markAsSeenService =  require('../../../services/videos/mark_seen');
 var saveService =        require('../../../services/videos/save');
 
 module.exports = {
+
+	create: function (req, res) {
+		var data = req.body;
+		logger.info(data);
+		//console.log(data)
+		createService.run(data, function (err, doc) {
+			if (err) return res.send(505, err.message);
+			return res.send(200, doc);
+		});
+	},
 
 	
 	update: function (req, res) {

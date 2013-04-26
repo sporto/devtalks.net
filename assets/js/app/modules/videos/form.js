@@ -73,11 +73,12 @@ angular.module('APP')
 		function save() {
 			$scope.state.saving = true;
 
-			$scope.video.$save(function (video) {
+			$scope.video.$save(function (response) {
+				console.log(response);
 				notifyUserService.flashSuccess('Saved');
 				$scope.state.saving = false;
-			}, function (xhr) {
-				notifyUserService.flashError(xhr.data);
+			}, function (response) {
+				notifyUserService.flashError(response.data);
 				$scope.state.saving = false;
 			});
 

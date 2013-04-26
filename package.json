@@ -32,7 +32,8 @@
     "validator": "~0.4.28",
     "async": "~0.2.6",
     "connect-flash": "~0.1.0",
-    "rollbar": "~0.2.2"
+    "rollbar": "~0.2.2",
+    "winston": "~0.7.1"
   },
   "devDependencies": {
     "rewire": "~1.1.1",

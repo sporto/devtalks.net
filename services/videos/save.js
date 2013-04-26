@@ -1,19 +1,15 @@
-var when =          require('when');
-var db =            require('../../db');
-var videoinfo =     require('videoinfo');
-var check =         require('validator').check;
-// var findByUrlServ = require('../videos/find_by_url');
+//var when =          require('when');
+var logger =           require('../../logger');
+var db =               require('../../db');
+var check =            require('validator').check;
 
 function create(data, cb) {
-	data.approved = false;
-	data.createdAt = new Date();
-	data.kind = 'video';
-	data.provider = videoinfo.getProvider(data.url);
-	data.providerId = videoinfo.getId(data.url);
+	logger.info(' - create');
 	return db.insert(data, cb);
 }
 
 function update(data, cb) {
+	logger.info(' - update');
 	var id = data._id;
 	db.get(id, function (err, doc) {
 		if (err) return cb(err);
@@ -27,6 +23,7 @@ function update(data, cb) {
 
 module.exports = {
 	run: function (data, cb) {
+		logger.info('save.run');
 		// validations
 		try {
 			check(data.url, 'Please enter a valid url').isUrl();
@@ -37,18 +34,13 @@ module.exports = {
 		}
 		if (data.tags.length === 0) return cb(new Error('Please enter some tags'));
 
+		logger.info('passed validations');
+
 		// update or create
 		if(data._id) {
-			update(data, cb);
+			return update(data, cb);
 		} else {
-			// check the url if new
-			findByUrlServ.run(data.url, function (err, docs) {
-				if (docs.length > 0) {
-					return cb(new Error('This url has alredy been submitted'));
-				} else {
-					create(data, cb);
-				}
-			});
+			return create(data, cb);
 		}
 
 	}

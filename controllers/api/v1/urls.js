@@ -1,4 +1,5 @@
-var getDetailsService = require('../../../services/videos/get_details');
+var logger =             require('../../../logger');
+var getDetailsService =  require('../../../services/videos/get_details');
 
 module.exports = {
 
@@ -6,6 +7,8 @@ module.exports = {
 	show: function (req, res) {
 		var url = req.query.url;
 
+		logger.log('url', url);
+		
 		getDetailsService.run(url, function (err, info) {
 			//console.log(err);
 			if (err) {

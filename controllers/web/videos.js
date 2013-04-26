@@ -1,10 +1,21 @@
 var when = require('when');
+var logger =                  require('../../logger');
 var getTagsWeightsService =   require('../../services/tags/get_weights');
 var getTagsService =          require('../../services/tags/get_list');
 var getVideoService =         require('../../services/videos/get');
 var getSeenServ =             require('../../services/videos/get_seen');
 
 module.exports = {
+
+	new: function (req, res) {
+		logger.info('videos/new');
+
+		function done(err, tags) {
+			res.render('videos/new', {tags: tags, video: {}, pageTitle: 'Suggest a Video'});
+		}
+
+		getTagsService.run(done);
+	},
 
 	index: function (req, res) {
 		console.log('videos/index');

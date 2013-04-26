@@ -28,10 +28,11 @@ module.exports = function (app) {
 
 	app.get('/', setViewVars, require('./controllers/web/videos').index);
 	app.get('/about', setViewVars, require('./controllers/web/pages').about);
+	
 	app.get('/videos', setViewVars, require('./controllers/web/videos').index);
+	app.get('/videos/new', csrf, setViewVars, require('./controllers/web/videos').new);
 	app.get('/videos/:video', setViewVars, require('./controllers/web/videos').show);
 	app.get('/videos/:video/edit', csrf, setViewVars, require('./controllers/web/videos').edit);
-	app.get('/suggestions/new', csrf, setViewVars, require('./controllers/web/suggestions').new);
 
 	app.namespace('/api/v1', function(){
 		var videos =        require('./controllers/api/v1/videos');
@@ -39,13 +40,13 @@ module.exports = function (app) {
 		var tags =          require('./controllers/api/v1/tags');
 		var urls =          require('./controllers/api/v1/urls');
 		
-		app.post('/videos/:video', csrf, videos.update);
 		app.get('/videos/search', videos.search);
 		app.get('/videos/latest', videos.latest);
 		app.post('/videos/:video/mark_seen', videos.mark_seen);
+		app.post('/videos', csrf, videos.create); // create new video (suggestion)
+		app.post('/videos/:video', csrf, videos.update); // update video
 
 		app.get('/suggestions', suggestions.index);
-		app.post('/suggestions', suggestions.create);
 		app.patch('/suggestions/:suggestion/approve', suggestions.approve);
 
 		app.resource('tags', tags);
