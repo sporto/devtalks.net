@@ -5,3 +5,4 @@ env.json
 *.sublime-project
 npm-debug.log
 test-results.xml
+debug.log
