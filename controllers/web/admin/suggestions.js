@@ -1,15 +1,24 @@
-var getAllService = require('../../../services/suggestions/get_all');
-var checkAuthServ = require('../../../services/authorisations/check');
+var logger =                 require('../../../logger');
+var getUnapprovedServ =      require('../../../services/videos/get_unapproved');
+var authServ =               require('../../../services/authorisations/authorise');
+
+
 
 module.exports = {
-	index: function (req, res) {
-		checkAuthServ.run(req.user, 'suggestion', 'manage', function (err, val) {
-			if (val) {
-				res.render('admin/suggestions/index', {suggestions: []});
-			} else {
-				res.send(401);
-			}
-		});
 
+	index: function (req, res) {
+		logger.info('suggestions.index');
+
+		function authDone(err) {
+			logger.info('authDone');
+
+			getUnapprovedServ.run(function (err, videos) {
+				res.render('admin/suggestions/index', {videos: videos});
+			});
+			
+		}
+
+		return authServ.run(req, res, 'video', 'manage', authDone);
 	}
+
 }

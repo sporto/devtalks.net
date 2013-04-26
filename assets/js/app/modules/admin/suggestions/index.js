@@ -3,7 +3,7 @@ angular.module('APP')
 		['$scope', '$http', '$element', 'notifyUserService', 'Video',
 		function ($scope, $http, $element, notifyUserService, Video) {
 
-		$scope.videos = Video.query();
+		//$scope.videos = Video.query();
 
 		$scope.clickApprove = function (ev, ix, suggestion) {
 			ev.preventDefault();

@@ -1,12 +1,6 @@
 $(document).foundation();
 
-angular.module('APP', ['ngResource']);
-// angular.module('APP.suggestions', []);
-// angular.module('APP.videos', []);
-// angular.module('APP.admin', []);
-// angular.module('APP.admin.suggestions', []);
-
-angular.module('APP')
+angular.module('APP', ['ngResource'])
 	.service('notifyUserService', function() {
 		this.flashError = function (msg) {
 			toastr.error(msg);

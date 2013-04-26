@@ -2,7 +2,7 @@
 
 var approveService = require('../../../services/suggestions/approve');
 var destroyService = require('../../../services/videos/destroy');
-var getAllService = require('../../../services/suggestions/get_all');
+//var getAllService = require('../../../services/suggestions/get_all');
 
 module.exports = {
 

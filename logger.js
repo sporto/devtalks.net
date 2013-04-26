@@ -7,4 +7,8 @@ var logger = new winston.Logger({
 	]
 });
 
+// var logger = {
+// 	info: console
+// }
+
 module.exports = logger;

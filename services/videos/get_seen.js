@@ -3,7 +3,7 @@ var db = require('../../db');
 module.exports = {
 	run: function (videoId, userId, cb) {
 		db.view('sights', 'by_user', {key: [videoId, userId]}, function (err, res) {
-			//console.log(res);
+
 			if (err) return cb(err);
 
 			var seen = false;
@@ -14,6 +14,6 @@ module.exports = {
 			
 			return cb(null, seen);
 		});
-		//return cb(null, false);
+
 	}
 };

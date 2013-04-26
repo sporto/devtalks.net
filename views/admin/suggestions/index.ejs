@@ -1,53 +1,55 @@
 <% layout('../../layout') -%>
 <% var viewId = uid.generate() %>
 
-<div id="<%= viewId %>" class="admin videos index ng-cloak" ng-controller="admin.suggestions.IndexCtrl" >
-	
-	<div class="row">
-		<div class="large-12 columns">
-			<p><span class="label">{{videos.length}}</span> videos to approve.</p>
-	
-			<div ng-show="videos.length == 0">
-				<div data-alert class="alert-box">
-					No videos found
+<div id="<%= viewId %>" class="admin videos index ng-cloak" ng-init="videos=<%= JSON.stringify(videos) %>">
+	<div ng-controller="admin.suggestions.IndexCtrl" >
+		
+		<div class="row">
+			<div class="large-12 columns">
+				<p><span class="label">{{videos.length}}</span> videos to approve.</p>
+		
+				<div ng-show="videos.length == 0">
+					<div data-alert class="alert-box">
+						No videos found
+					</div>
 				</div>
-			</div>
-			
-			<div ng-show="videos.length > 0">
-				<table>
+				
+				<div ng-show="videos.length > 0">
+					<table>
 
-					<tbody>
-						<tr ng-repeat="video in videos">
-							<td>
-								<img ng-src="{{video.thumbM}}" alt="" />
-							</td>
-							
-							<td>
-								<h3>{{video.title}}</h3>
-								<p>{{video.presenter}}</p>
-								<p>
-									<a ng-href="{{video.url}}" target="_blank">{{video.url}}</a>
-								</p>
-								<p>
-									Provider: {{video.provider}}
-								</p>
-								<p>
-									Tags: {{video.tags}}
-								</p>
-								<br />
-								{{video.description}}
-							</td>
-							
-							<td>
-								<a href="#" title="" ng-click="clickApprove($event, $index, video)">Approve</a>
-								<a href="#" title="" ng-click="clickDelete($event, $index, video)">Delete</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+						<tbody>
+							<tr ng-repeat="video in videos">
+								<td>
+									<img ng-src="{{video.thumbM}}" alt="" />
+								</td>
+								
+								<td>
+									<h3>{{video.title}}</h3>
+									<p>{{video.presenter}}</p>
+									<p>
+										<a ng-href="{{video.url}}" target="_blank">{{video.url}}</a>
+									</p>
+									<p>
+										Provider: {{video.provider}}
+									</p>
+									<p>
+										Tags: {{video.tags}}
+									</p>
+									<br />
+									{{video.description}}
+								</td>
+								
+								<td>
+									<a href="#" title="" ng-click="clickApprove($event, $index, video)">Approve</a>
+									<a href="#" title="" ng-click="clickDelete($event, $index, video)">Delete</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
 			</div>
-			
 		</div>
-	</div>
 
+	</div>
 </div>
