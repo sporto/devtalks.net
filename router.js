@@ -13,15 +13,10 @@ function setViewVars(req, res, next) {
 	res.locals.allowAdmin = false;
 	res.locals.user = req.user;
 
-	if (req.user) {
-		checkAuthServ.run(req.user, 'video', 'manage', function (err, val) {
-			res.locals.allowAdmin = val;
-			return next();
-		});
-	} else {
-		//console.log('No user');
+	checkAuthServ.run(req.user, 'video', 'manage', function (err, val) {
+		res.locals.allowAdmin = val;
 		return next();
-	}
+	});
 }
 
 module.exports = function (app) {

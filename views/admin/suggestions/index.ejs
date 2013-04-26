@@ -1,46 +1,46 @@
 <% layout('../../layout') -%>
 <% var viewId = uid.generate() %>
 
-<div id="<%= viewId %>" class="admin suggestions index ng-cloak" ng-controller="admin.suggestions.IndexCtrl" data-suggestions="<%= JSON.stringify(suggestions) %>">
+<div id="<%= viewId %>" class="admin videos index ng-cloak" ng-controller="admin.suggestions.IndexCtrl" >
 	
 	<div class="row">
 		<div class="large-12 columns">
-			<p><span class="label">{{suggestions.length}}</span> suggestions to approve.</p>
+			<p><span class="label">{{videos.length}}</span> videos to approve.</p>
 	
-			<div ng-show="suggestions.length == 0">
+			<div ng-show="videos.length == 0">
 				<div data-alert class="alert-box">
-					No suggestions found
+					No videos found
 				</div>
 			</div>
 			
-			<div ng-show="suggestions.length > 0">
+			<div ng-show="videos.length > 0">
 				<table>
 
 					<tbody>
-						<tr ng-repeat="suggestion in suggestions">
+						<tr ng-repeat="video in videos">
 							<td>
-								<img ng-src="{{suggestion.thumbM}}" alt="" />
+								<img ng-src="{{video.thumbM}}" alt="" />
 							</td>
 							
 							<td>
-								<h3>{{suggestion.title}}</h3>
-								<p>{{suggestion.presenter}}</p>
+								<h3>{{video.title}}</h3>
+								<p>{{video.presenter}}</p>
 								<p>
-									<a ng-href="{{suggestion.url}}" target="_blank">{{suggestion.url}}</a>
+									<a ng-href="{{video.url}}" target="_blank">{{video.url}}</a>
 								</p>
 								<p>
-									Provider: {{suggestion.provider}}
+									Provider: {{video.provider}}
 								</p>
 								<p>
-									Tags: {{suggestion.tags}}
+									Tags: {{video.tags}}
 								</p>
 								<br />
-								{{suggestion.description}}
+								{{video.description}}
 							</td>
 							
 							<td>
-								<a href="#" title="" ng-click="clickApprove($event, $index, suggestion)">Approve</a>
-								<a href="#" title="" ng-click="clickDelete($event, $index, suggestion)">Delete</a>
+								<a href="#" title="" ng-click="clickApprove($event, $index, video)">Approve</a>
+								<a href="#" title="" ng-click="clickDelete($event, $index, video)">Delete</a>
 							</td>
 						</tr>
 					</tbody>
