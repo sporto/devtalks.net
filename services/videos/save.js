@@ -1,11 +1,15 @@
 //var when =          require('when');
+var check =            require('validator').check;
 var logger =           require('../../logger');
 var db =               require('../../db');
-var check =            require('validator').check;
+var getServ =          require('./get');
 
 function create(data, cb) {
 	logger.info(' - create');
-	return db.insert(data, cb);
+	return db.insert(data, function (err, res) {
+		//send the saved document back
+		return getServ.run(res.id, cb);
+	});
 }
 
 function update(data, cb) {

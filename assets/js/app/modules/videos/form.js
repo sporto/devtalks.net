@@ -5,7 +5,12 @@ angular.module('APP')
 
 		var $selectTags = $('.select_tags', $element);
 
+		$scope.state = {}
 		$scope.video = new Video($scope.videoSeed);
+
+		// if video has _id then we are editing
+		// otherwise creating new ones
+		$scope.state.editing = ($scope.video._id != null);
 
 		setupTags();
 		reset();
@@ -25,10 +30,8 @@ angular.module('APP')
 		/// utility functions
 
 		function reset() {
-			$scope.state = {
-				retrieving: false,
-				saving: false
-			};
+			$scope.state.retrieving = false;
+			$scope.state.saving = false;
 
 			$selectTags.select2('val', $scope.video.tags);
 		}
@@ -74,14 +77,22 @@ angular.module('APP')
 			$scope.state.saving = true;
 
 			$scope.video.$save(function (response) {
-				console.log(response);
-				notifyUserService.flashSuccess('Saved');
-				$scope.state.saving = false;
+				onSaved(response);
 			}, function (response) {
 				notifyUserService.flashError(response.data);
 				$scope.state.saving = false;
 			});
 
+		}
+
+		function onSaved(response) {
+			notifyUserService.flashSuccess('Saved');
+			$scope.state.saving = false;
+			// console.log($scope.state.editing);
+			if (!$scope.state.editing) {
+				$scope.video = new Video();
+				reset();
+			}
 		}
 
 }]);
