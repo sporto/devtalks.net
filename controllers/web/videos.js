@@ -4,9 +4,9 @@ var getTagsWeightsService =   require('../../services/tags/get_weights');
 var getTagsService =          require('../../services/tags/get_list');
 var getVideoService =         require('../../services/videos/get');
 var getSeenServ =             require('../../services/videos/get_seen');
-var checkAuthServ =           require('../../services/authorisations/check');
+var authServ =                require('../../services/authorisations/authorise');
 
-function editProceed(req, res) {
+function editProceed(err, req, res) {
 	//get the video
 	var id = req.params.video;
 
@@ -112,14 +112,7 @@ module.exports = {
 	},
 
 	edit: function (req, res) {
-		checkAuthServ.run(req.user, 'video', 'update', function (err, val) {
-			logger.info('auth result ' + val);
-			if (val) {
-				editProceed(req, res);
-			} else {
-				res.send(401);
-			}
-		});
+		return authServ.run(req, res, 'video', 'update', editProceed);
 	}
 
 }

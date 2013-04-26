@@ -1,10 +1,18 @@
-var _ =                  require('underscore');
-var logger =             require('../../../logger');
-var createService =      require('../../../services/videos/create');
-var findService =        require('../../../services/videos/find_by_tags');
-var findLatestServ =     require('../../../services/videos/find_latest');
-var markAsSeenService =  require('../../../services/videos/mark_seen');
-var saveService =        require('../../../services/videos/save');
+var _ =                       require('underscore');
+var logger =                  require('../../../logger');
+var createService =           require('../../../services/videos/create');
+var findService =             require('../../../services/videos/find_by_tags');
+var findLatestServ =          require('../../../services/videos/find_latest');
+var markAsSeenService =       require('../../../services/videos/mark_seen');
+var saveService =             require('../../../services/videos/save');
+var authServ =                require('../../../services/authorisations/authorise');
+
+function updateProceed(err, req, res) {
+	saveService.run(req.body, function (err, doc) {
+		if (err) return res.send(400);
+		return res.send(doc, 200);
+	});
+}
 
 module.exports = {
 
@@ -20,13 +28,7 @@ module.exports = {
 
 	
 	update: function (req, res) {
-		// TODO check permission
-		// console.log('UPDATE');
-		// console.log(req.body)
-		saveService.run(req.body, function (err, doc) {
-			if (err) return res.send(400);
-			return res.send(doc, 200);
-		});
+		return authServ.run(req, res, 'video', 'update', updateProceed);
 	},
 
 

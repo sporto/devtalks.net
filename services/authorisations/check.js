@@ -1,4 +1,4 @@
-var db = require('../../db');
+// var db = require('../../db');
 
 module.exports = {
 	run: function (user, resource, action, cb) {
