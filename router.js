@@ -14,7 +14,7 @@ function setViewVars(req, res, next) {
 	res.locals.user = req.user;
 
 	if (req.user) {
-		checkAuthServ.run(req.user, 'suggestion', 'manage', function (err, val) {
+		checkAuthServ.run(req.user, 'video', 'manage', function (err, val) {
 			res.locals.allowAdmin = val;
 			return next();
 		});
