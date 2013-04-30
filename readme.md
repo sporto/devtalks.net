@@ -27,6 +27,7 @@ The following node modules should be installed globally
 Create a file called `env.json` in the root. This file should look like this:
 
 	{
+		"HOST": "http://localhost:3000",
 		"DB_PATH_DEV": "http://localhost:5984",
 		"DB_PATH_PRO": "https://path-to-couch-db:1234/",
 		"DB_NAME_DEV": "db-name",

@@ -1,12 +1,13 @@
-var passport = require('passport');
-var GitHubStrategy = require('passport-github').Strategy;
-var nconf = require('nconf');
-var GITHUB_CLIENT_ID = nconf.get('GITHUB_CLIENT_ID');
-var GITHUB_CLIENT_SECRET = nconf.get('GITHUB_CLIENT_SECRET');
+var passport =                require('passport');
+var GitHubStrategy =          require('passport-github').Strategy;
+var nconf =                   require('nconf');
+var GITHUB_CLIENT_ID =        nconf.get('GITHUB_CLIENT_ID');
+var GITHUB_CLIENT_SECRET =    nconf.get('GITHUB_CLIENT_SECRET');
+var HOST =                    nconf.get('HOST');
 
-var getUserService = require('../services/users/get');
-var findByProviderService = require('../services/users/find_by_provider');
-var createUserService = require('../services/users/create');
+var getUserService =          require('../services/users/get');
+var findByProviderService =   require('../services/users/find_by_provider');
+var createUserService =       require('../services/users/create');
 
 module.exports = function(app) {
 
@@ -36,7 +37,7 @@ module.exports = function(app) {
 	passport.use(new GitHubStrategy({
 		clientID: GITHUB_CLIENT_ID,
 		clientSecret: GITHUB_CLIENT_SECRET,
-		callbackURL: "http://devtalks.net/auth/github/callback"
+		callbackURL: HOST + "/auth/github/callback"
 	}, function(accessToken, refreshToken, profile, done) {
 		// console.log(profile);
 		findByProviderService.run('github', profile.id, function(err, user) {
