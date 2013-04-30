@@ -1,7 +1,7 @@
-var subject = require('./dependecy');
-var assert = require("assert");
-var sinon = require('sinon');
-var sandbox = sinon.sandbox;
+var subject =    require('./dependecy');
+var assert =     require("assert");
+var sinon =      require('sinon');
+var sandbox =    sinon.sandbox;
 
 // var stub = sinon.stub(subject, '_dependency1')
 
