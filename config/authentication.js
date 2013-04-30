@@ -9,6 +9,7 @@ var getUserService =          require('../services/users/get');
 var findByProviderService =   require('../services/users/find_by_provider');
 var createUserService =       require('../services/users/create');
 
+
 module.exports = function(app) {
 
 	// Passport session setup.
@@ -38,7 +39,8 @@ module.exports = function(app) {
 		clientID: GITHUB_CLIENT_ID,
 		clientSecret: GITHUB_CLIENT_SECRET,
 		callbackURL: HOST + "/auth/github/callback"
-	}, function(accessToken, refreshToken, profile, done) {
+	}, 
+	function(accessToken, refreshToken, profile, done) {
 		// console.log(profile);
 		findByProviderService.run('github', profile.id, function(err, user) {
 			// console.log(err);
