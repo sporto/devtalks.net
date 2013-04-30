@@ -6,7 +6,8 @@
     "www.devtalks.net"
   ],
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "mocha"
   },
   "version": "0.0.2-13",
   "engines": {
