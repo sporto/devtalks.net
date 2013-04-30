@@ -1,19 +1,22 @@
-// var db = require('../../db');
+var _ =             require('underscore');
+var nconf =         require('nconf');
+var ADMIN_USERS =   nconf.get('ADMIN_USERS');
+var adminUsers =    ADMIN_USERS.split(',');
 
 module.exports = {
 	run: function (user, resource, action, cb) {
 		if (user) {
 
 			if (resource === 'suggestion' && action === 'manage') {
-				//console.log(user);
-				if (user.username === 'sporto') {
+
+				if (_.contains(adminUsers, user.username)) {
 					return cb(null, true);
 				}
 			}
 
 			return cb(null, false);
 		} else {
-			return cb(null, true); //TODO change this to false
+			return cb(null, false);
 		}
 	}
 }
