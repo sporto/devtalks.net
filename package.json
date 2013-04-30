@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "start": "node app.js",
-    "test": "mocha"
+    "test": "mocha $(find test -name '*_spec.js')"
   },
   "version": "0.0.2-13",
   "engines": {
