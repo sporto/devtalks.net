@@ -48,12 +48,12 @@ app.configure(function() {
 	}));
 	app.use(express.static(path.join(__dirname, 'public')));
 	app.use(function(req, res) {
-     res.render('pages/404', {title: '404: File Not Found'});
-  });
-  // Handle 500
-  app.use(function(error, req, res, next) {
-     res.render('pages/500', {title:'500: Internal Server Error', error: error});
-  });
+		res.render('pages/404', {title: '404: File Not Found'});
+	});
+	// Handle 500
+	app.use(function(error, req, res, next) {
+		res.render('pages/500', {title:'500: Internal Server Error', error: error});
+	});
 });
 
 app.configure('development', function() {

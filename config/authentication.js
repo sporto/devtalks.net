@@ -38,7 +38,8 @@ module.exports = function(app) {
 	passport.use(new GitHubStrategy({
 		clientID: GITHUB_CLIENT_ID,
 		clientSecret: GITHUB_CLIENT_SECRET,
-		callbackURL: HOST + "/auth/github/callback"
+		callbackURL: HOST + "/auth/github/callback", // this doesn't make any difference
+		customHeaders: {"User-Agent" : "Node"}
 	}, 
 	function(accessToken, refreshToken, profile, done) {
 		// console.log(profile);

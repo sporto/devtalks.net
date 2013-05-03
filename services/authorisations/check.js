@@ -7,7 +7,7 @@ module.exports = {
 	run: function (user, resource, action, cb) {
 		if (user) {
 
-			if (resource === 'suggestion' && action === 'manage') {
+			if (resource === 'video' && action === 'manage') {
 
 				if (_.contains(adminUsers, user.username)) {
 					return cb(null, true);
