@@ -1,7 +1,7 @@
 <% layout('../../layout') -%>
 <% var viewId = uid.generate() %>
 
-<div id="<%= viewId %>" class="admin videos index ng-cloak" ng-init="videos=<%= JSON.stringify(videos) %>">
+<div id="<%= viewId %>" class="admin videos index ng-cloak" ng-init="seed_videos=<%= JSON.stringify(videos) %>">
 	<div ng-controller="admin.suggestions.IndexCtrl" >
 		
 		<div class="row">
@@ -25,6 +25,7 @@
 								
 								<td>
 									<h3>{{video.title}}</h3>
+									<p>{{video._id}}</p>
 									<p>{{video.presenter}}</p>
 									<p>
 										<a ng-href="{{video.url}}" target="_blank">{{video.url}}</a>
@@ -40,8 +41,8 @@
 								</td>
 								
 								<td>
-									<a href="#" title="" ng-click="clickApprove($event, $index, video)">Approve</a>
-									<a href="#" title="" ng-click="clickDelete($event, $index, video)">Delete</a>
+									<a href="javascript://" title="" ng-click="clickApprove($index, video)">Approve</a>
+									<a href="javascript://" title="" ng-click="clickDelete($index, video)">Delete</a>
 								</td>
 							</tr>
 						</tbody>

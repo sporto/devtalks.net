@@ -31,7 +31,6 @@ module.exports = function (app) {
 
 	app.namespace('/api/v1', function(){
 		var videos =        require('./controllers/api/v1/videos');
-		var suggestions =   require('./controllers/api/v1/suggestions');
 		var tags =          require('./controllers/api/v1/tags');
 		var urls =          require('./controllers/api/v1/urls');
 		
@@ -40,9 +39,7 @@ module.exports = function (app) {
 		app.post('/videos/:video/mark_seen', videos.mark_seen);
 		app.post('/videos', csrf, videos.create); // create new video (suggestion)
 		app.post('/videos/:video', csrf, videos.update); // update video
-
-		app.get('/suggestions', suggestions.index);
-		app.patch('/suggestions/:suggestion/approve', suggestions.approve);
+		app.patch('/videos/:video/approve', videos.approve);
 
 		app.resource('tags', tags);
 		

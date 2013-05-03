@@ -3,29 +3,28 @@ angular.module('APP')
 		['$scope', '$http', '$element', 'notifyUserService', 'Video',
 		function ($scope, $http, $element, notifyUserService, Video) {
 
-		//$scope.videos = Video.query();
+			// load the seeded data;
+			$scope.videos = _.map($scope.seed_videos, function (data) { return new Video(data) });
 
-		$scope.clickApprove = function (ev, ix, suggestion) {
-			ev.preventDefault();
+			$scope.clickApprove = function (ix, video) {
 
-			suggestion.$approve(function (doc) {
-				notifyUserService.flashSuccess('Approved');
-				$scope.videos.splice(ix, 1);
-			}, function (res) {
-				notifyUserService.flashError(res.data);
-			});
-
-		}
-
-		$scope.clickDelete = function (ev, ix, suggestion) {
-			ev.preventDefault();
-			if (confirm("Are you sure?")) {
-				suggestion.$delete(function () {
+				video.$approve(function (doc) {
+					notifyUserService.flashSuccess('Approved');
 					$scope.videos.splice(ix, 1);
 				}, function (res) {
 					notifyUserService.flashError(res.data);
 				});
+
 			}
-		}
+
+			$scope.clickDelete = function (ix, video) {
+				if (confirm("Are you sure?")) {
+					video.$delete(function () {
+						$scope.videos.splice(ix, 1);
+					}, function (res) {
+						notifyUserService.flashError(res.data);
+					});
+				}
+			}
 
 	}]);
