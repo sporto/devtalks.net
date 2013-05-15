@@ -1,4 +1,5 @@
-var createService =           require('../../../../services/videos/create');
+var logger =               require('../../../../logger');
+var createService =        require('../../../../services/videos/create');
 
 function create(req, res) {
 	var data = req.body;

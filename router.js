@@ -37,6 +37,7 @@ module.exports = function (app) {
 		app.get('/videos/search', videos.search);
 		app.get('/videos/latest', videos.latest);
 		app.post('/videos/:video/mark_seen', videos.mark_seen);
+		app.post('/videos/:video/mark_favourite', videos.mark_favourite);
 		app.post('/videos', csrf, videos.create); // create new video (suggestion)
 		app.post('/videos/:video', csrf, videos.update); // update video
 		app.patch('/videos/:video/approve', videos.approve);

@@ -24,8 +24,10 @@
 	<div class="row">
 		<div class="large-12 columns" style="text-align: right;">
 			<% if (user) { %>
+				<button class="small button" ng-click="markAsFavourite()" ng-hide="video.favourite"><i class="icon-heart-empty"></i> Mark as favourite</button>
 				<button class="small button" ng-click="markAsSeen()" ng-hide="video.seen"><i class="icon-check-empty"></i> Mark as seen</button>
 				<span ng-show="video.seen"><i class="icon-check"></i> Seen</span>
+				<span ng-show="video.favourite"><i class="icon-heart"></i> Favourite</span>
 			<% } %>
 		</div>
 	</div>

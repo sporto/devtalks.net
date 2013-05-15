@@ -1,10 +1,14 @@
 angular.module('APP').controller('videos.ShowCtrl', 
-	['$scope', '$element', '$http', 'notifyUserService', 
-	function($scope, $element, $http, notifyUserService) {
+	['$scope', '$element', '$http', 'notifyUserService', 'markAsFavouriteService',
+	function($scope, $element, $http, notifyUserService, markAsFavouriteService) {
 
 	$scope.video = $element.data('video');
 
-	$scope.markAsSeen = function() {
+	$scope.markAsFavourite = function () {
+		markAsFavouriteService($scope.video);
+	}
+
+	$scope.markAsSeen = function () {
 		var url = '/api/v1/videos/' + $scope.video._id + '/mark_seen';
 		var data = {
 
