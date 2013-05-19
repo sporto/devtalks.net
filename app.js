@@ -7,6 +7,7 @@ var engine = require('ejs-locals');
 var http = require('http');
 var path = require('path');
 var passport = require('passport');
+var RedisStore = require('connect-redis')(express);
 var nconf = require('nconf');
 var flash = require('connect-flash');
 var rollbar = require('rollbar');
@@ -35,7 +36,8 @@ app.configure(function() {
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(express.cookieParser('I like you'));
-	app.use(express.session());
+	// app.use(express.session());
+	app.use(express.session({secret: 'amazing yes', store: new RedisStore}));
 	app.use(flash());
 	app.use(passport.initialize());
 	app.use(passport.session());

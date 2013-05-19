@@ -5,11 +5,13 @@ function main(req, res) {
 	logger.info('mark_favourite.main');
 
 	if (req.user) {
-		var videoId = req.params.video;
-		var userId = req.user._id;
+		var videoId  = req.params.video;
+		var value    = req.params.value;
+		var userId   = req.user._id;
 
-		markAsFavService.run(videoId, userId, function (err) {
-			logger.info(err);
+		markAsFavService.run(videoId, userId, value, function (err, doc) {
+			// logger.info(err);
+			// logger.info(doc);
 			if (err) return res.send(400); // bad request
 			res.send(200);
 		});

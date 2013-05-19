@@ -5,7 +5,6 @@ var adminUsers =    ADMIN_USERS.split(',');
 
 module.exports = {
 	run: function (user, resource, action, cb) {
-		//return cb(null, true);
 		
 		if (user) {
 
