@@ -5,9 +5,13 @@ function main(req, res) {
 	logger.info('mark_favourite.main');
 
 	if (req.user) {
+		// console.log(req.body);
 		var videoId  = req.params.video;
-		var value    = req.params.value;
+		var value    = req.body.value;
 		var userId   = req.user._id;
+
+		console.log(videoId);
+		console.log(value);
 
 		markAsFavService.run(videoId, userId, value, function (err, doc) {
 			// logger.info(err);

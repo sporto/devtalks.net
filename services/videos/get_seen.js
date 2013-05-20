@@ -1,19 +1,22 @@
-var db = require('../../db');
+var db =             require('../../db');
+var makeUrl =        require('../../utils/videos/make_seen_url');
+
+// return null if not found
 
 module.exports = {
 	run: function (videoId, userId, cb) {
-		db.view('sights', 'by_user', {key: [videoId, userId]}, function (err, res) {
+		console.log('getSeen run');
+		var url = makeUrl(videoId, userId);
+		console.log('url = ', url);
+		db.get(url, function (err, body) {
+			console.log(err);
+			console.log(body);
 
-			if (err) return cb(err);
-
-			var seen = false;
-
-			if (res.rows) {
-				seen = res.rows.length > 0;
+			if (err) {
+				return cb(null, null);
 			}
-			
-			return cb(null, seen);
-		});
 
+			return cb(null, body);
+		});
 	}
 };

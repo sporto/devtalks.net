@@ -7,18 +7,21 @@ var makeFavUrl      = require('../../utils/videos/make_favourite_url');
 module.exports = {
 	run: function (videoId, userId, value, cb) {
 		logger.info('mark_favourite_service.run');
+		logger.info(videoId);
+		logger.info(userId);
+		logger.info(value);
 
 		getFavServ.run(videoId, userId, function (err, doc) {
 			var url = makeFavUrl(videoId, userId);
 
 			if (value) {
 				if (doc) {
-					console.log('found');
-					console.log(doc);
+					logger.info('found');
+					logger.info(doc);
 					cb(null, true);
 				} else {
-					console.log('no fav found');
-					console.log('creating new fav doc');
+					logger.info('no fav found');
+					logger.info('creating new fav doc');
 					
 					var doc = {
 						kind: 'favourite',

@@ -14,8 +14,8 @@ module.exports = {
 		var all =       when.all([defSeen, defFav]);
 
 		all.then(function (arr) {
-			console.log('all called');
-			console.log(arr);
+			// console.log('all called');
+			// console.log(arr);
 			var attrs = {
 				seen: arr[0],
 				favourite: arr[1]
