@@ -2,16 +2,16 @@
  * Module dependencies.
  */
 
-var express = require('express');
-var engine = require('ejs-locals');
-var http = require('http');
-var path = require('path');
-var passport = require('passport');
-var RedisStore = require('connect-redis')(express);
-var nconf = require('nconf');
-var flash = require('connect-flash');
-var rollbar = require('rollbar');
-var sanitizeHtmlServ = require('./services/shared/sanitize_html');
+var express              = require('express');
+var engine               = require('ejs-locals');
+var http                 = require('http');
+var path                 = require('path');
+var passport             = require('passport');
+var RedisStore           = require('connect-redis')(express);
+var nconf                = require('nconf');
+var flash                = require('connect-flash');
+var rollbar              = require('rollbar');
+var sanitizeHtmlServ     = require('./services/shared/sanitize_html');
 
 require('express-resource');
 require('express-namespace');
@@ -19,8 +19,14 @@ require('express-namespace');
 //load env variables
 nconf.use('memory').env().file({file: './env.json'});
 
+var redisHost            = nconf.get('REDIS_HOST');
+var redisPort            = nconf.get('REDIS_PORT');
+var redisPass            = nconf.get('REDIS_PASSWORD');
+var redisStore           = new RedisStore({host: redisHost, port: redisPort, pass: redisPass});
+
 // register uncaught error handler
-rollbar.handleUncaughtExceptions(nconf.get('ROLLBAR_ACCESS_TOKEN'));
+var rollbarToken = nconf.get('ROLLBAR_ACCESS_TOKEN');
+rollbar.handleUncaughtExceptions(rollbarToken);
 
 var app = express();
 
@@ -37,7 +43,7 @@ app.configure(function() {
 	app.use(express.methodOverride());
 	app.use(express.cookieParser('I like you'));
 	// app.use(express.session());
-	app.use(express.session({secret: 'amazing yes', store: new RedisStore}));
+	app.use(express.session({secret: 'amazing yes', store: redisStore}));
 	app.use(flash());
 	app.use(passport.initialize());
 	app.use(passport.session());
@@ -67,12 +73,12 @@ require('./config/authentication')(app);
 require('./router')(app);
 
 app.locals({
-	env: process.env.NODE_ENV,
-	title: 'devTalks',
-	uid: require('shortid'),
-	sanitizeHtml: sanitizeHtmlServ.run,
-	allowAdmin: false,
-	user: null
+	env:           process.env.NODE_ENV,
+	title:         'devTalks',
+	uid:           require('shortid'),
+	sanitizeHtml:  sanitizeHtmlServ.run,
+	allowAdmin:    false,
+	user:          null
 });
 
 http.createServer(app).listen(app.get('port'), function() {
