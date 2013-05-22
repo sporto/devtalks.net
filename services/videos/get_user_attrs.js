@@ -2,8 +2,7 @@
 // e.g see, favourite
 
 var when =                    require('when');
-var getSeenServ =             require('./get_seen');
-var getFavValServ =           require('./get_favourite_val');
+var getFlagServ =             require('./get_flag');
 
 module.exports = {
 	run: function (id, user, cb) {
@@ -28,7 +27,7 @@ module.exports = {
 		// get video seen only if there is a logged in user
 		if (user) {
 			var userId = user._id;
-			getSeenServ.run(id, userId, function (err, val) {
+			getFlagServ.run(id, userId, 'seen', function (err, val) {
 				// console.log('getSeenServ cb');
 				// console.log('val = ', val);
 
@@ -40,7 +39,7 @@ module.exports = {
 					defSeen.resolve(val);
 				}
 			});
-			getFavValServ.run(id, userId, function (err, val) {
+			getFlagServ.run(id, userId, 'favourite', function (err, val) {
 				// console.log('getFavValServ cb');
 				// console.log('val = ', val);
 

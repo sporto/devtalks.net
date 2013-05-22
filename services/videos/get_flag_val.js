@@ -1,10 +1,10 @@
 var db              = require('../../db');
-var getSeenServ     = require('./get_seen');
+var getFlagServ     = require('./get_flag');
 
 module.exports = {
-	run: function (videoId, userId, cb) {
-		getSeenServ.run(videoId, userId, function (err, doc) {
-			console.log('getSeenServ cb');
+	run: function (videoId, userId, flag, cb) {
+		getFlagServ.run(videoId, userId, flag, function (err, doc) {
+			console.log('getFlagServ cb');
 			console.log(err);
 			console.log(doc);
 

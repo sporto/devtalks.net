@@ -1,12 +1,12 @@
 var db =            require('../../db');
-var makeFavUrl =    require('../../utils/videos/make_favourite_url');
+var makeFlagId =    require('../../utils/videos/make_flag_id');
 
 // return null if not found
 
 module.exports = {
-	run: function (videoId, userId, cb) {
+	run: function (videoId, userId, flag, cb) {
 		console.log('getFav run');
-		var url = makeFavUrl(videoId, userId);
+		var url = makeFlagId(videoId, userId, flag);
 		console.log('url = ', url);
 		db.get(url, function (err, body) {
 			console.log(err);
