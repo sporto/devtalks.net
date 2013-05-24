@@ -1,6 +1,8 @@
 devTalks.net
 =================
 
+[![Build Status](https://travis-ci.org/sporto/devtalks.net.png)](https://travis-ci.org/sporto/devtalks.net)
+
 This is the source code for [devtalks.net](http://devtalks.net). A site for discovering and watching the best programming videos and tutorials.
 
 ## Technology Stack
