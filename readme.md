@@ -1,5 +1,4 @@
-devTalks.net
-=================
+![devTalks.net](https://raw.github.com/sporto/devtalks.net/master/_assets/logo.png)
 
 [![Build Status](https://travis-ci.org/sporto/devtalks.net.png)](https://travis-ci.org/sporto/devtalks.net)
 
