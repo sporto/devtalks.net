@@ -1,5 +1,5 @@
-var when =                    require('when');
-var getTagsWeightsService =   require('../../../services/tags/get_weights');
+var when                   = require('when');
+var getTagsWeightsService  = require('../../../services/tags/get_weights');
 
 function main(req, res) {
 	console.log('videos/index');

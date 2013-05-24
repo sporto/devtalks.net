@@ -1,5 +1,5 @@
-var _ =                       require('underscore');
-var findService =             require('../../../../services/videos/find_by_tags');
+var _            = require('underscore');
+var findService  = require('../../../../services/videos/find_by_tags');
 
 function main(req, res) {
 	var query = req.query;

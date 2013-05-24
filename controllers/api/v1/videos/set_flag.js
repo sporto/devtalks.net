@@ -1,5 +1,5 @@
-var logger =                 require('../../../../logger');
-var setFlagService =         require('../../../../services/videos/set_flag');
+var logger          = require('../../../../logger');
+var setFlagService  = require('../../../../services/videos/set_flag');
 
 function main(req, res, flag) {
 	if (req.user) {

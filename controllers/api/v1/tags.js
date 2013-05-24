@@ -1,5 +1,5 @@
-var db = require('../../../db');
-var getTagListService = require('../../../services/tags/get_list');
+var db                 = require('../../../db');
+var getTagListService  = require('../../../services/tags/get_list');
 
 module.exports = {
 

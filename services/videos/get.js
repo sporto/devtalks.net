@@ -1,5 +1,5 @@
-var db =         require('../../db');
-var videoInfo =  require('videoinfo');
+var db         = require('../../db');
+var videoInfo  = require('videoinfo');
 
 module.exports = {
 	run: function (id, cb) {

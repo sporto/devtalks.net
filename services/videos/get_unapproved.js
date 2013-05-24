@@ -1,5 +1,5 @@
-var db = require('../../db');
-var _ = require('underscore');
+var db   = require('../../db');
+var _    = require('underscore');
 
 module.exports = {
 	run: function (cb) {

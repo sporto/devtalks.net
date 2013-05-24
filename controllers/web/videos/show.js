@@ -1,5 +1,5 @@
-var when =                    require('when');
-var getVideoService =         require('../../../services/videos/get_using_user');
+var when             = require('when');
+var getVideoService  = require('../../../services/videos/get_using_user');
 
 function main(req, res) {
 

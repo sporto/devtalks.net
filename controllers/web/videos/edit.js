@@ -1,10 +1,10 @@
-var when =                    require('when');
-// var getTagsWeightsService =   require('../../../services/tags/get_weights');
-var authServ =                require('../../../services/authorisations/authorise');
-var getVideoService =         require('../../../services/videos/get');
+var when                   = require('when');
+var getTagsService         = require('../../../services/tags/get_list');
+var authServ               = require('../../../services/authorisations/authorise');
+var getVideoService        = require('../../../services/videos/get');
 
 function main(req, res) {
-	return authServ.run(req, res, 'video', 'update', process);
+	return authServ.run(req, res, 'video', 'manage', process);
 }
 
 function process(err, req, res) {

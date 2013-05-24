@@ -1,5 +1,5 @@
-var db =            require('../../db');
-var makeFlagId =    require('../../utils/videos/make_flag_id');
+var db          = require('../../db');
+var makeFlagId  = require('../../utils/videos/make_flag_id');
 
 // return null if not found
 

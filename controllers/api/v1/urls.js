@@ -1,5 +1,5 @@
-var logger =             require('../../../logger');
-var getDetailsService =  require('../../../services/videos/get_details');
+var logger              = require('../../../logger');
+var getDetailsService   = require('../../../services/videos/get_details');
 
 module.exports = {
 

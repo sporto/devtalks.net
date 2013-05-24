@@ -1,4 +1,4 @@
-var authServ =                require('../../../../services/authorisations/authorise');
+var authServ = require('../../../../services/authorisations/authorise');
 
 function main(req, res) {
 	return authServ.run(req, res, 'video', 'update', process);

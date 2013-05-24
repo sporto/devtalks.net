@@ -1,7 +1,7 @@
-var when =                    require('when');
-var _ =                       require('underscore');
-var getVideoService =         require('./get');
-var getAttrsServ =            require('./get_user_attrs');
+var when              = require('when');
+var _                 = require('underscore');
+var getVideoService   = require('./get');
+var getAttrsServ      = require('./get_user_attrs');
 
 module.exports = {
 	run: function (id, user, cb) {

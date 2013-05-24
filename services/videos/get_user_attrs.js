@@ -1,8 +1,8 @@
 // Get the attributes for a video for a particular user
 // e.g see, favourite
 
-var when =                    require('when');
-var getFlagServ =             require('./get_flag');
+var when          = require('when');
+var getFlagServ   = require('./get_flag');
 
 module.exports = {
 	run: function (id, user, cb) {

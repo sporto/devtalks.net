@@ -1,8 +1,6 @@
-var logger =                 require('../../../logger');
-var getUnapprovedServ =      require('../../../services/videos/get_unapproved');
-var authServ =               require('../../../services/authorisations/authorise');
-
-
+var logger             = require('../../../logger');
+var getUnapprovedServ  = require('../../../services/videos/get_unapproved');
+var authServ           = require('../../../services/authorisations/authorise');
 
 module.exports = {
 

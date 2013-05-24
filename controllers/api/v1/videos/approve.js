@@ -1,8 +1,8 @@
-var authServ =                require('../../../../services/authorisations/authorise');
-var approveService =          require('../../../../services/videos/approve');
+var authServ            = require('../../../../services/authorisations/authorise');
+var approveService      = require('../../../../services/videos/approve');
 
 function main(req, res) {
-	return authServ.run(req, res, 'video', 'update', process);
+	return authServ.run(req, res, 'video', 'manage', process);
 }
 
 function process(err, req, res) {

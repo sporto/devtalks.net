@@ -1,6 +1,6 @@
-var when =                    require('when');
-var logger =                  require('../../../logger');
-var getTagsService =          require('../../../services/tags/get_list');
+var when            = require('when');
+var logger          = require('../../../logger');
+var getTagsService  = require('../../../services/tags/get_list');
 
 function main(req, res) {
 	logger.info('videos/new');

@@ -1,5 +1,5 @@
-var _ = require('underscore');
-var db = require('../../db');
+var _    = require('underscore');
+var db   = require('../../db');
 
 /*
 	@return {Array} Array with objects

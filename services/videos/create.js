@@ -1,7 +1,7 @@
-var logger =           require('../../logger');
-var videoinfo =        require('videoinfo');
-var saveServ =         require('./save');
-var findByUrlServ =    require('./find_by_url');
+var logger        = require('../../logger');
+var videoinfo     = require('videoinfo');
+var saveServ      = require('./save');
+var findByUrlServ = require('./find_by_url');
 
 module.exports = {
 	run: function (data, cb) {
