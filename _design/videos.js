@@ -4,8 +4,17 @@ module.exports = {
 
 		all: {
 			map: function (doc) {
-				if (doc.kind === "video" && doc.approved) {
+				if (doc.kind === "video" && doc.approved && !doc.deleted) {
 					emit(doc, null);
+				}
+			}
+		},
+
+		// docs mapped by createdAt so we can get a list sorted by latest additions
+		byCreatedAt: {
+			map: function (doc) {
+				if (doc.kind === "video" && doc.approved && !doc.deleted) {
+					emit(doc.createdAt, null);
 				}
 			}
 		},
