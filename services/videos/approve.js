@@ -5,7 +5,7 @@ module.exports = {
 		if (id == null) {
 			return cb(new Error('Id invalid'));
 		}
-		console.log('id', id);
+		//console.log('id', id);
 		db.get(id, function (err, doc) {
 			if (err) return cb(err);
 			doc.approved = true;
