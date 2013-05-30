@@ -16,8 +16,7 @@ var sanitizeHtmlServ     = require('./services/shared/sanitize_html');
 require('express-resource');
 require('express-namespace');
 
-//load env variables
-nconf.use('memory').env().file({file: './env.json'});
+require('./load_config')();
 
 var redisHost            = nconf.get('REDIS_HOST');
 var redisPort            = nconf.get('REDIS_PORT');
