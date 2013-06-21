@@ -9,12 +9,17 @@ angular.module('APP')
 					value: value
 				}
 			}
-			$http(config)
+
+			var pro = $http(config);
+
+			pro
 				.success(function(data, status, headers, config) {
 					video.favourite = value;
 				})
 				.error(function(data, status, headers, config) {
 					notifyUserService.flashError(data);
 				});
+			
+			return pro;
 		}
 	}]);
