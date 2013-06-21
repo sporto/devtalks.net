@@ -14,17 +14,15 @@ frameworks = ['mocha'];
 // list of files / patterns to load in the browser
 files = [
 	// Adapter
-	JASMINE,
-	JASMINE_ADAPTER,
+	MOCHA,
+	MOCHA_ADAPTER,
 	'node_modules/chai/chai.js',
 	'assets/js/lib/jquery.js',
 	'assets/js/lib/angular.min.js',
 	'assets/js/lib/**/*.js',
-	'test/angular-mocks.js',
+	'test/lib/angular-mocks.js',
 	'assets/js/lib/foundation.min.js',
 	'assets/js/app/**/*.js',
-	//'test/client/mocks.js',
-	// 'static/karma.src.js',
 	'test/client/**/*_spec.js'
 ];
 

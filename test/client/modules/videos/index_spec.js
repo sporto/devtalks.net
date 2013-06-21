@@ -1,15 +1,19 @@
-// var assert = require("assert");
-//var expect = require('chai').expect;
+var expect = chai.expect;
 
-/*
-describe('Index', function () {
+describe('videos.IndexCtrl', function () {
 
-	var $scope;
-	var IndexCtrl;
+	// console.log(angular.module('APP'))
 
-	// console.log(angular)
-	// console.log(angular.mock)
+	var APP;
 
+	beforeEach(angular.mock.module('APP'));
+	beforeEach(function () {APP = angular.module('APP')});
+
+	it('should have a videos.IndexCtrl controller', function() {
+		expect(APP['videos.IndexCtrl']).not.to.equal(null);
+	});
+
+	/*
 	beforeEach(angular.mock.module('APP'));
 
 	beforeEach(inject(function($rootScope, $controller) {
@@ -21,5 +25,6 @@ describe('Index', function () {
 		// expect(, 'what kind of tea do we want?');
 		expect($scope.videos.length).toBe(0);
 	});
-})
-*/
+
+	*/
+});
