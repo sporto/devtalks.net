@@ -41,8 +41,13 @@
 								</td>
 								
 								<td>
-									<a href="javascript://" title="" ng-click="clickApprove($index, video)">Approve</a>
-									<a href="javascript://" title="" ng-click="clickDelete($index, video)">Delete</a>
+									<span ng-hide="video.busy">
+										<a href="javascript://" title="" ng-click="clickApprove($index, video)">Approve</a>
+										<a href="javascript://" title="" ng-click="clickDelete($index, video)">Delete</a>
+									</span>
+									<span ng-show="video.busy">
+										<i class="icon-spinner icon-spin icon-large"></i>
+									</span>
 								</td>
 							</tr>
 						</tbody>

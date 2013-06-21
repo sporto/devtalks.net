@@ -34,4 +34,4 @@ describe('check', function() {
 		});
 	});
 
-})
+});
