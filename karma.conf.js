@@ -20,10 +20,10 @@ files = [
 	'assets/js/lib/jquery.js',
 	'assets/js/lib/angular.min.js',
 	'assets/js/lib/**/*.js',
-	'test/lib/angular-mocks.js',
 	'assets/js/lib/foundation.min.js',
 	'assets/js/app/**/*.js',
-	'test/client/**/*_spec.js'
+	'test/fe/lib/angular-mocks.js',
+	'test/fe/**/*_spec.js'
 ];
 
 // list of files to exclude
@@ -58,7 +58,7 @@ logLevel = LOG_INFO;
 
 // enable / disable watching file and executing tests whenever any file changes
 // CLI --auto-watch --no-auto-watch
-autoWatch = true;
+autoWatch = false;
 
 // Start these browsers, currently available:
 // - Chrome
@@ -77,7 +77,7 @@ captureTimeout = 5000;
 
 // Auto run tests on start (when browsers are captured) and exit
 // CLI --single-run --no-single-run
-singleRun = false;
+singleRun = true;
 
 // report which specs are slower than 500ms
 // CLI --report-slower-than 500

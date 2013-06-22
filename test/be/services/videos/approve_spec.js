@@ -1,9 +1,9 @@
-require('../../../load_config')();
+require('../../../../load_config')();
 
 var assert =    require("assert");
 var rewire =    require("rewire");
 var sinon =     require("sinon");
-var subject =   rewire('../../../services/videos/approve');
+var subject =   rewire('../../../../services/videos/approve');
 
 
 // var fakeDb = {};

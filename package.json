@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "start": "node app.js",
-    "test": "mocha $(find test -name '*_spec.js')"
+    "test": "grunt"
   },
   "version": "0.3.1-6",
   "engines": {
@@ -43,6 +43,9 @@
     "rewire": "~1.1.1",
     "sinon": "~1.6.0",
     "mocha": "~1.8.1",
-    "couchpenter": "~0.2.2"
+    "couchpenter": "~0.2.2",
+    "grunt-contrib-watch": "~0.4",
+    "grunt-simple-mocha": "~0.4",
+    "grunt-karma": "~0.4"
   }
 }

@@ -1,7 +1,7 @@
 var assert =    require("assert");
 var rewire =    require("rewire");
 var sinon =     require("sinon");
-var subject =   rewire('../../../services/videos/get_details');
+var subject =   rewire('../../../../services/videos/get_details');
 
 var url = "http://vimeo.com/27246366";
 
