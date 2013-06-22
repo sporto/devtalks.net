@@ -14,12 +14,14 @@ angular.module('APP')
 
 			pro
 				.success(function(data, status, headers, config) {
+					console.log('success');
 					video.favourite = value;
 				})
 				.error(function(data, status, headers, config) {
+					// console.log('error');
 					notifyUserService.flashError(data);
 				});
-			
+
 			return pro;
 		}
 	}]);

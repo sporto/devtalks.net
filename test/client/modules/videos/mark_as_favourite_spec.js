@@ -2,35 +2,30 @@ var expect = chai.expect;
 
 describe('markAsFavouriteService', function () {
 
-	// console.log(angular.module('APP'))
-	var $httpBackend;
-
-	// var APP;
-	var video = {
-		_id: '123'
-	}
-
-	var apiUrl = '/api/v1/videos/' + video._id + '/mark_favourite';
+	var $httpBackend = null;
+	var video = null
+	var apiUrl = null;
+	var responseStatusCode = 200;
 
 	beforeEach(module('APP'));
 
 	beforeEach(inject(function ($injector) {
+		video = {
+			_id: '123',
+			favourite: null
+		}
+		apiUrl = '/api/v1/videos/' + video._id + '/mark_favourite';
 		$httpBackend = $injector.get("$httpBackend");
 		$httpBackend.when("POST", apiUrl)
-			.respond(200, {value:"goodValue"});
+			.respond(function(method, url, data, headers){
+				return [responseStatusCode, {}];
+			});
 	}));
 
 	afterEach(function () {
 		$httpBackend.verifyNoOutstandingExpectation();
 		$httpBackend.verifyNoOutstandingRequest();
 	});
-
-	// beforeEach(angular.mock.module('APP'));
-	// beforeEach(function () {APP = angular.module('APP')});
-	// beforeEach(inject(function (service, _$httpBackend_) {
-	// 	service = MyService;
-	// 	$httpBackend = _$httpBackend_;
-	// }));
 
 	it('should have a markAsFavouriteService', function() {
 		//expect(APP.markAsFavouriteService).not.to.equal(null);
@@ -43,21 +38,39 @@ describe('markAsFavouriteService', function () {
 	}]));
 
 	it('marks the video as favourite on success', inject(['markAsFavouriteService', function (serv) {
-		// console.log(serv);
-		// console.log('running');
-		// var pro = serv(video, true);
-		// console.log('promise', pro);
-		// console.log(pro.success);
+		var pro = serv(video, true);
+		var res = null;
+		
+		pro.success(function (response) {
+			// console.log('expect')
+			res = true;
+			expect(video.favourite).to.equal(true);
+		});
 
-		// pro.success(function (response) {
-		// 	console.log('response back')
-		// 	expect(video.favourite).to.equal(true);
-		// 	$httpBackend.flush();
-		// });
+		$httpBackend.flush();
+
+		expect(res).to.equal(true);
 	}]));
 
-	it('doesnt mark the video as favourite on success', inject(['markAsFavouriteService', function (serv) {
+	it('doesnt mark the video as favourite on error', inject(['markAsFavouriteService', function (serv) {
 
+		responseStatusCode = 500;
+
+		var res = null;
+		var pro = serv(video, true);
+		
+		pro
+			.success(function () {
+				console.log('Should not call this');
+			})
+			.error(function (response) {
+				res = false;
+				expect(video.favourite).to.equal(null);
+			});
+
+		$httpBackend.flush();
+
+		expect(res).to.equal(false);
 	}]));
 
 	it('notifies the user on error', inject(['markAsFavouriteService', function (serv) {
