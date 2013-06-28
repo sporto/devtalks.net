@@ -1,4 +1,4 @@
-var nconf = require('nconf');
+var nconf      = require('nconf');
 
 namespace('db', function () {
 
@@ -22,7 +22,20 @@ namespace('db', function () {
 			complete();
 		});
 
-		
 	});
 	
+});
+
+namespace('import', function () {
+	desc('Find videos in youtube');
+	task('yt', {async: true}, function (params) {
+		nconf.use('memory').env().file({file: './env.json'});
+
+		var serv = require('./services/feeds/import_youtube');
+		serv.run(function (err, res) {
+			console.log(res);
+			complete();
+		});
+		
+	})
 });

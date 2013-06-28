@@ -4,6 +4,8 @@ var saveServ      = require('./save');
 var findByUrlServ = require('./find_by_url');
 
 module.exports = {
+	// Create a video
+	// This service calls the save service
 	run: function (data, cb) {
 		logger.info('create.run');
 		logger.info(data);

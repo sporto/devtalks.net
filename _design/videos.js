@@ -33,6 +33,15 @@ module.exports = {
 					emit(doc.url, null);
 				}
 			}
+		},
+
+		providerAndId: {
+			map: function (doc) {
+				if (doc.kind === 'video') {
+					var key = doc.provider + '-' + doc.providerId;
+					emit(key, null);
+				}
+			}
 		}
 
 	}

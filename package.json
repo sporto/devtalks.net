@@ -37,7 +37,8 @@
     "winston": "~0.7.1",
     "passport-twitter": "~0.1.4",
     "connect-redis": "~1.4.5",
-    "q": "~0.9.3"
+    "q": "~0.9.3",
+    "youtube-feeds": "~2.2.1"
   },
   "devDependencies": {
     "rewire": "~1.1.1",
