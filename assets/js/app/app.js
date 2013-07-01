@@ -1,6 +1,27 @@
 $(document).foundation();
+log.setLevel('trace');
 
 angular.module('APP', ['ngResource'])
+
+	.factory('logger', function () {
+		return {
+			trace: function (msg) {
+				log.trace(msg);
+			},
+			debug: function (msg) {
+				log.debug(msg);
+			},
+			info: function (msg) {
+				log.info(msg);
+			},
+			warn: function (msg) {
+				log.warn(msg);
+			},
+			error: function (msg) {
+				log.error(msg);
+			}
+		}
+	})
 	
 	.service('notifyUserService', function() {
 		this.flashError = function (msg) {
