@@ -33,7 +33,8 @@ namespace('import', function () {
 
 		var serv = require('./services/feeds/import_youtube');
 		serv.run(function (err, res) {
-			console.log(res);
+			console.log(err);
+			console.log(res)
 			complete();
 		});
 		

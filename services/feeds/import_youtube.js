@@ -3,11 +3,12 @@ var async          = require('async');
 var searchServ     = require('./search_youtube');
 var saveBatchServ  = require('./save_batch_youtube');
 
+// Import videos from youtube
+// Get the videos from the search service
+// Send the found videos to the saveBatch service
+
 module.exports = {
 	run: function (cb) {
-
-		// get videos from search
-		// save each video in db with unapproved flag
 
 		logger.info('running import youtube');
 
