@@ -6,7 +6,9 @@ angular.module('APP')
 			// load the seeded data;
 			$scope.videos = _.map($scope.seed_videos, function (data) { return new Video(data) });
 
-			$scope.clickApprove = function (ix, video) {
+
+
+			$scope.approve = function (ix, video) {
 				video.busy = true;
 				video.$approve(function (doc) {
 					notifyUserService.flashSuccess('Approved');
@@ -20,7 +22,7 @@ angular.module('APP')
 
 			}
 
-			$scope.clickDelete = function (ix, video) {
+			$scope.remove = function (ix, video) {
 				if (confirm("Are you sure?")) {
 					video.busy = true;
 					video.$delete(function () {

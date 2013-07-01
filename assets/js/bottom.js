@@ -5,5 +5,6 @@
 //= require lib/select2.min
 //= require lib/jquery.tagcloud
 //= require lib/jquery-io.min
+//= require lib/loglevel
 //= require app/app
 //= require_tree app/modules

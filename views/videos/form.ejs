@@ -14,6 +14,29 @@
 
 					<input type="hidden" name="_csrf" value="<%= token %>">
 
+					<% if (allowAdmin) { %>
+						<table>
+							<tr>
+								<td>ID</td>
+								<td>{{video._id}}</td>
+							</tr>
+							<tr>
+								<td>Approved</td>
+								<td>{{video.approved}}</td>
+								<td><a href="javascript://" ng-click="approve()">Approve</a></td>
+							</tr>
+							<tr>
+								<td>Deleted</td>
+								<td>{{video.deleted}}</td>
+								<td><a href="javascript://" ng-click="remove()">Approve</a></td>
+							</tr>
+							<tr>
+								<td>state.editing</td>
+								<td>{{state.editing}}</td>
+							</tr>
+						</table>
+					<% } %>
+
 					<input type="url" placeholder="URL" ng-model="video.url" name="url" required value="<%= video.url %>" />
 
 					<small class="error" ng-show="form.url.$dirty && form.url.$invalid">
@@ -21,7 +44,7 @@
 						<span ng-show="form.url.$error.url">Please add a valid url</span>
 					</small>
 
-					<button class="small button" ng-disabled="form.url.$invalid" ng-click="clickRetrieve($event)" ng-show="!state.retrieving">
+					<button type="button" class="small button" ng-disabled="form.url.$invalid" ng-click="retrieve()" ng-show="!state.retrieving">
 						Retrieve information
 					</button>
 					<i class="icon-refresh icon-spin" ng-show="state.retrieving"></i>
@@ -58,7 +81,7 @@
 
 			<div class="row">
 				<div class="large-12 columns">
-					<button class="button" ng-show="!state.saving" ng-disabled="form.$invalid" ng-click="clickSave($event)">Save</button>
+					<button class="button" type="button" ng-show="!state.saving" ng-disabled="form.$invalid" ng-click="save()">Save</button>
 					<i class="icon-refresh icon-spin" ng-show="state.saving"></i>
 				</div>
 			</div>

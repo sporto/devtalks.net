@@ -2,8 +2,11 @@ var when                   = require('when');
 var getTagsService         = require('../../../services/tags/get_list');
 var authServ               = require('../../../services/authorisations/authorise');
 var getVideoService        = require('../../../services/videos/get');
+var logger                 = require('../../../logger');
 
 function main(req, res) {
+	console.log('controllers/videos/edit');
+	logger.info('controllers/videos/edit');
 	return authServ.run(req, res, 'video', 'manage', process);
 }
 
@@ -15,12 +18,16 @@ function process(err, req, res) {
 	var defVideo = when.defer();
 	var all = when.all([defTags, defVideo]);
 
+	logger.info('Getting tags');
 	getTagsService.run(function (err, tags) {
+		logger.info('Got tags');
 		defTags.resolve(tags);
 	});
 
+	logger.info('Getting video');
 	getVideoService.run(id, function (err, doc) {
-		// console.log(doc)
+		logger.info('Getting video');
+		logger.info(doc);
 		defVideo.resolve(doc);
 	});
 
