@@ -1,39 +1,29 @@
 angular.module('APP')
 	.controller('admin.suggestions.IndexCtrl',
-		['$scope', '$http', '$element', 'notifyUserService', 'Video',
-		function ($scope, $http, $element, notifyUserService, Video) {
+		[
+		'$scope',
+		'$http',
+		'notifyUserService',
+		'Video',
+		'approveVideoService',
+		'deleteVideoService',
+		function ($scope, $http, notifyUserService, Video, approveVideoService, deleteVideoService) {
 
 			// load the seeded data;
 			$scope.videos = _.map($scope.seed_videos, function (data) { return new Video(data) });
 
-
-
 			$scope.approve = function (ix, video) {
-				video.busy = true;
-				video.$approve(function (doc) {
-					notifyUserService.flashSuccess('Approved');
-					$scope.videos.splice(ix, 1);
-				}, function (res) {
-					notifyUserService.flashError(res.data);
-				})
-				.always(function () {
-					video.busy = true;
-				});
-
+				approveVideoService(video)
+					.then(function () {
+						$scope.videos.splice(ix, 1);
+					});
 			}
 
 			$scope.remove = function (ix, video) {
-				if (confirm("Are you sure?")) {
-					video.busy = true;
-					video.$delete(function () {
+				deleteVideoService(video)
+					.then(function () {
 						$scope.videos.splice(ix, 1);
-					}, function (res) {
-						notifyUserService.flashError(res.data);
-					})
-					.always(function () {
-						video.busy= false;
 					});
-				}
 			}
 
 	}]);

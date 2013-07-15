@@ -4,9 +4,11 @@ angular.module('APP')
 		'$http',
 		'$element',
 		'notifyUserService',
+		'approveVideoService',
+		'deleteVideoService',
 		'logger',
 		'Video',
-	function ($scope, $http, $element, notifyUserService, logger, Video) {
+	function ($scope, $http, $element, notifyUserService, approveVideoService, deleteVideoService, logger, Video) {
 
 		logger.info('videos.FormCtrl');
 		var $selectTags = $('.select_tags', $element);
@@ -55,12 +57,12 @@ angular.module('APP')
 			});
 		};
 
-		$scope.approve = function () {
-
+		$scope.approve = function (video) {
+			approveVideoService(video);
 		}
 
-		$scope.remove = function () {
-
+		$scope.remove = function (video) {
+			deleteVideoService(video);
 		}
 
 		/// utility functions

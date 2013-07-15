@@ -1,6 +1,7 @@
 //https://github.com/visionmedia/express-resource
 
 var checkAuthServ = require('./services/authorisations/check');
+var logger        = require('./logger');
 
 function csrf(req, res, next) {
 	res.locals.token = req.session._csrf;
@@ -8,7 +9,7 @@ function csrf(req, res, next) {
 }
 
 function setViewVars(req, res, next) {
-	console.log('setViewVars');
+	logger.info('setViewVars');
 
 	res.locals.allowAdmin = false;
 	res.locals.user = req.user;
@@ -41,6 +42,7 @@ module.exports = function (app) {
 		app.post('/videos', csrf, videos.create); // create new video (suggestion)
 		app.post('/videos/:video', csrf, videos.update); // update video
 		app.patch('/videos/:video/approve', videos.approve);
+		app.delete('/videos/:video', videos.destroy);
 
 		app.resource('tags', tags);
 		
