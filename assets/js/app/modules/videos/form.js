@@ -1,11 +1,19 @@
 angular.module('APP')
 	.controller('videos.FormCtrl', 
-	['$scope', '$http', '$element', 'notifyUserService', 'Video',
-		function ($scope, $http, $element, notifyUserService, Video) {
+	['$scope',
+		'$http',
+		'$element',
+		'notifyUserService',
+		'approveVideoService',
+		'deleteVideoService',
+		'logger',
+		'Video',
+	function ($scope, $http, $element, notifyUserService, approveVideoService, deleteVideoService, logger, Video) {
 
+		logger.info('videos.FormCtrl');
 		var $selectTags = $('.select_tags', $element);
 
-		$scope.state = {}
+		$scope.state = {};
 		$scope.video = new Video($scope.videoSeed);
 
 		// if video has _id then we are editing
@@ -17,15 +25,45 @@ angular.module('APP')
 
 		////// UI handlers
 
-		$scope.clickRetrieve = function (ev) {
-			ev.preventDefault();
-			retrieve();
+		$scope.retrieve = function () {
+			$scope.state.retrieving = true;
+
+			var params = {url: $scope.video.url};
+
+			$http.get('/api/v1/urls', {params: params})
+				.success(function (data, status, headers, config) {
+					$scope.video.title = data.title;
+					$scope.video.presenter = data.presenter;
+					$scope.video.description = data.description;
+					$scope.video.thumbS = data.thumbS;
+					$scope.video.thumbM = data.thumbM;
+					$scope.video.thumbL = data.thumbL;
+					$scope.state.retrieving = false;
+				})
+				.error(function(data, status, headers, config) {
+					notifyUserService.flashError("Sorry we couldn't find this video, please add the information manually.");
+					$scope.state.retrieving = false;
+				});
 		};
 
-		$scope.clickSave = function (ev) {
-			ev.preventDefault();
-			save();
+		$scope.save = function () {
+			$scope.state.saving = true;
+
+			$scope.video.$save(function (response) {
+				onSaved(response);
+			}, function (response) {
+				notifyUserService.flashError(response.data);
+				$scope.state.saving = false;
+			});
 		};
+
+		$scope.approve = function (video) {
+			approveVideoService(video);
+		}
+
+		$scope.remove = function (video) {
+			deleteVideoService(video);
+		}
 
 		/// utility functions
 
@@ -51,45 +89,15 @@ angular.module('APP')
 				});
 		}
 
-		//retrieve info about a video
-		function retrieve() {
-			$scope.state.retrieving = true;
-
-			var params = {url: $scope.video.url};
-
-			$http.get('/api/v1/urls', {params: params})
-				.success(function (data, status, headers, config) {
-					$scope.video.title = data.title;
-					$scope.video.presenter = data.presenter;
-					$scope.video.description = data.description;
-					$scope.video.thumbS = data.thumbS;
-					$scope.video.thumbM = data.thumbM;
-					$scope.video.thumbL = data.thumbL;
-					$scope.state.retrieving = false;
-				})
-				.error(function(data, status, headers, config) {
-					notifyUserService.flashError("Sorry we couldn't find this video, please add the information manually.");
-					$scope.state.retrieving = false;
-				});
-		}
-
-		function save() {
-			$scope.state.saving = true;
-
-			$scope.video.$save(function (response) {
-				onSaved(response);
-			}, function (response) {
-				notifyUserService.flashError(response.data);
-				$scope.state.saving = false;
-			});
-
-		}
-
 		function onSaved(response) {
+			logger.info('onSaved');
 			notifyUserService.flashSuccess('Saved');
 			$scope.state.saving = false;
-			// console.log($scope.state.editing);
+
+			logger.info($scope.state.editing);
+
 			if (!$scope.state.editing) {
+				logger.info('not editing');
 				$scope.video = new Video();
 				reset();
 			}

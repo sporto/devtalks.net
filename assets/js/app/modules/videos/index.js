@@ -6,6 +6,7 @@ angular.module('APP')
 			.when('/search', {})
 			.otherwise({redirectTo: '/latest'});
 	}])
+	
 	.controller('videos.IndexCtrl',
 		['$scope', '$element', '$http', '$location', '$route',
 		function ($scope, $element, $http, $location, $route) {

@@ -5,6 +5,7 @@ module.exports = {
 	run: function (req, res, resource, action, cb) {
 		var user = req.user;
 
+		logger.info('services/authorisations/authorise');
 		logger.info(user);
 		logger.info(resource);
 		logger.info(action);

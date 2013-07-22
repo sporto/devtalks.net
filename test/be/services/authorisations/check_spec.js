@@ -1,6 +1,6 @@
 var assert =    require("assert");
 var rewire =    require("rewire");
-var serv =      rewire('../../../services/authorisations/check');
+var serv =      rewire('../../../../services/authorisations/check');
 
 serv.__set__("ADMIN_USERS", 'sam');
 
@@ -34,4 +34,4 @@ describe('check', function() {
 		});
 	});
 
-})
+});
