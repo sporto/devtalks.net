@@ -38,7 +38,7 @@
     "passport-twitter": "~0.1.4",
     "connect-redis": "~1.4.5",
     "q": "~0.9.3",
-    "youtube-feeds": "~2.2.1",
+    "youtube-feeds": "~2.2.1"
   },
   "devDependencies": {
     "couchpenter": "~0.2.2",
