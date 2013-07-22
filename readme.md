@@ -37,6 +37,10 @@ For production use
 	
 	NODE_ENV=production jake db:views
 
+### Importing videos
+
+	jake import:yt
+
 ### Trello Board
 
 	https://trello.com/board/videosforgeeks/5120d5d405ac782c6c002f3c
