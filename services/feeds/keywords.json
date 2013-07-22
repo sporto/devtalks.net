@@ -10,7 +10,7 @@
 	"couchdb",
 	"hadoop",
 	"mongodb",
-	"riak",
+	"riak db",
 	"postgres",
 	"mysql",
 
@@ -18,18 +18,17 @@
 	"c#",
 	"clojure",
 	"coffeescript",
-	"dart",
+	"dart language",
 	"erlang",
 	"golang",
 	"go language",
 	"haskell",
-	"java",
+	"java language",
 	"javascript",
-	"lua",
+	"lua language",
 	"prolog",
-	"ruby",
-	"pearl",
+	"ruby language",
 	"php",
-	"python",
-	"scala"
+	"python language",
+	"scala language"
 ]
